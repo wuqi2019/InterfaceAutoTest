@@ -5,6 +5,9 @@ def sso_login():
     pass
 
 
+def bmy_login():
+    """企业云登录"""
+    pass
 
 
 
