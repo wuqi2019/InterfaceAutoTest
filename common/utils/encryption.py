@@ -1,17 +1,7 @@
-import requests,hashlib
-import json
-from config import BaseConfig
+import hashlib
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
 from base64 import encodebytes
-
-def dingTalk(webhook, message):
-    """发送消息到钉钉群"""
-    data = {'msgtype': 'text', 'text': {"content": message},
-            'at': {'isAtAll': True}}
-    post_data = json.dumps(data)
-    response = requests.post(webhook, headers=BaseConfig.headers, data=post_data)
-    return response.text
 
 
 # 加密类
