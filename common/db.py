@@ -17,12 +17,9 @@ class RedisString(RedisBase):
         return result
 
 
-
-
 if __name__ == '__main__':
     # r= RedisString(6).get('bmc:captcha:bf46c0c0-11b4-4b7d-99d7-530f77f8ab88')
     # r = RedisString(0).get('edl:sms_value:17822000010:MOBILE_REGISTER')
     # print(r)
     # print(str(r)[-7:-1])
-
     pass
