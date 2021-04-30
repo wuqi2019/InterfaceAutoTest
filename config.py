@@ -5,5 +5,3 @@ class BaseConfig():
     # 钉钉群webhook
     webhook = ''
 
-
-
