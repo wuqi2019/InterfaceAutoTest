@@ -12,7 +12,17 @@ def dingTalk(webhook, message):
     post_data = json.dumps(data)
     response = requests.post(webhook, headers=BaseConfig.headers, data=post_data)
     return response.text
-qweewq4542
-qweeqwrfgdtgfredyh45637
-wqe123
-23112
+
+
+
+
+
+
+
+
+
+2132
+123
+123
+123
+135
