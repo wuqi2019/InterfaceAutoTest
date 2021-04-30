@@ -1,9 +1,15 @@
 [[source]]
-url = "https://pypi.org/simple"
+url = "https://mirrors.aliyun.com/pypi/simple"
 verify_ssl = true
-name = "pypi"
+name = "aliyun"
 
 [packages]
+requests = "==2.22.0"
+xlrd = "==2.0.0"
+pytest = "==6.0.1"
+allure-pytest = "==2.8.18"
+redis = "==3.5.3"
+pymysql = "==0.9.3"
 
 [dev-packages]
 
