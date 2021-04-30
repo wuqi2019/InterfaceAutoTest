@@ -1,16 +1,21 @@
 import hashlib
-from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad
+# from Crypto.Cipher import AES
+# from Crypto.Util.Padding import pad
 from base64 import encodebytes
 
 
 # 加密类
 class Encryption:
-    def get_md5(self,pwd):
+    def get_md5(self, pwd, salt=None):
         """md5加密成32位小写"""
         md5 = hashlib.md5()
+        if salt:
+            pwd = pwd + salt
+        else:
+            pwd = pwd
         if pwd:
             md5.update(pwd.encode('utf-8'))
+            print(md5.hexdigest().lower())
             return md5.hexdigest().lower()
         else:
             return ''
@@ -25,3 +30,7 @@ class Encryption:
         encrypted_text_str = encrypted_text.replace("\n", "")
         # 此处我的输出结果老有换行符，所以用了临时方法将它剔除
         return encrypted_text_str
+
+
+if __name__ == '__main__':
+    Encryption().get_md5('fx123456', 'hikcreate_xj')
