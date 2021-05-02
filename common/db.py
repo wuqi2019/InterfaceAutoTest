@@ -82,5 +82,4 @@ if __name__ == '__main__':
     # r = RedisString(0).get('edl:sms_value:17822000010:MOBILE_REGISTER')
     # print(r)
     # print(str(r)[-7:-1])
-
     pass
