@@ -18,8 +18,8 @@ def request_main(url, headers, method, data):
         if method.upper() == "GET":
             res = requests.get(url=url, headers=headers, params=data)
         elif method.upper() == "POST":
-            if header_content_type in ["application/x-www-form-urlencoded"]:  #
-                res = requests.post(url=url, headers=headers, )
+            if header_content_type in ["application/x-www-form-urlencoded"]:
+                res = requests.post(url=url, headers=headers, data=data)
             elif header_content_type == "application/json":
                 res = requests.post(url=url, headers=headers, data=json.dumps(data))
     except Exception as e:

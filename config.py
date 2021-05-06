@@ -7,7 +7,7 @@ class BaseConfig():
     # 当前运行的产品名
     current_product = ""
 
-    
+
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
     pass
