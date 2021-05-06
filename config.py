@@ -13,6 +13,7 @@ class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
     # 测试用例目录
     name = "bmc"
+    print("a")
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
     webhook = ''
