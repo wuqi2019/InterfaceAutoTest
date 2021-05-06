@@ -8,6 +8,7 @@ class BaseConfig():
     current_product = "bmc"
     default_test_case_dir = "test_case/bmc/"
     salt = 'hikcreate_xj'       # SSO 登录的东西
+    secs=0.1
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
