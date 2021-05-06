@@ -6,9 +6,8 @@ class BaseConfig():
     headers = {'Content-Type': 'application/json; charset=utf-8'}
     # 当前运行的产品名
     current_product = "bmc"
-
     default_test_case_dir = "test_case/bmc/"
-    secs=0.1
+
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
