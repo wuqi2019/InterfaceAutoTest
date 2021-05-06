@@ -14,6 +14,7 @@ class BMCConfig(BaseConfig):
     # 测试用例目录
     name = "bmc"
     test_case_dir = "test_case/bmc/"
+    test_case_data_dir = "test_case_data/bmc/"
     webhook = ''
     salt = 'hikcreate_xj'
 
