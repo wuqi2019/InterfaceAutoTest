@@ -1,10 +1,6 @@
 import xlrd,re,json
 
-"""调试中不可用"""
-workBook = xlrd.open_workbook('../data/营运车接口测试用例V1.0.xls')
-
-# 可以自动识别用例数
-def get_excelData(sheetName,caseName):
+def get_excelData(workBook,sheetName,caseName):
     """
     :param sheetName: sheet表名
     :param caseName:  从excle中第一列关键字（字母）
@@ -28,13 +24,16 @@ def get_excelData(sheetName,caseName):
                     dict0['url'] = workSheet.cell_value(idx, num_url)
                     dict0['headers'] = workSheet.cell_value(idx, num_headers)
                     dict0['method'] = workSheet.cell_value(idx, num_method)
-                    dict0['data'] = workSheet.cell_value(idx, num_reqData)
-                    dict0['expected'] = workSheet.cell_value(idx, num_expectData)
+                    dict0['reqData'] = workSheet.cell_value(idx, num_reqData)
+                    dict0['expectData'] = workSheet.cell_value(idx, num_expectData)
 
                     # json字符串转换成字典
                     dict0['reqData'] = json.loads(dict0['reqData'])
                     dict0['expectData'] = json.loads(dict0['expectData'])
-                    dict0['headers'] = json.loads(dict0['expectData'])
+                    try:
+                        dict0['headers'] = json.loads(dict0['headers'])
+                    except:
+                        print('header无')
 
                     lis.append(dict0)
                 idx += 1
@@ -43,4 +42,10 @@ def get_excelData(sheetName,caseName):
             print("excle中header值或参数或期望不是json字符串")
     except:
         print("检查excle中标题是否正确")
+
+if __name__ == '__main__':
+    workBook = xlrd.open_workbook('../../test_case_data/bmy_case.xlsx')
+    li = get_excelData(workBook,"登录模块","Login")
+    print(li)
+
 
