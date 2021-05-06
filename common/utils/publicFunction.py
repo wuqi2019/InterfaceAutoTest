@@ -1,7 +1,7 @@
 import time
 def sleep(secs):
     """等待secs秒"""
-    time.sleep(secs)
+    print("ss")
 
 
 
