@@ -32,6 +32,7 @@ def request_main(url, headers, method, data):
 
 
 def get_case_dir(product_name):
+    """根据传入的产品名来运行对应产品的测试用例目录"""
     test_case_dir = BaseConfig.default_test_case_dir
     if product_name == BMCConfig.name:
         test_case_dir = BMCConfig.test_case_dir
