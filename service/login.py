@@ -1,10 +1,11 @@
-import pytest
+import pytest,time
 import requests
 
 from config import BaseConfig
 from common.utils.encryption import Encryption
 # from common.utils.getExcelData import get_excelData
 from common.tools import request_main
+from common.db import RedisString
 
 @pytest.fixture(scope='session')
 def sso_login(url, headers, method, data):
@@ -17,10 +18,46 @@ def sso_login(url, headers, method, data):
     print(res)
 
 
+class BMY():
+    """斑马云登录相关"""
+    # 获取当前时间的Authorization
+    def get_authorization(self,defaultToken="Basic aHpjcF93ZWI6MTIzNDU2"):
+        key = "Jv+h&c0A"  # 原始密钥
+        m5dkey = Encryption().get_md5(key)  # AES密钥
+        t = time.time()
+        num = str(round(t * 1000))
+        return Encryption().aes_cipher(m5dkey, defaultToken + num)
 
-def bmy_login():
-    """企业云登录"""
-    pass
+    """
+    ①AES加密  -注 AES 秘钥进行MD5(原始密钥)
+    ②MD5
+    ③逆序
+    """
+
+    def pwd_encrypted(pwd):
+        key = "Jv+h&c0A"  # 原始密钥
+        m5dkey = Encryption().get_md5(key)
+        encrypted_text_str = Encryption().aes_cipher(m5dkey, pwd)  # ①
+        newpwd = Encryption().get_md5(encrypted_text_str)  # ②
+        return newpwd[::-1]  # ③
+
+    # 从redis获取获取图形验证码x轴百分比
+    def get_imageCode(username, pwd):
+        payload = {"username": username, "password": pwd}
+        try:
+            rep = requests.get(f"http://testtbdzj.hikcreate.com/web/website/common/graph/login-captcha", params=payload)
+            imageId = rep.json()['data']['jtId']
+            result = RedisString(6).get(f'bmc:captcha:{imageId}')
+            imageCode = str(result)[-3:-1]
+            return imageId, imageCode
+        except:
+            return ("imageId", "imageCode")  # 返回错误的验证码
+
+    def bmy_login(self):
+        """企业云登录"""
+        # token加密
+        authorization = BMY().get_authorization()
+        header = {"Authorization": authorization}
 
 
 if __name__ == '__main__':
