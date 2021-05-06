@@ -17,8 +17,3 @@ class BMCConfig(BaseConfig):
     webhook = ''
     salt = 'hikcreate_xj'
 
-
-class BMCConfig(BaseConfig):
-    """斑马信用app的配置类11"""
-    pass
-
