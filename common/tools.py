@@ -3,7 +3,7 @@
 import json
 import logging
 import requests
-from config import BaseConfig
+from config import BaseConfig, BMCConfig
 
 
 def request_main(url, headers, method, data):
@@ -29,3 +29,10 @@ def request_main(url, headers, method, data):
     if res != None:
         return res.json()
     return res
+
+
+def get_case_dir(product_name):
+    test_case_dir = BaseConfig.default_test_case_dir
+    if product_name == BMCConfig.name:
+        test_case_dir = BMCConfig.test_case_dir
+    return test_case_dir

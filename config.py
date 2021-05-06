@@ -5,12 +5,15 @@ class BaseConfig():
     # 请求头
     headers = {'Content-Type': 'application/json; charset=utf-8'}
     # 当前运行的产品名
-    current_product = ""
+    current_product = "bmc"
+    default_test_case_dir = "test_case/bmc/"
 
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
-    pass
+    # 测试用例目录
+    name = "bmc"
+    test_case_dir = "test_case/bmc/"
 
 
 class DingTalk(BaseConfig):
