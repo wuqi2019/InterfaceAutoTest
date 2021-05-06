@@ -15,7 +15,7 @@ class Encryption:
             pwd = pwd
         if pwd:
             md5.update(pwd.encode('utf-8'))
-            print(md5.hexdigest().lower())
+            # print(md5.hexdigest().lower())
             return md5.hexdigest().lower()
         else:
             return ''

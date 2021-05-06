@@ -34,7 +34,7 @@ class BMY():
     ③逆序
     """
 
-    def pwd_encrypted(pwd):
+    def pwd_encrypted(self,pwd):
         key = "Jv+h&c0A"  # 原始密钥
         m5dkey = Encryption().get_md5(key)
         encrypted_text_str = Encryption().aes_cipher(m5dkey, pwd)  # ①
@@ -42,7 +42,7 @@ class BMY():
         return newpwd[::-1]  # ③
 
     # 从redis获取获取图形验证码x轴百分比
-    def get_imageCode(username, pwd):
+    def get_imageCode(self,username, pwd):
         payload = {"username": username, "password": pwd}
         try:
             rep = requests.get(f"http://testtbdzj.hikcreate.com/web/website/common/graph/login-captcha", params=payload)
@@ -53,19 +53,40 @@ class BMY():
         except:
             return ("imageId", "imageCode")  # 返回错误的验证码
 
-    def bmy_login(self):
+    def bmy_login(self,indata, getToken=True):
         """企业云登录"""
         # token加密
         authorization = BMY().get_authorization()
         header = {"Authorization": authorization}
+        payload = {"username": "", "password": "", "imageId": "", "grant_type": "passwordImageCode", "imageCode": ""}
+        # 账号
+        payload['username'] = indata['username']
 
+        # 密码加密
+        password_Encrypted = BMY().pwd_encrypted(indata['password'])
+        payload['password'] = password_Encrypted
+
+        # 获取图片信息
+        imageinfo = BMY().get_imageCode(payload['username'], payload['password'])
+        payload['imageId'] = imageinfo[0]
+        payload['imageCode'] = imageinfo[1]
+
+        resp = requests.post("http://testyun.banmago.com/api/auth/login", data=payload, headers=header)
+        if getToken:
+            token = resp.json()['data']['token']  # 数据权限会藏在token中
+            return BMY().get_authorization(defaultToken=token)
+        else:
+            return resp.json()
 
 if __name__ == '__main__':
     # login = request_main(url=r'http://testtbdzj.hikcreate.com/web/auth/users/login',
     #                      method='post',
     #                 data={"loginName":"fanxun","password":"d67fac1d71943576b6c397d0cca166cb"},
     #                 headers=getattr(BaseConfig, 'headers'))
-    sso_login(r'http://testtbdzj.hikcreate.com/web/auth/users/login',
-              headers=getattr(BaseConfig, 'headers'),
-              method='post',
-              data=None)
+    # sso_login(r'http://testtbdzj.hikcreate.com/web/auth/users/login',
+    #           headers=getattr(BaseConfig, 'headers'),
+    #           method='post',
+    #           data=None)
+    indata= {"username":"15150000000","password":"A123456"}
+    token=BMY().bmy_login(indata,getToken=False)
+    print(token)
