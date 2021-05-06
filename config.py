@@ -7,15 +7,17 @@ class BaseConfig():
     # 当前运行的产品名
     current_product = "bmc"
     default_test_case_dir = "test_case/bmc/"
-    salt = 'hikcreate_xj'                       # SSO的登录用的
+    salt = 'hikcreate_xj'       # SSO 登录的东西
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
     # 测试用例目录
     name = "bmc"
-    print("a")
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
     webhook = ''
 
+class BmyConfig(BaseConfig):
+    """企业云的配置类"""
+    name = "bmy"
 
