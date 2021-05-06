@@ -28,6 +28,7 @@ class TestLogin():
         """处理"""
         authorization = BMY().get_authorization()    #
         headers["Authorization"]=authorization
+        # print("我是header",headers)
         # 密码加密
         password_Encrypted = BMY().pwd_encrypted(req_data['password'])
         req_data['password'] = password_Encrypted
@@ -37,10 +38,12 @@ class TestLogin():
         req_data['imageCode'] = imageinfo[1]
         req_data['grant_type']= "passwordImageCode"
 
+        # print("我是请求参数",req_data)
+
         """请求"""
         # res = request_main(f"http://testyun.banmago.com/api{url}", headers, method, req_data)
         res = requests.post(f"http://testyun.banmago.com/api{url}", data=req_data, headers=headers)
-        # print(res.json())
+        print(res.json())
 
         """断言"""
         assert res.json()['code'] == expectData['code']
