@@ -11,5 +11,6 @@ class BaseConfig():
 
 
 class BMCConfig(BaseConfig):
-    """斑马信用app的配置类"""
+    """斑马信用app的配置类1111"""
     pass
+

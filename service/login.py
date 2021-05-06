@@ -20,7 +20,6 @@ def sso_login(url, headers, method, data):
 
 def bmy_login():
     """企业云登录"""
-    """kkkk"""
     pass
 
 
