@@ -89,5 +89,5 @@ if __name__ == '__main__':
     #           method='post',
     #           data=None)
     indata= {"username":"15150000000","password":"A123456"}
-    token= BMY().bmy_login(indata,getToken=True)
+    token= BMY().bmy_login(indata,getToken=False)
     print(token)
