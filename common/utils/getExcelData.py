@@ -15,12 +15,13 @@ def get_excelData(workBook,sheetName,caseName):
         num_reqData = list_title.index('reqData')
         num_expectData = list_title.index('expectData')
         lis = []
-        dict0 = {"url": "", "headers": "", "method": "", "reqData": "", "expectData": ""}
+
         idx = 0
         try:
             for one in workSheet.col_values(0):
                 result = ''.join(re.findall(r'[A-Za-z]', one))  # 抽取字母字符串
                 if caseName == result:
+                    dict0 = {"url": "", "headers": "", "method": "", "reqData": "", "expectData": ""}
                     dict0['url'] = workSheet.cell_value(idx, num_url)
                     dict0['headers'] = workSheet.cell_value(idx, num_headers)
                     dict0['method'] = workSheet.cell_value(idx, num_method)
@@ -34,7 +35,6 @@ def get_excelData(workBook,sheetName,caseName):
                         dict0['headers'] = json.loads(dict0['headers'])
                     except:
                         print('header无')
-
                     lis.append(dict0)
                 idx += 1
             return lis
@@ -44,7 +44,7 @@ def get_excelData(workBook,sheetName,caseName):
         print("检查excle中标题是否正确")
 
 if __name__ == '__main__':
-    workBook = xlrd.open_workbook('../../test_case_data/bmy_case.xlsx')
+    workBook = xlrd.open_workbook('../../test_case_data/bmy/bmy_case.xlsx')
     li = get_excelData(workBook,"登录模块","Login")
     print(li)
 

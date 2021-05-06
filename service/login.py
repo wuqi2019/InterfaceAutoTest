@@ -7,6 +7,7 @@ from common.utils.encryption import Encryption
 from common.tools import request_main
 from common.db import RedisString
 
+
 @pytest.fixture(scope='session')
 def sso_login(url, headers, method, data):
     """SSO登录"""
