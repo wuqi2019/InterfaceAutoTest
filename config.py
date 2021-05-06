@@ -3,7 +3,7 @@
 class BaseConfig():
     """基础配置类"""
     # 请求头
-    headers = {'Content-Type': 'application/json'}
+    headers = {'Content-Type': 'application/json; charset=utf-8'}
     # 当前运行的产品名
     current_product = ""
     webhook = ''
