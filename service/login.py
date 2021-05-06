@@ -46,9 +46,7 @@ class BMY():
         try:
             rep = requests.get("http://testyun.banmago.com/api/website/common/graph/login-captcha", params=payload)
             imageId = rep.json()['data']['jtId']
-            print("imageID为",imageId)
             result = RedisString(6).get(f'bmc:captcha:{imageId}')
-            print(result)
             imageCode = str(result)[-3:-1]
             return imageId, imageCode
         except:
@@ -72,7 +70,6 @@ class BMY():
         imageinfo = BMY().get_imageCode(payload['username'], payload['password'])
         payload['imageId'] = imageinfo[0]
         payload['imageCode'] = imageinfo[1]
-        print(payload)
 
         resp = requests.post("http://testyun.banmago.com/api/auth/login", data=payload, headers=header)
         if getToken:
@@ -90,11 +87,7 @@ if __name__ == '__main__':
     #           headers=getattr(BaseConfig, 'headers'),
     #           method='post',
     #           data=None)
-    # indata= {"username":"15150000000","password":"A123456"}
-    # token= BMY().bmy_login(indata,getToken=False)
-    # print(token)
 
-    # res=BMY().get_imageCode("15150000000","8e4b595babec901009ff84f269ee5147")
-    # print(res)
-
-    BMY().get_imageCode("15150000000", "8e4b595babec901009ff84f269ee5147")
+    indata= {"username":"15150000000","password":"A123456"}
+    token= BMY().bmy_login(indata,getToken=True)
+    print(token)
