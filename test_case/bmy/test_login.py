@@ -26,27 +26,28 @@ class TestLogin():
         headers = inData['headers']
 
         """处理"""
-        authorization = BMY().get_authorization()    #
+        req_data['grant_type'] = "passwordImageCode"                         # 请求体中的固定值
+        authorization = BMY().get_authorization()                            # 获取当前时间戳的Authorization
         headers["Authorization"]=authorization
-        # print("我是header",headers)
-        # 密码加密
-        password_Encrypted = BMY().pwd_encrypted(req_data['password'])
+        password_Encrypted = BMY().pwd_encrypted(req_data['password'])       # 密码加密
         req_data['password'] = password_Encrypted
-        # 获取图片信息
-        imageinfo = BMY().get_imageCode(req_data['username'], req_data['password'])
+        imageinfo = BMY().get_imageCode(req_data['username'], req_data['password'])     # 获取图片信息
         req_data['imageId'] = imageinfo[0]
         req_data['imageCode'] = imageinfo[1]
-        req_data['grant_type']= "passwordImageCode"
-
-        # print("我是请求参数",req_data)
 
         """请求"""
-        # res = request_main(f"http://testyun.banmago.com/api{url}", headers, method, req_data)
-        res = requests.post(f"http://testyun.banmago.com/api{url}", data=req_data, headers=headers)
-        print(res.json())
+        res = request_main(f"http://testyun.banmago.com/api{url}", headers, method, req_data)
 
         """断言"""
-        assert res.json()['code'] == expectData['code']
+        assert res['code'] == expectData['code']
+
+
+        """ 请求和断言若不使用通用方法
+        # res = requests.post(f"http://testyun.banmago.com/api{url}", data=req_data, headers=headers)
+        # print(res.json())
+        # assert res.json()['code'] == expectData['code']
+        """
+
 
 
 if __name__ == '__main__':
