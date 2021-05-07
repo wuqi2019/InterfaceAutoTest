@@ -6,6 +6,7 @@ from common.utils.encryption import Encryption
 # from common.utils.getExcelData import get_excelData
 from common.tools import request_main
 from common.db import RedisString
+from config import BmyConfig
 
 
 @pytest.fixture(scope='session')
@@ -22,8 +23,8 @@ def sso_login(url, headers, method, data):
 class BMY():
     """斑马云登录相关"""
     # 获取当前时间的Authorization
-    def get_authorization(self,defaultToken="Basic aHpjcF93ZWI6MTIzNDU2"):
-        key = "Jv+h&c0A"  # 原始密钥
+    def get_authorization(self,defaultToken = BmyConfig.defaultToken):
+        key = BmyConfig.key  # 原始密钥
         m5dkey = Encryption().get_md5(key)  # AES密钥
         t = time.time()
         num = str(round(t * 1000))
@@ -35,7 +36,7 @@ class BMY():
     ③逆序
     """
     def pwd_encrypted(self,pwd):
-        key = "Jv+h&c0A"  # 原始密钥
+        key = BmyConfig.key  # 原始密钥
         m5dkey = Encryption().get_md5(key)
         encrypted_text_str = Encryption().aes_cipher(m5dkey, pwd)  # ①
         newpwd = Encryption().get_md5(encrypted_text_str)  # ②
@@ -45,7 +46,7 @@ class BMY():
     def get_imageCode(self,username, pwd):
         payload = {"username": username, "password": pwd}
         try:
-            rep = requests.get("http://testyun.banmago.com/api/website/common/graph/login-captcha", params=payload)
+            rep = requests.get(f"{BmyConfig().test_host}/website/common/graph/login-captcha", params=payload)
             imageId = rep.json()['data']['jtId']
             result = RedisString(6).get(f'bmc:captcha:{imageId}')
             imageCode = str(result)[-3:-1]
@@ -73,7 +74,7 @@ class BMY():
         payload['imageCode'] = imageinfo[1]
         # print(payload)
 
-        resp = requests.post("http://testyun.banmago.com/api/auth/login", data=payload, headers=header)
+        resp = requests.post(f"{BmyConfig().test_host}/auth/login", data=payload, headers=header)
         if getToken:
             token = resp.json()['data']['token']  # 数据权限会藏在token中
             return BMY().get_authorization(defaultToken=token)

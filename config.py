@@ -8,7 +8,8 @@ class BaseConfig():
     name = "auto"
     test_case_dir = "test_case/"
     salt = 'hikcreate_xj'       # SSO 登录的东西
-    secs=0.1
+    secs=0.1                    # 测试用例间隔运行时间
+    test_redis = {"host": "10.197.236.197", "port": 6379, "password": "123456"}
 
 
 class BMCConfig(BaseConfig):
@@ -25,4 +26,8 @@ class BmyConfig(BaseConfig):
     name = "bmy"
     test_case_dir = "test_case/bmy/"
     test_case_data_dir = "test_case_data/bmy/"
+    key = "Jv+h&c0A"                                      # 获取token和密码加密原始密钥
+    defaultToken = "Basic aHpjcF93ZWI6MTIzNDU2"           # 获取token 原始token
+    # 测试环境
+    test_host = "http://testyun.banmago.com/api"
 

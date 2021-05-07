@@ -1,11 +1,13 @@
 import redis,pymysql
+from config import BaseConfig
 
 # redis类
 class RedisBase:
     def __init__(self, inum):
+        test_redis = BaseConfig().test_redis
         """每一个数据库实例管理一个连接池"""
         self.num = inum
-        pool = redis.ConnectionPool(host='10.197.236.197', port=6379, db=self.num, password='123456')
+        pool = redis.ConnectionPool(host=test_redis['host'], port=test_redis['port'], db=self.num, password=test_redis['password'])
         self.r = redis.Redis(connection_pool=pool)
 
 class RedisString(RedisBase):

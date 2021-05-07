@@ -7,6 +7,7 @@ import pytest,allure,xlrd,requests,os
 from common.utils.getExcelData import  get_excelData
 from service.login import BMY
 from common.tools import request_main
+from config import BmyConfig
 
 @allure.epic("营运车企业端")
 @allure.feature("登录模块")
@@ -19,7 +20,7 @@ class TestLogin():
     @allure.description("url:/auth/login 。。。。")
     @pytest.mark.parametrize("inData", get_excelData(workBook,'登录模块', 'Login'))
     def test_login(self,inData):
-        url = inData['url']
+        url = f"{BmyConfig().test_host}{inData['url']}"
         method  = inData['method']
         req_data = inData['reqData']
         expectData= inData['expectData']
@@ -28,7 +29,7 @@ class TestLogin():
         """处理"""
         req_data['grant_type'] = "passwordImageCode"                         # 请求体中的固定值
         authorization = BMY().get_authorization()                            # 获取当前时间戳的Authorization
-        headers["Authorization"]=authorization
+        headers["Authorization"] = authorization
         password_Encrypted = BMY().pwd_encrypted(req_data['password'])       # 密码加密
         req_data['password'] = password_Encrypted
         imageinfo = BMY().get_imageCode(req_data['username'], req_data['password'])     # 获取图片信息
@@ -36,7 +37,7 @@ class TestLogin():
         req_data['imageCode'] = imageinfo[1]
 
         """请求"""
-        res = request_main(f"http://testyun.banmago.com/api{url}", headers, method, req_data)
+        res = request_main(url, headers, method, req_data)
 
         """断言"""
         assert res['code'] == expectData['code']
