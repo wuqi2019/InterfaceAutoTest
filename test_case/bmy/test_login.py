@@ -12,7 +12,7 @@ from config import BmyConfig
 @allure.epic("营运车企业端")
 @allure.feature("登录模块")
 class TestLogin():
-    workBook = xlrd.open_workbook('../../test_case_data/bmy/bmy_case.xlsx')
+    workBook = xlrd.open_workbook('test_case_data/bmy/bmy_case.xlsx')
 
     @allure.story("登录")
     @allure.title("登录认证")
