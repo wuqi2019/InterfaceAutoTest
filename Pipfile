@@ -5,12 +5,12 @@ name = "aliyun"
 
 [packages]
 requests = "==2.22.0"
-xlrd = "==2.0.0"
 pytest = "==6.0.1"
 allure-pytest = "==2.8.18"
 redis = "==3.5.3"
 pymysql = "==0.9.3"
 pycryptodome = "*"
+xlrd = "==1.2.0"
 
 [dev-packages]
 

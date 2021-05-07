@@ -8,7 +8,7 @@ class BaseConfig():
     name = "auto"
     test_case_dir = "test_case/"
     salt = 'hikcreate_xj'       # SSO 登录的东西
-    secs=0.1
+    secs=0.2
 
 
 class BMCConfig(BaseConfig):
