@@ -80,6 +80,32 @@ class BMY():
         else:
             return resp.json()
 
+
+    def get_token(self, indata):
+        """斑马信用登录获取token"""
+        url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
+        header = {"Content-Type": "application/json; charset=utf-8",
+                  "device-type": "Android",
+                  "device-name": "vivo+X20",
+                  "device-model": "vivo vivo X20",
+                  "city-code": "520100",
+                  "Version": "2.2.0",
+                  "Device-Code": "000000001e167ed7000000001e167ed7"}
+
+        res = requests.post(url, json=indata, headers=header)
+        print(res.json())
+        encrypted_token = Encryption().aes_token(res.json()["data"]["token"])
+        print(encrypted_token)
+        # 获取专网token
+        header1 = header.copy()
+        header1["Token"] = encrypted_token
+        resp = requests.get("http://testbmcapp.hikcreate.com/token", headers=header1)
+        print(resp.json())
+        pvt_token = resp.json()["data"]["token"]
+        print(pvt_token)
+        return encrypted_token,pvt_token
+
+
 if __name__ == '__main__':
     # login = request_main(url=r'http://testtbdzj.hikcreate.com/web/auth/users/login',
     #                      method='post',
