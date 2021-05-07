@@ -5,10 +5,11 @@ class BaseConfig():
     # 请求头
     headers = {'Content-Type': 'application/json; charset=utf-8'}
     # 当前运行的产品名
-    name = "bmc"
-    test_case_dir = "test_case/bmc/"
+    name = "auto"
+    test_case_dir = "test_case/"
     salt = 'hikcreate_xj'       # SSO 登录的东西
     secs=0.1
+
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
@@ -17,6 +18,7 @@ class BMCConfig(BaseConfig):
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
     webhook = ''
+
 
 class BmyConfig(BaseConfig):
     """企业云的配置类"""
