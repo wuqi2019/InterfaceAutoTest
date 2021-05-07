@@ -10,6 +10,7 @@ pytest = "==6.0.1"
 allure-pytest = "==2.8.18"
 redis = "==3.5.3"
 pymysql = "==0.9.3"
+pycryptodome = "*"
 
 [dev-packages]
 
