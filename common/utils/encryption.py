@@ -37,13 +37,15 @@ class Encryption:
         return encrypted_text_str
 
     def aes_token(self,token):
+        """bmc"""
         key = "HIKEDL@#"
-        m5dkey = Encryption().get_md5(key)
+        m5dkey = self.get_md5(key)
         token_plus_timestamp = token + str(int(round(time.time() * 1000)))
-        encrypted_token = Encryption().aes_cipher(m5dkey, token_plus_timestamp)
+        encrypted_token = self.aes_cipher(m5dkey, token_plus_timestamp)
         return encrypted_token
 
     def get_token(self, indata):
+        """bmc"""
         url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
         header = {"Content-Type": "application/json; charset=utf-8",
                   "device-type": "Android",
@@ -55,7 +57,7 @@ class Encryption:
 
         res = requests.post(url, json=indata, headers=header)
         print(res.json())
-        encrypted_token = Encryption().aes_token(res.json()["data"]["token"])
+        encrypted_token = self.aes_token(res.json()["data"]["token"])
         print(encrypted_token)
         # 获取专网token
         header1 = header.copy()
