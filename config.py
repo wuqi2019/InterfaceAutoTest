@@ -5,8 +5,8 @@ class BaseConfig():
     # 请求头
     headers = {'Content-Type': 'application/json; charset=utf-8'}
     # 当前运行的产品名
-    current_product = "bmc"
-    default_test_case_dir = "test_case/bmc/"
+    name = "bmc"
+    test_case_dir = "test_case/bmc/"
     salt = 'hikcreate_xj'       # SSO 登录的东西
     secs=0.1
 
@@ -21,4 +21,6 @@ class BMCConfig(BaseConfig):
 class BmyConfig(BaseConfig):
     """企业云的配置类"""
     name = "bmy"
+    test_case_dir = "test_case/bmy/"
+    test_case_data_dir = "test_case_data/bmy/"
 

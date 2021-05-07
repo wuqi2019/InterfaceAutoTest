@@ -3,7 +3,7 @@
 import json
 import logging
 import requests
-from config import BaseConfig, BMCConfig
+from config import BaseConfig, BMCConfig, BmyConfig
 
 
 def request_main(url, headers, method, data):
@@ -33,7 +33,9 @@ def request_main(url, headers, method, data):
 
 def get_case_dir(product_name):
     """根据传入的产品名来运行对应产品的测试用例目录"""
-    test_case_dir = BaseConfig.default_test_case_dir
+    test_case_dir = BaseConfig.name
     if product_name == BMCConfig.name:
         test_case_dir = BMCConfig.test_case_dir
+    if product_name == BmyConfig.name:
+        test_case_dir = BmyConfig.test_case_dir
     return test_case_dir
