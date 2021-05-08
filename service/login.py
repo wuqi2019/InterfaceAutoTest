@@ -7,6 +7,7 @@ from common.utils.encryption import Encryption
 from common.tools import request_main
 from common.db import RedisString
 from config import BmyConfig
+from config import BMCConfig
 
 
 class SSOLogin():
@@ -85,8 +86,8 @@ class BMY():
         else:
             return resp.json()
 
-
-    def get_token(self, indata):
+class BMC():
+    def bmc_login(self, indata):
         """斑马信用登录获取token"""
         url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
         header = {"Content-Type": "application/json; charset=utf-8",
