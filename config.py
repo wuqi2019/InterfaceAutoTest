@@ -16,14 +16,6 @@ class BaseConfig():
     # 钉钉相关
     webhook = ''
 
-    # SSO相关
-    sso_username = 'robot_fanxun'  # SSO登录名
-    sso_password = 'fx123456'  # sso密码
-    sso_url = r'http://testtbdzj.hikcreate.com/web/auth/users/login'  # sso登录地址
-    sso_salt = 'hikcreate_xj'  # SSO盐值
-    sso_token = ''
-
-
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
@@ -31,6 +23,29 @@ class BMCConfig(BaseConfig):
     name = "bmc"
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
+    bmc_login_url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
+    bmc_token = ""  #公网加密token
+    bmc_pvt_token = ""  #专网token
+    host = "http://testbmcapp.hikcreate.com"  #bmc业务所有URL的host
+    #bmc除登录外所有的header
+    header = {
+        'City-Code': "520100",
+        'Device-Brand': "vivo",
+        'Device-Code': "000000001e167ed7000000001e167ed7",
+        'Device-Model': "vivo vivo X20",
+        'Device-Name': "vivo+X20",
+        'Device-Type': "Android",
+        'Mac': "38:6E:A2:A0:0E:AF",
+        'mimeType': "application/json",
+        'Net': "wifi",
+        'OS-Type': "Android",
+        'OS-Version': "27",
+        'Pvt-Token': bmc_pvt_token,
+        'Resolution': "2034x1080",
+        'Token': bmc_token,
+        'Version': "2.2.5",
+    }
+    #注册和注销专用账号
 
 
 class BmyConfig(BaseConfig):
@@ -50,3 +65,10 @@ class BmyConfig(BaseConfig):
     bmy_token = ''
 
 
+class SSOConfig(BaseConfig):
+    """SSO配置类"""
+    sso_username = 'robot_fanxun'  # SSO登录名
+    sso_password = 'fx123456'  # sso密码
+    sso_url = r'http://testtbdzj.hikcreate.com/web/auth/users/login'  # sso登录地址
+    sso_salt = 'hikcreate_xj'  # SSO盐值
+    sso_token = ''
