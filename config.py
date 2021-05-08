@@ -53,6 +53,7 @@ class BMCConfig(BaseConfig):
         'Token': bmc_token,
         'Version': "2.2.5",
     }
+    #注册和注销专用账号
 
 
 class BmyConfig(BaseConfig):
