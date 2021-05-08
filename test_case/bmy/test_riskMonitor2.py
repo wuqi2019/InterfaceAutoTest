@@ -27,7 +27,7 @@ class TestLogin():
         headers = inData['headers']
 
         """处理"""
-        headers['Authorization'] = BmyConfig.Authorization
+        headers['Authorization'] = BmyConfig.bmy_token
 
         """请求"""
         res = request_main(url, headers, method, req_data)

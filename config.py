@@ -43,6 +43,6 @@ class BmyConfig(BaseConfig):
     # 测试环境
     test_host = "http://testyun.banmago.com/api"
     test_name_password = {"username": "15151500000", "password": "bmy123456"}
-    Authorization = ''
+    bmy_token = ''
 
 
