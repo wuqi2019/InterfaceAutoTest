@@ -1,4 +1,5 @@
 #coding:utf-8
+import os
 
 class BaseConfig():
     """基础配置类"""
@@ -10,6 +11,7 @@ class BaseConfig():
 
     secs=0.1                    # 测试用例间隔运行时间
     test_redis = {"host": "10.197.236.197", "port": 6379, "password": "123456"}
+    root_path = os.path.abspath(os.path.dirname(__file__))          # 项目根目录
 
     # 钉钉相关
     webhook = ''
