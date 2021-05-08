@@ -40,5 +40,6 @@ class BmyConfig(BaseConfig):
     defaultToken = "Basic aHpjcF93ZWI6MTIzNDU2"           # 获取token 原始token
     # 测试环境
     test_host = "http://testyun.banmago.com/api"
+    test_name_password = {"username": "15151500000", "password": "bmy123456"}
 
 

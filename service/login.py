@@ -9,7 +9,7 @@ from common.db import RedisString
 from config import BmyConfig
 
 
-@pytest.fixture(scope='session')
+# @pytest.fixture(scope='session')
 class SSOLogin():
     """SSO登录"""
     def _sso_pwd_encrypted(self, org_pwd):
@@ -113,12 +113,12 @@ class BMY():
 
 
 if __name__ == '__main__':
-    # SSO登录测试
-    sso_token = SSOLogin().sso_login(url=BaseConfig.sso_url,
-                                     method='post',)
-    print(sso_token)
+    # # SSO登录测试
+    # sso_token = SSOLogin().sso_login(url=BaseConfig.sso_url,
+    #                                  method='post',)
+    # print(sso_token)
 
-
-    # indata= {"username":"15150000000","password":"A123456"}
-    # token= BMY().bmy_login(indata,getToken=False)
-    # print(token)
+    # BMY登录
+    indata= BmyConfig.test_name_password
+    token= BMY().bmy_login(indata,getToken=False)
+    print(token)
