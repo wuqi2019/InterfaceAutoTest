@@ -112,12 +112,7 @@ class BMY():
 
 
 if __name__ == '__main__':
-    # SSO登录测试
-    sso_token = SSOLogin().sso_login(url=BaseConfig.sso_url,
-                                     method='post',)
-    print(sso_token)
-
-
     # indata= {"username":"15150000000","password":"A123456"}
     # token= BMY().bmy_login(indata,getToken=False)
     # print(token)
+    pass

@@ -17,10 +17,12 @@ class BaseConfig():
     webhook = ''
 
     # SSO相关
-    username = 'fanxun'  # SSO登录名
-    password = 'fx123456'  # sso密码
+    sso_username = 'robot_fanxun'  # SSO登录名
+    sso_password = 'fx123456'  # sso密码
     sso_url = r'http://testtbdzj.hikcreate.com/web/auth/users/login'  # sso登录地址
-    salt = 'hikcreate_xj'  # SSO盐值
+    sso_salt = 'hikcreate_xj'  # SSO盐值
+    sso_token = ''
+
 
 
 class BMCConfig(BaseConfig):
@@ -36,9 +38,15 @@ class BmyConfig(BaseConfig):
     name = "bmy"
     test_case_dir = "test_case/bmy/"
     test_case_data_dir = "test_case_data/bmy/"
-    key = "Jv+h&c0A"                                      # 获取token和密码加密原始密钥
-    defaultToken = "Basic aHpjcF93ZWI6MTIzNDU2"           # 获取token 原始token
-    # 测试环境
+    # 获取token和密码加密原始密钥
+    key = "Jv+h&c0A"
+    # 获取token 原始token
+    defaultToken = "Basic aHpjcF93ZWI6MTIzNDU2"
+    # 测试环境host
     test_host = "http://testyun.banmago.com/api"
+    # 登录账号
+    test_name_password = {"username": "15151500000", "password": "bmy123456"}
+    # 企业云接口的Authorization
+    bmy_token = ''
 
 
