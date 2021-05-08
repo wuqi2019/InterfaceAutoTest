@@ -9,7 +9,6 @@ from common.db import RedisString
 from config import BmyConfig
 
 
-@pytest.fixture(scope='session')
 class SSOLogin():
     """SSO登录"""
     def _sso_pwd_encrypted(self, org_pwd):
