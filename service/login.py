@@ -9,22 +9,6 @@ from common.db import RedisString
 from config import BmyConfig
 
 
-# @pytest.fixture(scope='session')
-class SSOLogin():
-    """SSO登录"""
-    def _sso_pwd_encrypted(self, org_pwd):
-        """md5加密"""
-        encrypted_password = Encryption().get_md5(org_pwd, salt=BaseConfig.salt)
-        return encrypted_password
-
-    def sso_login(self,url, method, headers=None):
-        """SSO登录获取token"""
-        encrypted_password = self._sso_pwd_encrypted(BaseConfig.password)
-        req_data = {f"loginName":BaseConfig.username,"password":encrypted_password}
-        res = request_main(url, headers, method, req_data)
-        return res['data']['token']
-
-
 class BMY():
     """斑马云登录相关"""
     # 获取当前时间的Authorization
@@ -113,12 +97,7 @@ class BMY():
 
 
 if __name__ == '__main__':
-    # # SSO登录测试
-    # sso_token = SSOLogin().sso_login(url=BaseConfig.sso_url,
-    #                                  method='post',)
-    # print(sso_token)
-
-    # BMY登录
-    indata= BmyConfig.test_name_password
-    token= BMY().bmy_login(indata,getToken=False)
-    print(token)
+    # indata= {"username":"15150000000","password":"A123456"}
+    # token= BMY().bmy_login(indata,getToken=False)
+    # print(token)
+    pass
