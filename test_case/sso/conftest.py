@@ -12,8 +12,3 @@ def sso_login():
     req_data = {"loginName": BaseConfig.sso_username, "password": encrypted_password}
     res = request_main(BaseConfig.sso_url, headers=None, method='post', data=req_data)
     setattr(BaseConfig, 'sso_token', res['data']['token'])
-
-
-
-
-

@@ -3,15 +3,15 @@
 import json
 import logging
 import requests
-from config import BaseConfig, BMCConfig, BmyConfig
+from config import *
 
 
 def request_main(url, headers, method, data):
     """封装requests的通用请求方法"""
     res = None
-    if headers == None or headers == {}:
-        # 如果传的headers为空，使用通用headers
-        headers = BaseConfig.headers
+    if headers == None or headers == {} or headers == "":
+        # 如果传的headers为空，使用各自产品的通用headers
+        headers = get_headers()
     header_content_type = headers["Content-Type"]
 
     try:
@@ -29,6 +29,18 @@ def request_main(url, headers, method, data):
     if res != None:
         return res.json()
     return res
+
+
+def get_headers():
+    name = BaseConfig.current_name
+    headers = BaseConfig.headers
+    if name == BMCConfig.name:
+        headers = BMCConfig.headers
+    elif name == BmyConfig.name:
+        headers = BmyConfig.headers
+    # elif name == SsoConfig.name:
+    #     headers = SsoConfig.headers
+    return headers
 
 
 def get_case_dir(product_name):
