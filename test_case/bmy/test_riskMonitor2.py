@@ -13,8 +13,6 @@ from service.login import BMY
 @allure.feature("风控台")
 class TestLogin():
     workBook = xlrd.open_workbook(f'{BmyConfig.root_path}/test_case_data/bmy/bmy_case.xlsx')
-    def setup_class(self):  # 每一个类下面所有的方法调用只运行一次
-        self.token = BMY().bmy_login(BmyConfig.test_name_password)
 
     @allure.story("风险监控列表接口")
     @allure.title("风险监控列表用例")
@@ -29,7 +27,7 @@ class TestLogin():
         headers = inData['headers']
 
         """处理"""
-        headers['Authorization'] = self.token
+        headers['Authorization'] = BmyConfig.Authorization
 
         """请求"""
         res = request_main(url, headers, method, req_data)
