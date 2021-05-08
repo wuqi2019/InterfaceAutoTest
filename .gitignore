@@ -16,7 +16,7 @@ build
 log
 test.py
 .idea
-report/tmp/:
+report/tmp/*.*
 # Environments
 .env
 .venv
