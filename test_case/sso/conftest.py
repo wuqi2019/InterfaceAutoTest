@@ -11,7 +11,8 @@ def sso_login():
     encrypted_password = Encryption().get_md5(BaseConfig.sso_password, salt=BaseConfig.salt)
     req_data = {"loginName": BaseConfig.sso_username, "password": encrypted_password}
     res = request_main(BaseConfig.sso_url, headers=None, method='post', data=req_data)
-    setattr(BaseConfig, BaseConfig.sso_token, res['data']['token'])
+    setattr(BaseConfig, 'sso_token', res['data']['token'])
+
 
 
 
