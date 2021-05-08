@@ -31,6 +31,28 @@ class BMCConfig(BaseConfig):
     name = "bmc"
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
+    bmc_login_url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
+    bmc_token = ""  #公网加密token
+    bmc_pvt_token = ""  #专网token
+    host = "http://testbmcapp.hikcreate.com"  #bmc业务所有URL的host
+    #bmc除登录外所有的header
+    header = {
+        'City-Code': "520100",
+        'Device-Brand': "vivo",
+        'Device-Code': "000000001e167ed7000000001e167ed7",
+        'Device-Model': "vivo vivo X20",
+        'Device-Name': "vivo+X20",
+        'Device-Type': "Android",
+        'Mac': "38:6E:A2:A0:0E:AF",
+        'mimeType': "application/json",
+        'Net': "wifi",
+        'OS-Type': "Android",
+        'OS-Version': "27",
+        'Pvt-Token': bmc_pvt_token,
+        'Resolution': "2034x1080",
+        'Token': bmc_token,
+        'Version': "2.2.5",
+    }
 
 
 class BmyConfig(BaseConfig):
