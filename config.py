@@ -6,7 +6,7 @@ class BaseConfig():
     # 请求头
     headers = {'Content-Type': 'application/json'}
     # 当前运行的产品名
-    name = "auto"
+    current_name = "auto"
     test_case_dir = "test_case/"
 
     secs=0.1                    # 测试用例间隔运行时间
