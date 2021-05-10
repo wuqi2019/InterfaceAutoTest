@@ -16,6 +16,9 @@ class BaseConfig():
     # 钉钉相关
     webhook = ''
 
+    # 日志相关
+    log_path = r''  # 日志路径
+
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
@@ -68,8 +71,10 @@ class BmyConfig(BaseConfig):
 
 class SSOConfig(BaseConfig):
     """SSO配置类"""
+    name = "sso"
     sso_username = 'robot_fanxun'  # SSO登录名
     sso_password = 'fx123456'  # sso密码
     sso_url = r'http://testtbdzj.hikcreate.com/web/auth/users/login'  # sso登录地址
     sso_salt = 'hikcreate_xj'  # SSO盐值
     sso_token = ''
+    headers = {'Content-Type': 'application/json'}
