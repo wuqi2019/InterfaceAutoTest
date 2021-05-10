@@ -2,8 +2,6 @@ __author__ = 'fanxun'
 __data__ = "2021-05-08 10:26"
 import pytest
 from config import SSOConfig
-from common.utils.encryption import Encryption
-from common.tools import request_main
 from service.login import SSOLogin
 
 
