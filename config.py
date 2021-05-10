@@ -16,6 +16,9 @@ class BaseConfig():
     # 钉钉相关
     webhook = ''
 
+    # 日志相关
+    log_path = r''  # 日志路径
+
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""
