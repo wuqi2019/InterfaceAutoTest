@@ -43,9 +43,10 @@ def get_excelData(workBook,sheetName,caseName):
     except:
         print("检查excle中标题是否正确")
 
+
 if __name__ == '__main__':
     workBook = xlrd.open_workbook('../../test_case_data/bmy/bmy_case.xlsx')
     li = get_excelData(workBook,"登录模块","Login")
     print(li)
 
-
+# {"Authorization": "","Content-Type":"application/x-www-form-urlencoded"}
