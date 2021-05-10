@@ -17,7 +17,7 @@ class BaseConfig():
     webhook = ''
 
     # 日志相关
-    log_path = r'D:\项目\log'  # 日志路径
+    log_path = r''  # 日志路径
 
 
 class BMCConfig(BaseConfig):
