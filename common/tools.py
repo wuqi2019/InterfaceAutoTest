@@ -38,14 +38,6 @@ def request_main(url, headers, method, data):
         logging.log(str(e))
     except requests.exceptions.RequestException as e:
         logging.log(str(e))
-        if "mimeType" in headers.keys():
-            headers['mimeType'] = "application/x-www-form-urlencoded"
-        else:
-            headers['Content-Type'] = "application/x-www-form-urlencoded"
-        try:
-            res = request_by_method(method, headers)
-        except requests.exceptions.RequestException as e:
-            logging.log(str(e))
     if res != None:
         return res.json()
     return res
