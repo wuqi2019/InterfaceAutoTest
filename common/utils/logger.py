@@ -2,7 +2,7 @@
 __author__ = 'fanxun'
 __data__ = "2021-05-10 15:47"
 
-import os
+import os, time
 import logging
 from logging.handlers import TimedRotatingFileHandler
 from config import BaseConfig
@@ -42,7 +42,7 @@ class LogHandler(logging.Logger):
         """
         输出到文件
         """
-        file_name = os.path.join(LOG_PATH, '{name}.log'.format(name=self.name))
+        file_name = os.path.join(LOG_PATH, f'{self.name}{time.strftime(r"%Y%m%d%H%M%S", time.localtime())}.log')
         # 设置日志回滚, 保存在log目录, 一天保存一个文件, 保留7天
         file_handler = TimedRotatingFileHandler(filename=file_name, when='D', interval=1, backupCount=7)
         file_handler.suffix = '%Y%m%d.log'
@@ -73,6 +73,9 @@ class LogHandler(logging.Logger):
         self.name = name
         self.removeHandler(self.file_handler)
         self.__setFileHandler__()
+
+
+logger = LogHandler('log')
 
 
 if __name__ == '__main__':
