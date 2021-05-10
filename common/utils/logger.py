@@ -27,18 +27,24 @@ class LogHandler(logging.Logger):
         self.name = name
         self.level = level
         logging.Logger.__init__(self, self.name, level=level)
+        self.__determine_folder()
         if stream:
             self.__setStreamHandler__()
         if file:
             self.__setFileHandler__()
+
+    def __determine_folder(self):
+        """判断日志路径是否存在"""
+        if not os.path.exists(LOG_PATH):
+            os.mkdir(LOG_PATH)
 
     def __setFileHandler__(self, level=None):
         """
         输出到文件
         """
         file_name = os.path.join(LOG_PATH, '{name}.log'.format(name=self.name))
-        # 设置日志回滚, 保存在log目录, 一天保存一个文件, 保留15天
-        file_handler = TimedRotatingFileHandler(filename=file_name, when='D', interval=1, backupCount=15)
+        # 设置日志回滚, 保存在log目录, 一天保存一个文件, 保留7天
+        file_handler = TimedRotatingFileHandler(filename=file_name, when='D', interval=1, backupCount=7)
         file_handler.suffix = '%Y%m%d.log'
         if not level:
             file_handler.setLevel(self.level)
