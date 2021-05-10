@@ -67,6 +67,7 @@ class BmyConfig(BaseConfig):
 
 class SSOConfig(BaseConfig):
     """SSO配置类"""
+    name = "sso"
     sso_username = 'robot_fanxun'  # SSO登录名
     sso_password = 'fx123456'  # sso密码
     sso_url = r'http://testtbdzj.hikcreate.com/web/auth/users/login'  # sso登录地址

@@ -8,14 +8,14 @@ from common.tools import get_case_dir
 
 def get_parser():
     parser = argparse.ArgumentParser(description="argparse")
-    parser.add_argument('--product', type=str, default=BaseConfig.name)
+    parser.add_argument('--product', type=str, default=BaseConfig.current_name)
     return parser
 
 
 if __name__ == "__main__":
     parser = get_parser()
     args = parser.parse_args()
-    BaseConfig.name = args.product
+    BaseConfig.current_name = args.product
     # 获取要执行的产品的用例目录
     test_case_dir = get_case_dir(args.product)
     print("********此次执行的产品测试用例是：%s********"%test_case_dir)
