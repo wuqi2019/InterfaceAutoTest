@@ -73,3 +73,4 @@ class SSOConfig(BaseConfig):
     sso_url = r'http://testtbdzj.hikcreate.com/web/auth/users/login'  # sso登录地址
     sso_salt = 'hikcreate_xj'  # SSO盐值
     sso_token = ''
+    headers = {'Content-Type': 'application/json'}

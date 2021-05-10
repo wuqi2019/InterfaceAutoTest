@@ -1,7 +1,7 @@
 import pytest,time
 import requests
 
-from config import BaseConfig
+from config import SSOConfig
 from common.utils.encryption import Encryption
 # from common.utils.getExcelData import get_excelData
 from common.tools import request_main
@@ -14,13 +14,13 @@ class SSOLogin():
     """SSO登录"""
     def _sso_pwd_encrypted(self, org_pwd):
         """md5加密"""
-        encrypted_password = Encryption().get_md5(org_pwd, salt=BaseConfig.salt)
+        encrypted_password = Encryption().get_md5(org_pwd, salt=SSOConfig.sso_salt)
         return encrypted_password
 
-    def sso_login(self,url, method, headers=None):
+    def sso_login(self,url, method='post', headers=None):
         """SSO登录获取token"""
-        encrypted_password = self._sso_pwd_encrypted(BaseConfig.password)
-        req_data = {f"loginName":BaseConfig.username,"password":encrypted_password}
+        encrypted_password = self._sso_pwd_encrypted(SSOConfig.sso_password)
+        req_data = {f"loginName":SSOConfig.sso_username,"password":encrypted_password}
         res = request_main(url, headers, method, req_data)
         return res['data']['token']
 
