@@ -26,7 +26,7 @@ def request_main(url, headers, method, data):
                     inner_res = requests.post(url=url, headers=headers, data=data)
             return inner_res
         except Exception as e:
-            logging.log(str(e))
+            # logging.log(str(e))
             raise Exception
 
     if headers == None or headers == {} or headers == "":
