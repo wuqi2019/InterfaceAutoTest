@@ -63,6 +63,7 @@ class BmyConfig(BaseConfig):
     test_name_password = {"username": "15151500000", "password": "bmy123456"}
     # 企业云接口的Authorization
     bmy_token = ''
+    header = {'Authorization':bmy_token,"Content-Type":"application/json"}
 
 
 class SSOConfig(BaseConfig):
