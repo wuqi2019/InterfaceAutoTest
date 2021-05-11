@@ -59,7 +59,7 @@ def build_headers(headers):
     elif name == SSOConfig.name:
         if headers == None or headers == "":
             headers = SSOConfig.headers
-        headers['Authorization'] = SSOConfig.sso_token
+        headers['token'] = SSOConfig.sso_token
     return headers
 
 
