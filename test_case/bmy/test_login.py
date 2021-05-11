@@ -37,19 +37,19 @@ class TestLogin():
         req_data['imageId'] = imageinfo[0]
         req_data['imageCode'] = imageinfo[1]
 
-        """请求"""
-        res = request_main(url, headers, method, req_data)
-        print(res)
+        # """请求"""
+        # res = request_main(url, headers, method, req_data)
+        # # print(res)
+        # """断言"""
+        # assert res['code'] == expectData['code']
 
-        """断言"""
-        assert res['code'] == expectData['code']
 
-
-        """ 请求和断言若不使用通用方法
-        # res = requests.post(f"http://testyun.banmago.com/api{url}", data=req_data, headers=headers)
-        # print(res.json())
-        # assert res.json()['code'] == expectData['code']
-        """
+        """ 请求和断言若不使用通用方法"""
+        res = requests.post(f"http://testyun.banmago.com/api{url}", data=req_data, headers=headers)
+        print("我是headers",headers)
+        print("我是data",req_data)
+        print(res.json())
+        assert res.json()['code'] == expectData['code']
 
     def teardown_class(self):
         """清除"""
@@ -61,3 +61,4 @@ if __name__ == '__main__':
     pytest.main(['test_login.py', '-s', '--alluredir', '../../report/tmp'])
     # # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
+    # requests.post("http://testyun.banmago.com/api/auth/login",data=)

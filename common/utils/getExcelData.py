@@ -34,7 +34,7 @@ def get_excelData(workBook,sheetName,caseName):
                     try:
                         dict0['headers'] = json.loads(dict0['headers'])
                     except:
-                        print('header无')
+                        # print('header无')
                         dict0['headers']=None
                     lis.append(dict0)
                 idx += 1

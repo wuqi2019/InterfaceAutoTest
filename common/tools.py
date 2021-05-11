@@ -32,7 +32,7 @@ def request_main(url, headers, method, data):
     # if headers == None or headers == {} or headers == "":
         # 如果传的headers为空，使用各自产品的通用headers
     headers = build_headers(headers)
-    print(headers)
+    # print("打印headers",headers)
     try:
         res = request_by_method(method, headers)
     except requests.exceptions.ConnectionError as e:

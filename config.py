@@ -5,7 +5,7 @@ class BaseConfig():
     """基础配置类"""
     # 请求头
     headers = {'Content-Type': 'application/json'}
-    # 当前运行的产品名
+    # 当前运行的产品名 #auto
     current_name = "auto"
     test_case_dir = "test_case/"
 
@@ -66,8 +66,7 @@ class BmyConfig(BaseConfig):
     test_name_password = {"username": "15151500000", "password": "bmy123456"}
     # 企业云接口的Authorization
     bmy_token = ''
-    headers = {'Authorization':bmy_token,"Content-Type":"application/json"}
-    header = {"Content-Type":"application/json"}
+    headers = {"Content-Type":"application/json"}
 
 
 class SSOConfig(BaseConfig):

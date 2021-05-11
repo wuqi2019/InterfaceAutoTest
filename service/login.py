@@ -116,4 +116,5 @@ if __name__ == '__main__':
     # indata= {"username":"15150000000","password":"A123456"}
     # token= BMY().bmy_login(indata,getToken=False)
     # print(token)
-    pass
+    LIST1=BMY().get_imageCode( '15150000000',  '8e4b595babec901009ff84f269ee5147')
+    print(LIST1)

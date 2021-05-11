@@ -11,3 +11,7 @@ def bmy_login():
     """BMY登录获取token"""
     res = BMY().bmy_login(BmyConfig.test_name_password)
     setattr(BmyConfig,'bmy_token',res)
+
+
+    # res= BMY().get_authorization()
+    # setattr(BmyConfig, 'bmy_token', res)
