@@ -31,7 +31,7 @@ class BMCConfig(BaseConfig):
     bmc_pvt_token = ""  #专网token
     host = "http://testbmcapp.hikcreate.com"  #bmc业务所有URL的host
     #bmc除登录外所有的header
-    header = {
+    headers = {
         'City-Code': "520100",
         'Device-Brand': "vivo",
         'Device-Code': "000000001e167ed7000000001e167ed7",
@@ -66,7 +66,7 @@ class BmyConfig(BaseConfig):
     test_name_password = {"username": "15151500000", "password": "bmy123456"}
     # 企业云接口的Authorization
     bmy_token = ''
-    header = {'Authorization':bmy_token,"Content-Type":"application/json"}
+    headers = {'Authorization':bmy_token,"Content-Type":"application/json"}
 
 
 class SSOConfig(BaseConfig):

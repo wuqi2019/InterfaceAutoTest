@@ -29,9 +29,10 @@ def request_main(url, headers, method, data):
             # logging.log(str(e))
             raise Exception
 
-    if headers == None or headers == {} or headers == "":
+    # if headers == None or headers == {} or headers == "":
         # 如果传的headers为空，使用各自产品的通用headers
-        headers = get_headers()
+    headers = build_headers(headers)
+    print(headers)
     try:
         res = request_by_method(method, headers)
     except requests.exceptions.ConnectionError as e:
@@ -43,15 +44,22 @@ def request_main(url, headers, method, data):
     return res
 
 
-def get_headers():
+def build_headers(headers):
     name = BaseConfig.current_name
-    headers = BaseConfig.headers
+    # if headers == None or headers == {} or headers == "":
     if name == BMCConfig.name:
-        headers = BMCConfig.headers
+        if headers == None or headers == "":
+            headers = BMCConfig.headers
+        headers['Pvt-Token'] = BMCConfig.bmc_pvt_token
+        headers['Token'] = BMCConfig.bmc_token
     elif name == BmyConfig.name:
-        headers = BmyConfig.headers
+        if headers == None or headers == "":
+            headers = BmyConfig.headers
+        headers['Authorization'] = BmyConfig.bmy_token
     elif name == SSOConfig.name:
-        headers = SSOConfig.headers
+        if headers == None or headers == "":
+            headers = SSOConfig.headers
+        headers['Authorization'] = SSOConfig.sso_token
     return headers
 
 

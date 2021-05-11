@@ -39,6 +39,7 @@ class TestLogin():
 
         """请求"""
         res = request_main(url, headers, method, req_data)
+        print(res)
 
         """断言"""
         assert res['code'] == expectData['code']
