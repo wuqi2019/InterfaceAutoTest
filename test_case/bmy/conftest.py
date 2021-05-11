@@ -10,4 +10,5 @@ import pytest
 def bmy_login():
     """BMY登录获取token"""
     res = BMY().bmy_login(BmyConfig.test_name_password)
-    setattr(BmyConfig,'bmy_token',res)
+    header = {"Authorization": res,"Content-Type":"application/json"}
+    setattr(BmyConfig,'header', header)

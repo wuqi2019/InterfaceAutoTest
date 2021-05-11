@@ -9,7 +9,7 @@ class BaseConfig():
     current_name = "auto"
     test_case_dir = "test_case/"
 
-    secs=0.1                    # 测试用例间隔运行时间
+    secs = 0.1                    # 测试用例间隔运行时间
     test_redis = {"host": "10.197.236.197", "port": 6379, "password": "123456"}
     root_path = os.path.abspath(os.path.dirname(__file__))          # 项目根目录
 
@@ -66,7 +66,8 @@ class BmyConfig(BaseConfig):
     test_name_password = {"username": "15151500000", "password": "bmy123456"}
     # 企业云接口的Authorization
     bmy_token = ''
-    header = {"Content-Type":"application/json"}
+    # header = {"Authorization":bmy_token,"Content-Type":"application/json"}
+    header = ''
 
 
 class SSOConfig(BaseConfig):

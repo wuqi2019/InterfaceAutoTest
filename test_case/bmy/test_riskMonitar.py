@@ -27,11 +27,13 @@ class TestLogin():
         expectData = inData['expectData']
         headers = inData['headers']
 
-        """处理"""
-        headers['Authorization'] = BmyConfig.bmy_token
+        # """处理"""
+        # headers['Authorization'] = BmyConfig.bmy_token
 
         """请求"""
         res = request_main(url, headers, method, req_data)
+        print("我打印一下headers",headers)
+
 
         """断言"""
         assert res['code'] == expectData['code']

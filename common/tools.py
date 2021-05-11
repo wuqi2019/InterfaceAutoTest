@@ -32,6 +32,7 @@ def request_main(url, headers, method, data):
     if headers == None or headers == {} or headers == "":
         # 如果传的headers为空，使用各自产品的通用headers
         headers = get_headers()
+        print("内部我打印一下headers", headers)
     try:
         res = request_by_method(method, headers)
     except requests.exceptions.ConnectionError as e:
@@ -50,6 +51,7 @@ def get_headers():
         headers = BMCConfig.headers
     elif name == BmyConfig.name:
         headers = BmyConfig.headers
+        return headers
     elif name == SSOConfig.name:
         headers = SSOConfig.headers
     return headers
