@@ -67,6 +67,7 @@ class BmyConfig(BaseConfig):
     # 企业云接口的Authorization
     bmy_token = ''
     headers = {'Authorization':bmy_token,"Content-Type":"application/json"}
+    header = {"Content-Type":"application/json"}
 
 
 class SSOConfig(BaseConfig):

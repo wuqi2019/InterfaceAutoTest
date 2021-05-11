@@ -38,7 +38,7 @@ class TestLogin():
     def teardown_class(self):
         """清除"""
 
-        
+
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据
         if 'json' in one:
