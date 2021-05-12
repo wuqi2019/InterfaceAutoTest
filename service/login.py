@@ -109,7 +109,7 @@ class BMC():
         print(resp.json())
         pvt_token = resp.json()["data"]["token"]
         print(pvt_token)
-        return encrypted_token,pvt_token
+        return encrypted_token, pvt_token
 
 
 if __name__ == '__main__':
