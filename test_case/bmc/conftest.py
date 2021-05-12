@@ -15,5 +15,5 @@ def bmc_login_fixture():
             "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}
     res = BMC.bmc_login(indata)
     setattr(BMCConfig, 'bmc_token', res[0])
-    setattr(BMCConfig, 'bmc_token', res[1])
+    setattr(BMCConfig, 'bmc_pvt_token', res[1])
 
