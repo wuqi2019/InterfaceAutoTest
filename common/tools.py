@@ -6,7 +6,7 @@ import requests
 from config import *
 
 
-def request_main(url, headers, method, data):
+def request_main(url, headers, method, data, has_token=False):
     """封装requests的通用请求方法"""
     res = None
     def request_by_method(method, headers):
@@ -31,7 +31,7 @@ def request_main(url, headers, method, data):
 
     # if headers == None or headers == {} or headers == "":
         # 如果传的headers为空，使用各自产品的通用headers
-    headers = build_headers(headers)
+    headers = build_headers(headers, has_token)
     # print("打印headers",headers)
     try:
         res = request_by_method(method, headers)
@@ -44,9 +44,10 @@ def request_main(url, headers, method, data):
     return res
 
 
-def build_headers(headers):
+def build_headers(headers, has_token):
     name = BaseConfig.current_name
-    # if headers == None or headers == {} or headers == "":
+    if has_token:
+        return headers
     if name == BMCConfig.name:
         if headers == None or headers == "":
             headers = BMCConfig.headers
