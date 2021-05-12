@@ -26,6 +26,8 @@ class BMCConfig(BaseConfig):
     name = "bmc"
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
+    bmcphone = "17822000000"
+    encodedGesture = "67e6d10010533eed4bbe9659863bf6ee"
     bmc_login_url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
     bmc_token = ""  #公网加密token
     bmc_pvt_token = ""  #专网token
