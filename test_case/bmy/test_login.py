@@ -61,4 +61,3 @@ if __name__ == '__main__':
     pytest.main(['test_login.py', '-s', '--alluredir', '../../report/tmp'])
     # # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
-    # requests.post("http://testyun.banmago.com/api/auth/login",data=)
