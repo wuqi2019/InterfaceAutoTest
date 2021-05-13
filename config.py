@@ -27,6 +27,7 @@ class BMCConfig(BaseConfig):
     test_case_dir = "test_case/bmc/"
     test_case_data_dir = "test_case_data/bmc/"
     bmcphone = "17822000000"  #已激活已有车
+    Registerphone = "17822220000"   #未注册用户
     encodedGesture = "67e6d10010533eed4bbe9659863bf6ee"
     bmc_login_url = "http://testbmcapp.hikcreate.com/v1/user/login/gesture"
     bmc_token = ""  #公网加密token
