@@ -16,10 +16,9 @@ class TestMonitor():
     # def setup_class(self):  # 每一个类下面所有的方法调用只运行一次
     #     self.token = BMY().bmy_login(BmyConfig.test_name_password)
     @allure.story("风险列表")
-    @allure.severity("critical")
     @allure.title("{inData[testPoint]}")
-    @allure.testcase("http://yapi.hikcreate.com/")
-    @allure.description("url:/auth/login 。。。。")
+    @allure.link("http://yapi.hikcreate.com/")
+    @allure.description("/auth/login")
     @pytest.mark.parametrize("inData", get_excelData(workBook,'风控台', 'riskMonitorList'))
     def test_login(self,inData):
         url = f"{BmyConfig().test_host}{inData['url']}"
