@@ -11,21 +11,22 @@ from config import BmyConfig
 from service.login import BMY
 @allure.epic("营运车企业端")
 @allure.feature("风控台")
-class TestLogin():
+class TestMonitor():
     workBook = xlrd.open_workbook(f'{BmyConfig.root_path}/test_case_data/bmy/bmy_case.xlsx')
     # def setup_class(self):  # 每一个类下面所有的方法调用只运行一次
     #     self.token = BMY().bmy_login(BmyConfig.test_name_password)
-    @allure.story("风险监控列表接口")
-    @allure.title("风险监控列表用例")
+    @allure.story("风险列表")
+    @allure.title("{testPoint}")
     @allure.testcase("http://yapi.hikcreate.com/")
     @allure.description("url:/auth/login 。。。。")
-    @pytest.mark.parametrize("inData", get_excelData(workBook,'风控台', 'riskMonitorList'))
-    def test_login(self,inData):
+    @pytest.mark.parametrize("inData,testPoint", get_excelData(workBook,'风控台', 'riskMonitorList'))
+    def test_login(self,inData,testPoint):
         url = f"{BmyConfig().test_host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
+        # print(inData['testPoint'])
 
         """请求"""
         res = request_main(url, headers, method, req_data)

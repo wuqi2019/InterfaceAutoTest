@@ -14,6 +14,7 @@ def get_excelData(workBook,sheetName,caseName):
         num_method = list_title.index('method')
         num_reqData = list_title.index('reqData')
         num_expectData = list_title.index('expectData')
+        num_testPoint = list_title.index('testPoint')
         lis = []
 
         idx = 0
@@ -27,6 +28,7 @@ def get_excelData(workBook,sheetName,caseName):
                     dict0['method'] = workSheet.cell_value(idx, num_method)
                     dict0['reqData'] = workSheet.cell_value(idx, num_reqData)
                     dict0['expectData'] = workSheet.cell_value(idx, num_expectData)
+                    testPoint= workSheet.cell_value(idx, num_testPoint)
 
                     # json字符串转换成字典
                     dict0['reqData'] = json.loads(dict0['reqData'])
@@ -35,8 +37,8 @@ def get_excelData(workBook,sheetName,caseName):
                         dict0['headers'] = json.loads(dict0['headers'])
                     except:
                         # print('header无')
-                        dict0['headers']=None
-                    lis.append(dict0)
+                        dict0['headers'] = None
+                    lis.append((dict0,testPoint))
                 idx += 1
             return lis
         except:
