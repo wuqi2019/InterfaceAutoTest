@@ -4,6 +4,8 @@
 # 版本:  python3.7
 
 import pytest,allure,xlrd,requests,os
+
+import config
 from common.utils.getExcelData import  get_excelData
 from service.login import BMY
 from common.tools import request_main
@@ -14,13 +16,21 @@ from config import BMCConfig
 @allure.feature("账号信息基本功能")
 class TestLogin():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
-
     @allure.story("账号信息基本功能")
     @allure.severity("")
-    @allure.title("登录认证")
-    @allure.testcase("http://yapi.hikcreate.com/")
+    @allure.title("{inData[testPoint]}")
+    @allure.testcase("{inData[yapiAddress]}")
     @allure.description("url:/auth/login 。。。。")
-    @pytest.mark.parametrize("inData", get_excelData(workBook,'登录模块', 'Login'))
+    @pytest.mark.parametrize("inData", get_excelData(workBook,'账号信息基本功能', 'logipn'))
+
+
     def test_login(self,inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method  = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = config.BMCConfig.loginheader
+        #res = requests.post(url = url,headers =headers,json =req_data )
+        res = request_main(url= url,headers = headers,method =method,data = req_data,has_token=True)
+        print(res)
+        assert res['code'] == expectData['code']

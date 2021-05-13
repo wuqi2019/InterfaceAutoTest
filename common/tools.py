@@ -21,7 +21,7 @@ def request_main(url, headers, method, data, has_token=False):
                 inner_res = requests.get(url=url, headers=headers, params=data)
             elif method.upper() == "POST":
                 if header_content_type == "application/json":
-                    inner_res = requests.post(url=url, headers=headers, data=json.dumps(data))
+                    inner_res = requests.post(url=url, headers=headers, json=data)
                 elif header_content_type in ["application/x-www-form-urlencoded"]:
                     inner_res = requests.post(url=url, headers=headers, data=data)
             return inner_res
