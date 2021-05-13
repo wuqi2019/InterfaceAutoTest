@@ -10,7 +10,7 @@ from common.tools import request_main
 from config import BmyConfig
 
 
-@allure.epic("营运车企业端")
+@allure.epic("登录模块")
 @allure.feature("登录模块")
 class TestLogin():
     workBook = xlrd.open_workbook(f'{BmyConfig.root_path}/test_case_data/bmy/bmy_case.xlsx')

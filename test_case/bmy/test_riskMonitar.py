@@ -9,7 +9,7 @@ from service.login import BMY
 from common.tools import request_main
 from config import BmyConfig
 from service.login import BMY
-@allure.epic("营运车企业端")
+@allure.epic("信用权益")
 @allure.feature("风控台")
 class TestMonitor():
     workBook = xlrd.open_workbook(f'{BmyConfig.root_path}/test_case_data/bmy/bmy_case.xlsx')
@@ -37,11 +37,10 @@ class TestMonitor():
     def teardown_class(self):
         """清除"""
 
-
-# if __name__ == '__main__':
-#     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据
-#         if 'json' in one:
-#             os.remove(f'../../report/tmp/{one}')
-#     pytest.main(['test_riskMonitar.py', '-s', '--alluredir', '../../report/tmp'])
-#     # # 启动默认浏览器打开报告
-#     os.system('allure serve ../../report/tmp')
+if __name__ == '__main__':
+    for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据
+        if 'json' in one:
+            os.remove(f'../../report/tmp/{one}')
+    pytest.main(['test_riskMonitar.py', '-s', '--alluredir', '../../report/tmp'])
+    # # 启动默认浏览器打开报告
+    os.system('allure serve ../../report/tmp')
