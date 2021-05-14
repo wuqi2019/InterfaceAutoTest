@@ -34,3 +34,8 @@ class TestLogin():
         res = request_main(url= url,headers = headers,method =method,data = req_data,has_token=True)
         print(res)
         assert res['code'] == expectData['code']
+if __name__ == '__main__':
+    pytest.main(['-s', '-v', 'test_accountinfo.py',
+                 r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
+#
+    os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')

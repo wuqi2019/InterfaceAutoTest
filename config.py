@@ -46,9 +46,9 @@ class BMCConfig(BaseConfig):
         'Net': "wifi",
         'OS-Type': "Android",
         'OS-Version': "27",
-        'Pvt-Token': bmc_pvt_token,
+        'Pvt-Token': "",
         'Resolution': "2034x1080",
-        'Token': bmc_token,
+        'Token': "",
         'Version': "2.2.6"
     }
     #注册和注销专用账号
