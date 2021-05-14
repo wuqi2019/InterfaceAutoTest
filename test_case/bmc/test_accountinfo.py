@@ -21,7 +21,7 @@ class TestLogin():
     @allure.title("{inData[testPoint]}")
     @allure.testcase("{inData[yapiAddress]}")
     @allure.description("url:/auth/login 。。。。")
-    @pytest.mark.parametrize("inData", get_excelData(workBook,'账号信息基本功能', 'logipn'))
+    @pytest.mark.parametrize("inData", get_excelData(workBook,'账号信息基本功能', 'login'))
 
 
     def test_login(self,inData):
