@@ -33,7 +33,7 @@ class BMCConfig(BaseConfig):
     bmc_token = ""  #公网加密token
     bmc_pvt_token = ""  #专网token
     host = "http://testbmcapp.hikcreate.com"  #bmc业务所有URL的host
-    test_pvthost = "http://testbmcpvtapp.hikcreate.com"
+    pvthost = "http://testbmcpvtapp.hikcreate.com"
     #bmc除登录外所有的header
     headers = {
         'City-Code': "520100",

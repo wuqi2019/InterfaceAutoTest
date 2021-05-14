@@ -25,7 +25,7 @@ class TestDrivingLicense():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook,'电子证照', 'dlVehqr'))
     def test_dlVehQr(self,inData):
-        url = f"{BMCConfig().test_pvthost}{inData['url']}"
+        url = f"{BMCConfig().pvthost}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
@@ -41,7 +41,7 @@ class TestDrivingLicense():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'LicimageStatus'))
     def test_LicimageStatus(self,inData):
-        url = f"{BMCConfig().test_pvthost}{inData['url']}"
+        url = f"{BMCConfig().pvthost}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
@@ -51,13 +51,13 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
-    @allure.story("获取驾驶证图片状态")
+    @allure.story("照片审核状态")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22759")
-    @allure.description("/drivingLicense/image/status")
+    @allure.description("/drivingLicense/image/audit/status")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'imaAuditStatus'))
     def test_imaAuditStatus(self,inData):
-        url = f"{BMCConfig().test_pvthost}{inData['url']}"
+        url = f"{BMCConfig().pvthost}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
@@ -73,7 +73,23 @@ class TestDrivingLicense():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'LicenimageText'))
     def test_LicenimageText(self, inData):
-        url = f"{BMCConfig().test_pvthost}{inData['url']}"
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @allure.story("修改驾驶证头像")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22750")
+    @allure.description("/drivingLicense/avatar/update")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'LicenAvaUpdate'))
+    def test_LicenAvaUpdate(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
@@ -89,12 +105,10 @@ class TestDrivingLicense():
 
 
 
-
-
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
     pytest.main(['test_ ElectronicLicense.py', '-s', '--alluredir', '../../report/tmp'])
     # 启动默认浏览器打开报告
-    # os.system('allure serve ../../report/tmp')
+    os.system('allure serve ../../report/tmp')
