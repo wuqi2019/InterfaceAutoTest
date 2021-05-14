@@ -31,12 +31,15 @@ def get_excelData(workBook,sheetName,caseName):
                     dict0['testPoint']= workSheet.cell_value(idx, num_testPoint)
 
                     # json字符串转换成字典
-                    dict0['expectData'] = json.loads(dict0['expectData'])
+                    try:
+                        dict0['expectData'] = json.loads(dict0['expectData'])
+                    except:
+                        dict0['expectData'] = None
 
-                    if dict0['reqData'] == "":
-                        dict0['reqData']= None
-                    else:
+                    try:
                         dict0['reqData'] = json.loads(dict0['reqData'])
+                    except:
+                        dict0['reqData'] = None
 
                     try:
                         dict0['headers'] = json.loads(dict0['headers'])

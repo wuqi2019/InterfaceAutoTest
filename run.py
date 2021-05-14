@@ -27,4 +27,6 @@ if __name__ == "__main__":
     # 生成报告数据
     pytest.main(['-v', '-s', test_case_dir, '--alluredir', './report/tmp'])
     # 打开报告
-    # os.system('allure serve ./report/tmp')
+    os.system('allure serve ./report/tmp')
+
+
