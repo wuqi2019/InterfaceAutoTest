@@ -53,7 +53,7 @@ def get_excelData(workBook,sheetName,caseName):
 
 if __name__ == '__main__':
     workBook = xlrd.open_workbook('../../test_case_data/bmc/bmc_testcase01_20210513.xlsx')
-    li = get_excelData(workBook,"电子证照","scoreDetail")
+    li = get_excelData(workBook,"信用分","creditscore")
     print(li)
 
 # {"Authorization": "","Content-Type":"application/x-www-form-urlencoded"}
