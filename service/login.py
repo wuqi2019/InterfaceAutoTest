@@ -20,7 +20,7 @@ class SSOLogin():
     def sso_login(self,url, method='post', headers=None):
         """SSO登录获取token"""
         encrypted_password = self._sso_pwd_encrypted(SSOConfig.sso_password)
-        req_data = {f"loginName":SSOConfig.sso_username,"password":encrypted_password}
+        req_data = {"loginName":SSOConfig.sso_username,"password":encrypted_password}
         res = request_main(url, headers, method, req_data)
         return res['data']['token']
 
