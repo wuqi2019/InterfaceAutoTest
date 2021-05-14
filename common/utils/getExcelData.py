@@ -31,12 +31,16 @@ def get_excelData(workBook,sheetName,caseName):
                     dict0['testPoint']= workSheet.cell_value(idx, num_testPoint)
 
                     # json字符串转换成字典
-                    dict0['reqData'] = json.loads(dict0['reqData'])
                     dict0['expectData'] = json.loads(dict0['expectData'])
+
+                    if dict0['reqData'] == "":
+                        dict0['reqData']= None
+                    else:
+                        dict0['reqData'] = json.loads(dict0['reqData'])
+
                     try:
                         dict0['headers'] = json.loads(dict0['headers'])
                     except:
-                        # print('header无')
                         dict0['headers'] = None
                     lis.append(dict0)
                 idx += 1
@@ -48,8 +52,8 @@ def get_excelData(workBook,sheetName,caseName):
 
 
 if __name__ == '__main__':
-    workBook = xlrd.open_workbook('../../test_case_data/bmy/bmy_case.xlsx')
-    li = get_excelData(workBook,"登录模块","Login")
+    workBook = xlrd.open_workbook('../../test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    li = get_excelData(workBook,"电子证照","scoreDetail")
     print(li)
 
 # {"Authorization": "","Content-Type":"application/x-www-form-urlencoded"}
