@@ -6,7 +6,7 @@ class BaseConfig():
     # 请求头
     headers = {'Content-Type': 'application/json'}
     # 当前运行的产品名 #auto
-    current_name = "auto"
+    current_name = "bmc"
     test_case_dir = "test_case/"
 
     secs=0.1                    # 测试用例间隔运行时间
@@ -33,6 +33,7 @@ class BMCConfig(BaseConfig):
     bmc_token = ""  #公网加密token
     bmc_pvt_token = ""  #专网token
     host = "http://testbmcapp.hikcreate.com"  #bmc业务所有URL的host
+    test_pvthost = "http://testbmcpvtapp.hikcreate.com"
     #bmc除登录外所有的header
     headers = {
         'City-Code': "520100",
@@ -46,9 +47,9 @@ class BMCConfig(BaseConfig):
         'Net': "wifi",
         'OS-Type': "Android",
         'OS-Version': "27",
-        'Pvt-Token': "",
+        'Pvt-Token': f"{bmc_pvt_token}",
         'Resolution': "2034x1080",
-        'Token': "",
+        'Token': f"{bmc_token}",
         'Version': "2.2.6"
     }
     #注册和注销专用账号
