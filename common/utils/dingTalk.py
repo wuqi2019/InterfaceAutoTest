@@ -1,5 +1,6 @@
 import requests,time,hmac,hashlib,base64,urllib.parse,json
 from config import BaseConfig
+import datetime
 
 
 
@@ -46,11 +47,12 @@ def dingTalk_markdown(secret,webhook,message):
     timestamp = str(round(time.time() * 1000))
     sign=get_sign(secret)
     webhook=webhook+f"&timestamp={timestamp}&sign={sign}"
+    now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
     data = {'msgtype': 'markdown',
             "markdown": {
             "title":"接口执行报告",
-            "text": "#### 接口自动化测试报告  \n> 本消息由Jenkins构建后自动发送\n> \
-            ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### 10点20分发布 [斑马信用](http://10.197.236.10:8080/job/bmc/) \n"
+            "text": f"#### 接口自动化测试报告  \n> 本消息由Jenkins构建后自动发送\n> \
+            ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### {now_time}构建 [斑马信用](http://10.197.236.10:8080/job/bmc/) \n"
                         },
             'at': {'isAtAll': False}}
     post_data = json.dumps(data)
