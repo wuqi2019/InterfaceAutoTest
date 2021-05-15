@@ -4,6 +4,7 @@ import pytest
 import argparse
 from config import BaseConfig
 from common.tools import get_case_dir
+from common.utils import dingTalk
 
 
 def get_parser():
@@ -27,6 +28,7 @@ if __name__ == "__main__":
     # 生成报告数据
     pytest.main(['-v', '-s', test_case_dir, '--alluredir', './report/tmp'])
     # 打开报告
-    os.system('allure serve ./report/tmp')
-
+    # os.system('allure serve ./report/tmp')
+    dingTalk.dingTalk_markdown(secret="SEC1d08f46da74337cc0e1cd5bb9ad19622d825483343fdfa43ce396881e4745bdb",
+                 webhook="https://oapi.dingtalk.com/robot/send?access_token=f9e005c1a984b9607960345d38669337b1115d1141a0294e98666443b312115b",)
 
