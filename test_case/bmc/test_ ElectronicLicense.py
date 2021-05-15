@@ -116,11 +116,12 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
+
+
+
+
     def teardown_class(self):
         """清除"""
-
-
-
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据  '-m','scoreDetail' ,
         if 'json' in one:
