@@ -139,6 +139,68 @@ class TestDrivingLicense():
 
 
 
+    @allure.story("我的行驶证列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/46536")
+    @allure.description("/vehicle/license/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'vehicleLicenseList'))
+    def test_vehicleLicenseList(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @allure.story("行驶证二维码")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/81596")
+    @allure.description("/dlVeh/qr(电子行驶证二维码)")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'vehicledlVehqr'))
+    def test_vehicledlVehqr(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+
+        """处理"""
+        # 1.使用行驶证列表接口获取一个车的vehicleId
+        headers = BMCConfig.headers
+        headers['Pvt-Token'] = BMCConfig.bmc_pvt_token
+        headers['Token'] = BMCConfig.bmc_token
+        resp = requests.get(f"{BMCConfig().pvthost}/vehicle/license/list", headers=headers)
+        vehicleId = resp.json()['data']['list'][0]['vehicleId']
+        # 2.修改参数
+        req_data['vehicleId'] = vehicleId
+
+        """请求"""
+        res = request_main(url, headers, method, req_data,has_token=True)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @pytest.mark.scoreDetail
+    @allure.story("车辆管理列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/10913")
+    @allure.description("/vehicle/manage/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'vehiclelist'))
+    def test_vehiclelist(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+
+
 
     def teardown_class(self):
         """清除"""
@@ -146,6 +208,6 @@ if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据  '-m','scoreDetail' ,
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
-    pytest.main(['test_ ElectronicLicense.py', '-s',   '--alluredir','../../report/tmp'])
+    pytest.main(['test_ ElectronicLicense.py', '-s',  '-m','scoreDetail' , '--alluredir','../../report/tmp'])
     # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
