@@ -32,7 +32,7 @@ class TestLogin():
         headers = config.BMCConfig.loginheader
         #res = requests.post(url = url,headers =headers,json =req_data )
         res = request_main(url= url,headers = headers,method =method,data = req_data,has_token=True)
-        print(res)
+        # print(res)
         assert res['code'] == expectData['code']
 if __name__ == '__main__':
     pytest.main(['-s', '-v', 'test_accountinfo.py',

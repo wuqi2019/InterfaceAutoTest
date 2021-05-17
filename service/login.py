@@ -99,16 +99,16 @@ class BMC():
                   "Device-Code": "000000001e167ed7000000001e167ed7"}
 
         res = requests.post(url, json=indata, headers=header)
-        print(res.json())
+        # print(res.json())
         encrypted_token = Encryption().aes_token(res.json()["data"]["token"])
-        print(encrypted_token)
+        # print(encrypted_token)
         # 获取专网token
         header1 = header.copy()
         header1["Token"] = encrypted_token
         resp = requests.get("http://testbmcapp.hikcreate.com/token", headers=header1)
-        print(resp.json())
+        # print(resp.json())
         pvt_token = resp.json()["data"]["token"]
-        print(pvt_token)
+        # print(pvt_token)
         return encrypted_token, pvt_token
 
 
