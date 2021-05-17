@@ -305,15 +305,75 @@ class TestDrivingLicense():
         assert res['code'] == expectData['code']
 
 
+
+    @allure.story("机动车详情")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/1880")
+    @allure.description("/vehicle/bind/detail")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'binddetail'))
+    def test_binddetail(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("获取检验合格标志信息")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/51369")
+    @allure.description("/vehicle/getInspectionSign")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'getInspectionSign'))
+    def test_getInspectionSign(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("违法列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/5254")
+    @allure.description("/violation/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'violationList'))
+    def test_violationList(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    # @pytest.mark.scoreDetail
+    @allure.story("查询强制保险")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/5254")
+    @allure.description("/violation/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'getCompulsoryIns'))
+    def test_getCompulsoryIns(self, inData):
+        pass
+
+
     def teardown_class(self):
         """清除"""
-
 
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据  '-m','scoreDetail' ,
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
-    pytest.main(['test_ ElectronicLicense.py', '-s',    '--alluredir','../../report/tmp'])
+    pytest.main(['test_ ElectronicLicense.py', '-s',     '--alluredir','../../report/tmp'])
     # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
 
