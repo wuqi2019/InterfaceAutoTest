@@ -38,7 +38,6 @@ class TestCreditScore():
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
         assert res['code'] == expectData['code']
 
-    @pytest.mark.run(order=1)
     @allure.story("获取试卷")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/69573")
     @allure.description("/paper/getPaper")
@@ -51,13 +50,15 @@ class TestCreditScore():
         expectData = inData['expectData']
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
         topic_lists = res['data']['topicList']
+
         self.browsequestion = {}
         self.choosequestion = {}
         for item in topic_lists:
             if item['topicType'] == 2:  # 浏览题
                 self.browsequestion['topicId'] = item['topicId']
                 self.browsequestion['topicType'] = item['topicType']
-            elif item['topicType'] == 2:
+
+            elif item['topicType'] == 1:
                 self.choosequestion['topicId'] = item['topicId']
                 self.choosequestion['topicType'] = item['topicType']
 
@@ -72,6 +73,7 @@ class TestCreditScore():
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
+        req_data
         expectData = inData['expectData']
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
         assert res['code'] == expectData['code']

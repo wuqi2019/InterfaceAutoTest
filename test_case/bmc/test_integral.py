@@ -22,7 +22,6 @@ class TestCreditScore():
         method  = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -36,7 +35,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -50,7 +48,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -64,7 +61,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -92,7 +88,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -106,7 +101,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -120,7 +114,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -134,7 +127,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -148,7 +140,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -162,7 +153,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -176,7 +166,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -190,7 +179,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -204,7 +192,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -218,7 +205,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -232,7 +218,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
@@ -246,7 +231,6 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 if __name__ == '__main__':

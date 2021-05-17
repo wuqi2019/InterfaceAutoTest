@@ -10,30 +10,30 @@ from common.tools import request_main
 from config import BMCConfig
 
 
-@allure.feature("信用分")
+# @allure.feature("信用分")
 class TestCreditScore():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
     # inData = get_excelData(workBook, '信用分', 'creditscore')[0]
 
-    # def bmc_login_fixture(self):
-    #     """bmc登录获取token"""
-    #
-    #     indata = {"phone": "17822000000",
-    #               "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}
-    #     res = BMC().bmc_login(indata)
-    #     # setattr(BMCConfig, 'bmc_token', res[0])
-    #     # setattr(BMCConfig, 'bmc_pvt_token', res[1])
-    #     BMCConfig.headers['Pvt-Token'] = res[1]
-    #     BMCConfig.headers['Token'] = res[0]
+    def bmc_login_fixture(self):
+        """bmc登录获取token"""
+
+        indata = {"phone": "17822000000",
+                  "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}
+        res = BMC().bmc_login(indata)
+        # setattr(BMCConfig, 'bmc_token', res[0])
+        # setattr(BMCConfig, 'bmc_pvt_token', res[1])
+        BMCConfig.headers['Pvt-Token'] = res[1]
+        BMCConfig.headers['Token'] = res[0]
     #
     #     # print('Pvt-Token==========================', res[1])
     #     # print('Token==========================', res[0])
 
-    @allure.story("信用分")
-    @allure.title("{inData[testPoint]}")
-    @allure.testcase("{inData[yapiAddress]}")
-    @allure.description("url:/auth/login 。。。。")
-    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'creditscore'))
+    # @allure.story("信用分")
+    # @allure.title("{inData[testPoint]}")
+    # @allure.testcase("{inData[yapiAddress]}")
+    # @allure.description("url:/auth/login 。。。。")
+    # @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'creditscore'))
     def test_creditscore(self,inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method  = inData['method']
@@ -49,15 +49,15 @@ class TestCreditScore():
 
 
 if __name__ == '__main__':
-    pytest.main(['-s', '-v', 'test_credit_score.py',
-                 r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
+    # pytest.main(['-s', '-v', 'test_credit_score.py',
+    #              r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
 #
     # os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
-#     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513——本地.xlsx')
-#     inData = get_excelData(workBook, '三车违法学习', 'getPaperIllegalstudy')[0]
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    inData = get_excelData(workBook, '三车违法学习', 'getPaperIllegalstudy')[0]
 #     # print(inData)
-#     TestCreditScore().bmc_login_fixture()
-#     TestCreditScore().test_creditscore(inData)
+    TestCreditScore().bmc_login_fixture()
+    TestCreditScore().test_creditscore(inData)
 
     # res = requests.get('http://testbmcapp.hikcreate.com/credit/myCredit/V2', params={"bCityCode":"520100","bNetTag":"trf_mgt"},
     #                    headers= {
