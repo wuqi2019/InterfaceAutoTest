@@ -17,13 +17,13 @@ class TestCreditScore():
     @allure.description("/integral/center/myIntegral")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'myIntegral'))
-    def test_myintegral(self,inData):
+    def test_my_integral(self,inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method  = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("签到")
@@ -31,13 +31,13 @@ class TestCreditScore():
     @allure.description("/integral/center/sign")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
-    def test_postsignintegral(self, inData):
+    def test_post_sign_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询我的签到情况")
@@ -45,13 +45,13 @@ class TestCreditScore():
     @allure.description("/integral/center/sign")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'getsignIntegral'))
-    def test_getsignIntegral(self, inData):
+    def test_get_sign_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询待领取积分清单")
@@ -59,13 +59,13 @@ class TestCreditScore():
     @allure.description("/integral/center/recommendedTasks")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'taskIntegral'))
-    def test_taskIntegral(self, inData):
+    def test_task_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分商品")
@@ -73,13 +73,13 @@ class TestCreditScore():
     @allure.description("/integral/center/integralGoods")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'goodsIntegral'))
-    def test_goodsIntegral(self, inData):
+    def test_goods_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分规则")
@@ -87,13 +87,13 @@ class TestCreditScore():
     @allure.description("/integral/center/rule")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'ruleIntegral'))
-    def test_ruleIntegral(self, inData):
+    def test_rule_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("设置签到提醒开关")
@@ -101,13 +101,13 @@ class TestCreditScore():
     @allure.description("/integral/center/sign/warnSwitch")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'switchIntegral'))
-    def test_switchIntegral(self, inData):
+    def test_switch_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("任务中心主页")
@@ -115,13 +115,13 @@ class TestCreditScore():
     @allure.description("/integral/task/info")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'infoIntegral'))
-    def test_infoIntegral(self, inData):
+    def test_info_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("领取积分")
@@ -129,13 +129,13 @@ class TestCreditScore():
     @allure.description("/integral/task/receive")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'receiveIntegral'))
-    def test_receiveIntegral(self, inData):
+    def test_receive_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("获取关注信息")
@@ -143,28 +143,27 @@ class TestCreditScore():
     @allure.description("/integral/task/getFollowInfo")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'FollowInfoIntegral'))
-    def test_FollowInfoIntegral(self, inData):
+    def test_follow_info_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
-
 
     @allure.story("商城中的商品")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55896")
     @allure.description("/integral/mall/goods/list")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'listIntegral'))
-    def test_listIntegral(self, inData):
+    def test_list_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("商品的详情")
@@ -172,13 +171,13 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/detail")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'detailIntegral'))
-    def test_detailIntegral(self, inData):
+    def test_detail_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("兑换商品接口")
@@ -186,13 +185,13 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/exchange")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'exchangeIntegral'))
-    def test_exchangeIntegral(self, inData):
+    def test_exchange_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询商品的适用门店列表")
@@ -200,13 +199,13 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/applicableStores")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'applicableStoresIntegral'))
-    def test_applicableStoresIntegral(self, inData):
+    def test_applicable_stores_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询兑换记录")
@@ -214,13 +213,13 @@ class TestCreditScore():
     @allure.description("/integral/mall/exchangeRecord/list")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'exchangeRecordListIntegral'))
-    def test_exchangeRecordListIntegral(self, inData):
+    def test_exchange_record_list_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询兑换记录详情")
@@ -228,13 +227,13 @@ class TestCreditScore():
     @allure.description("/integral/mall/exchangeRecord/detail")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'exchangeRecordDetailIntegral'))
-    def test_exchangeRecordDetailIntegral(self, inData):
+    def test_exchange_record_detail_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("关注成功回调")
@@ -242,13 +241,13 @@ class TestCreditScore():
     @allure.description("/integral/task/focusSuccess")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'focusSuccessIntegral'))
-    def test_focusSuccessIntegral(self, inData):
+    def test_focus_success_integral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=True)
+        # headers = config.BMCConfig.headers
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 if __name__ == '__main__':
     pytest.main(['-s', '-v', 'test_integral.py',
