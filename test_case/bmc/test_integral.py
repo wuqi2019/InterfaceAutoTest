@@ -17,7 +17,7 @@ class TestCreditScore():
     @allure.description("/integral/center/myIntegral")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'myIntegral'))
-    def test_creditscore(self,inData):
+    def test_myintegral(self,inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method  = inData['method']
         req_data = inData['reqData']
@@ -31,7 +31,7 @@ class TestCreditScore():
     @allure.description("/integral/center/sign")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
-    def test_creditscore(self, inData):
+    def test_postsignintegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -45,7 +45,7 @@ class TestCreditScore():
     @allure.description("/integral/center/sign")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'getsignIntegral'))
-    def test_creditscore(self, inData):
+    def test_getsignIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -59,7 +59,7 @@ class TestCreditScore():
     @allure.description("/integral/center/recommendedTasks")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'taskIntegral'))
-    def test_creditscore(self, inData):
+    def test_taskIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -73,7 +73,7 @@ class TestCreditScore():
     @allure.description("/integral/center/integralGoods")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'goodsIntegral'))
-    def test_creditscore(self, inData):
+    def test_goodsIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -87,7 +87,7 @@ class TestCreditScore():
     @allure.description("/integral/center/rule")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'ruleIntegral'))
-    def test_creditscore(self, inData):
+    def test_ruleIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -101,7 +101,7 @@ class TestCreditScore():
     @allure.description("/integral/center/sign/warnSwitch")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'switchIntegral'))
-    def test_creditscore(self, inData):
+    def test_switchIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -115,7 +115,7 @@ class TestCreditScore():
     @allure.description("/integral/task/info")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'infoIntegral'))
-    def test_creditscore(self, inData):
+    def test_infoIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -129,7 +129,7 @@ class TestCreditScore():
     @allure.description("/integral/task/receive")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'receiveIntegral'))
-    def test_creditscore(self, inData):
+    def test_receiveIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -143,7 +143,7 @@ class TestCreditScore():
     @allure.description("/integral/task/getFollowInfo")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'FollowInfoIntegral'))
-    def test_creditscore(self, inData):
+    def test_FollowInfoIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -158,7 +158,7 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/list")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'listIntegral'))
-    def test_creditscore(self, inData):
+    def test_listIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -172,7 +172,7 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/detail")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'detailIntegral'))
-    def test_creditscore(self, inData):
+    def test_detailIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -186,7 +186,7 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/exchange")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'exchangeIntegral'))
-    def test_creditscore(self, inData):
+    def test_exchangeIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -200,7 +200,7 @@ class TestCreditScore():
     @allure.description("/integral/mall/goods/applicableStores")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'applicableStoresIntegral'))
-    def test_creditscore(self, inData):
+    def test_applicableStoresIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -214,7 +214,7 @@ class TestCreditScore():
     @allure.description("/integral/mall/exchangeRecord/list")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'exchangeRecordListIntegral'))
-    def test_creditscore(self, inData):
+    def test_exchangeRecordListIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -228,7 +228,7 @@ class TestCreditScore():
     @allure.description("/integral/mall/exchangeRecord/detail")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'exchangeRecordDetailIntegral'))
-    def test_creditscore(self, inData):
+    def test_exchangeRecordDetailIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -242,7 +242,7 @@ class TestCreditScore():
     @allure.description("/integral/task/focusSuccess")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'focusSuccessIntegral'))
-    def test_creditscore(self, inData):
+    def test_focusSuccessIntegral(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
