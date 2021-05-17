@@ -38,7 +38,7 @@ class TestCreditScore():
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
         assert res['code'] == expectData['code']
 
-
+    @pytest.mark.run(order=1)
     @allure.story("获取试卷")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/69573")
     @allure.description("/paper/getPaper")
