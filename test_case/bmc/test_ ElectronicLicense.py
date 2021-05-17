@@ -37,7 +37,7 @@ def get_vehickleId_Tounbind():
 
 
 @allure.epic("电子证照")
-@allure.feature("电子驾驶证")
+# @allure.feature("电子驾驶证")
 class TestDrivingLicense():
     workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
     @allure.story("二维码详情")
