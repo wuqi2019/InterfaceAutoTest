@@ -52,7 +52,7 @@ def dingTalk_markdown(secret,webhook,message):
             "markdown": {
             "title":"接口执行报告",
             "text": f"#### 接口自动化测试报告  \n> 本消息由Jenkins构建后自动发送\n> \
-            ![screenshot](https://img.alicdn.com/tfs/TB1NwmBEL9TBuNjy1zbXXXpepXa-2400-1218.png)\n> ###### {now_time}构建 [斑马信用](http://10.197.236.10:8080/job/bmc/) \n"
+            ![screenshot](https://aqjg.gyszhjt.com:60028/img/group1/M00/00/03/Cgs5X2CiKqSAPrSCAAEaUuxutsg217.png)\n> ###### {now_time}构建 [斑马信用](http://10.197.236.10:8080/job/bmc/allure/) \n"
                         },
             'at': {'isAtAll': False}}
     post_data = json.dumps(data)
@@ -67,9 +67,14 @@ if __name__ == '__main__':
                  webhook="https://oapi.dingtalk.com/robot/send?access_token=f9e005c1a984b9607960345d38669337b1115d1141a0294e98666443b312115b",
                  message="我就是我, @XXX 是不一样的烟火")
     print(res)
-
+    now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    print(now_time)
 
 
     # 自动化测试组 - 技术和思路分享 - ----小帅
     # SEC40a1be4bbd9214e16ba288208fd608b2b590e82e853fa9b24c1850a506c6185b
     # https: // oapi.dingtalk.com / robot / send?access_token = e830b05eeee88da31972099e403a74d05ec55719360707dc44e532c0d0b49cb6
+
+    # 自动化小组
+    # secret = "SEC465015385218e70a94f107a16f72dd33d8fc118c3b2a631e0433685302f2fbb3",
+    # webhook = "https://oapi.dingtalk.com/robot/send?access_token=229908a83825ed56abbf728d3382e446a4e8a90e9ad302c37a036bcbccbbf9ee"
