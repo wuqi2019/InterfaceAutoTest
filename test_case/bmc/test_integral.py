@@ -10,7 +10,7 @@ from config import BMCConfig
 
 @allure.feature("积分商城")
 class TestCreditScore():
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_integral_20210513.xlsx')
 
     @allure.story("查询我的积分")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55860")
@@ -22,21 +22,10 @@ class TestCreditScore():
         method  = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
-    @allure.story("签到")
-    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55878")
-    @allure.description("/integral/center/sign")
-    @allure.title("{inData[testPoint]}")
-    @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
-    def test_post_sign_integral(self, inData):
-        url = f"{BMCConfig().host}{inData['url']}"
-        method = inData['method']
-        req_data = inData['reqData']
-        expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
-        assert res['code'] == expectData['code']
 
     @allure.story("查询我的签到情况")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55869")
@@ -48,7 +37,36 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+        return res['data']['canSignInToday']
+
+    @pytest.fixture()
+    def test_pre_get_sign_integral(self):
+        """签到前置用例"""
+        url = f"{BMCConfig().host}/integral/center/sign"
+        method = 'get'
+        req_data = None
+        headers = None
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        return res['data']['canSignInToday']
+
+    @allure.story("签到")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55878")
+    @allure.description("/integral/center/sign")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.usefixtures('test_pre_get_sign_integral')
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
+    def test_post_sign_integral(self, inData, test_pre_get_sign_integral):
+        if not test_pre_get_sign_integral:
+            pytest.skip(msg="今天已经进行签到过，此用例不执行")
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询待领取积分清单")
@@ -61,7 +79,9 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        self.task_list = res['data']['list']
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分商品")
@@ -74,8 +94,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分规则")
@@ -88,7 +108,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("设置签到提醒开关")
@@ -101,7 +122,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("任务中心主页")
@@ -114,7 +136,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("领取积分")
@@ -123,11 +146,24 @@ class TestCreditScore():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'receiveIntegral'))
     def test_receive_integral(self, inData):
+        case_num = inData['caseNum']
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        for task in self.task_list:
+            if task['status'] == 2 and case_num == 'receiveIntegral001':  # 2表示可领取
+                req_data['taskCode'] = task['taskCode']
+                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+                break
+            elif task['status'] != 2 and case_num == 'receiveIntegral002':
+                req_data['taskCode'] = task['taskCode']
+                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+                break
+            else:
+                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+                break
         assert res['code'] == expectData['code']
 
     @allure.story("获取关注信息")
@@ -140,7 +176,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("商城中的商品")
@@ -153,7 +190,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("商品的详情")
@@ -166,7 +204,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("兑换商品接口")
@@ -179,7 +218,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询商品的适用门店列表")
@@ -192,7 +232,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询兑换记录")
@@ -205,7 +246,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("查询兑换记录详情")
@@ -218,7 +260,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("关注成功回调")
@@ -231,7 +274,8 @@ class TestCreditScore():
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 if __name__ == '__main__':
     pytest.main(['-s', '-v', 'test_integral.py',
