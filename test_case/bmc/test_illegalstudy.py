@@ -9,7 +9,7 @@ from config import BMCConfig
 
 
 @allure.feature("三车违法学习")
-class TestCreditScore():
+class TestIllegalStudy():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_illegal_study_20210513.xlsx')
     
     # @allure.story("查询最近成绩")

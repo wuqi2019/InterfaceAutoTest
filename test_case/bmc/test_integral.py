@@ -9,7 +9,7 @@ from config import BMCConfig
 
 
 @allure.feature("积分商城")
-class TestCreditScore():
+class TestIntegral():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_integral_20210513.xlsx')
 
     @allure.story("查询我的积分")
