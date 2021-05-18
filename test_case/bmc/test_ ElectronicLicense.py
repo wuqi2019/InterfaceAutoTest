@@ -41,7 +41,7 @@ def get_vehickleId_Tounbind():
 @allure.epic("电子证照")
 # @allure.feature("电子驾驶证")
 class TestDrivingLicense():
-    workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_tk.xlsx')
     @allure.story("二维码详情")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/81596")
     @allure.description("/dlVeh/qr")
