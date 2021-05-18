@@ -55,7 +55,8 @@ def imaAuditStatus():  # 查看照片审核状态
 class TestDrivingLicense():
     workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_ele_License_2021513.xlsx')
     def setup_class(self):
-        RedisString(0).delete_key("edl:sms_total:18581438351")      # 删除发送验证码次数缓存
+        RedisString(0).delete_key("edl:sms_total:18581438351")      # 删除发送验证码次数缓存,手机号为绑定车辆用例的车辆的手机号
+        RedisString(0).delete_key("edl:sms_one_total:18581438351")
     @allure.story("二维码详情")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/81596")
     @allure.description("/dlVeh/qr")
@@ -121,6 +122,7 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
+    @pytest.mark.tttt
     @pytest.mark.usefixtures("avatarUpdate_del")
     @allure.story("修改驾驶证头像")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22750")
@@ -269,10 +271,8 @@ class TestDrivingLicense():
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-
         """请求"""
         res = request_main(url, headers, method, req_data)
-
         """断言"""
         assert res['code'] == expectData['code']
 
@@ -372,14 +372,123 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
-    # @pytest.mark.scoreDetail
+
     @allure.story("查询强制保险")
-    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/5254")
-    @allure.description("/violation/list")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11048")
+    @allure.description("/vehicle/insurance/getCompulsoryIns")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'getCompulsoryIns'))
     def test_getCompulsoryIns(self, inData):
-        pass
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("查询商业险")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11042")
+    @allure.description("/vehicle/insurance/getCommercialIns")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'getCommercialIns'))
+    def test_getCommercialIns(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("添加强制保险")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11051")
+    @allure.description("/vehicle/insurance/setCompulsoryIns")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'setCompulsoryIns'))
+    def test_setCompulsoryIns(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @allure.story("添加商业保险")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11045")
+    @allure.description("/vehicle/insurance/setCommercialIns")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'setCommercialIns'))
+    def test_setCommercialIns(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @allure.story("关联查询强制险信息")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/65877")
+    @allure.description("/vehicle/insurance/setCommercialIns")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'getRelatedCompulsoryIns'))
+    def test_getRelatedCompulsoryIns(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @allure.story("获取商业险枚举")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11066")
+    @allure.description("/vehicle/insurance/getDicts")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'insuranceGetDicts'))
+    def test_insuranceGetDicts(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+    @pytest.mark.scoreDetail
+    @allure.story("车辆选择列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11066")
+    @allure.description("/vehicle/selection/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电子证照', 'vehicleList'))
+    def test_vehicleList(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        """断言"""
+        assert res['code'] == expectData['code']
+
+
 
 
     def teardown_class(self):

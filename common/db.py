@@ -18,7 +18,11 @@ class RedisString(RedisBase):
         result = self.r.get(xx)
         return result
     def delete_key(self,xxx):
-        self.r.delete(*self.r.keys(f'{xxx}*'))
+        try:
+            self.r.delete(*self.r.keys(f'{xxx}*'))
+        except:
+            pass
+
 
 
 
