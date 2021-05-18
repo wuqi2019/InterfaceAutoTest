@@ -12,7 +12,7 @@ from config import BMCConfig
 
 # @allure.feature("信用分")
 class TestCreditScore():
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_credit_score_20210513.xlsx')
     # inData = get_excelData(workBook, '信用分', 'creditscore')[0]
 
     def bmc_login_fixture(self):
