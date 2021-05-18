@@ -1,3 +1,5 @@
+from common.tools import request_main
+
 __author__ = 'dengmaosheng'
 __data__ = "2021-05-08 10:26"
 import pytest
@@ -18,6 +20,9 @@ def bmc_login_fixture():
     setattr(BMCConfig, 'bmc_pvt_token', res[1])
     # BMCConfig.headers['Pvt-Token'] = res[1]
     # BMCConfig.headers['Token'] = res[0]
+
+
+
 
 if __name__ == '__main__':
 

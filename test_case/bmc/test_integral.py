@@ -26,20 +26,6 @@ class TestCreditScore():
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
-    @pytest.mark.skip(reason="只能签到一次")
-    @allure.story("签到")
-    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55878")
-    @allure.description("/integral/center/sign")
-    @allure.title("{inData[testPoint]}")
-    @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
-    def test_post_sign_integral(self, inData):
-        url = f"{BMCConfig().host}{inData['url']}"
-        method = inData['method']
-        req_data = inData['reqData']
-        expectData = inData['expectData']
-        headers = inData['headers']
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
-        assert res['code'] == expectData['code']
 
     @allure.story("查询我的签到情况")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55869")
@@ -47,6 +33,34 @@ class TestCreditScore():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'getsignIntegral'))
     def test_get_sign_integral(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+        return res['data']['canSignInToday']
+
+    @pytest.fixture()
+    def test_pre_get_sign_integral(self):
+        """签到前置用例"""
+        url = f"{BMCConfig().host}/integral/center/sign"
+        method = 'get'
+        req_data = None
+        headers = None
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        return res['data']['canSignInToday']
+
+    @allure.story("签到")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55878")
+    @allure.description("/integral/center/sign")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.usefixtures('test_pre_get_sign_integral')
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
+    def test_post_sign_integral(self, inData, test_pre_get_sign_integral):
+        if not test_pre_get_sign_integral:
+            pytest.skip(msg="今天已经进行签到过，此用例不执行")
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
@@ -67,6 +81,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        self.task_list = res['data']['list']
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分商品")
@@ -131,16 +146,24 @@ class TestCreditScore():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'receiveIntegral'))
     def test_receive_integral(self, inData):
-        count = 1
-        if count == 1:
-            pytest.skip(msg="领取积分只能领取一次")
-        count += 1
+        case_num = inData['caseNum']
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        for task in self.task_list:
+            if task['status'] == 2 and case_num == 'receiveIntegral001':  # 2表示可领取
+                req_data['taskCode'] = task['taskCode']
+                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+                break
+            elif task['status'] != 2 and case_num == 'receiveIntegral002':
+                req_data['taskCode'] = task['taskCode']
+                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+                break
+            else:
+                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+                break
         assert res['code'] == expectData['code']
 
     @allure.story("获取关注信息")
