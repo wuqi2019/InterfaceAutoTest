@@ -15,6 +15,7 @@ build
 #myignore
 log
 test.py
+debug.py
 .idea
 report/tmp/*.*
 # Environments

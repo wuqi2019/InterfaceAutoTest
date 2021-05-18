@@ -10,7 +10,7 @@ from config import BMCConfig
 
 @allure.feature("三车违法学习")
 class TestCreditScore():
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_illegal_study_20210513.xlsx')
     
     # @allure.story("查询最近成绩")
     # @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67503")
@@ -43,12 +43,13 @@ class TestCreditScore():
     @allure.description("/paper/getPaper")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'getPaperIllegalstudy'))
-    def test_getPaperIllegalstudy(self, inData):
+    def test_get_paper_illegal_study(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @pytest.fixture()
@@ -57,7 +58,7 @@ class TestCreditScore():
         url = f"{BMCConfig().host}/paper/getPaper"
         method = 'get'
         req_data = None
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         topic_lists = res['data']['topicList']
 
         browsequestion = {}
@@ -85,9 +86,9 @@ class TestCreditScore():
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
-        req_data['answerId'] = self.self.browsequestion['answerId']
-        req_data['topicId'] = self.browsequestion['topicId']
-        req_data['topicType'] = self.browsequestion['topicType']
+        req_data['answerId'] = browsequestion['answerId']
+        req_data['topicId'] = browsequestion['topicId']
+        req_data['topicType'] = browsequestion['topicType']
         expectData = inData['expectData']
         case_num = inData['caseNum']
         if case_num == 'submitAnswerIllegalstudy001':
@@ -115,7 +116,7 @@ class TestCreditScore():
             req_data['answerId'] = choosequestion['answerId']
             req_data['topicId'] = choosequestion['topicId']
 
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     # @allure.story("查询成绩（只有错题）")

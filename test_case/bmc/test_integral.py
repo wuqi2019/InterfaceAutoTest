@@ -10,7 +10,7 @@ from config import BMCConfig
 
 @allure.feature("积分商城")
 class TestCreditScore():
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_integral_20210513.xlsx')
 
     @allure.story("查询我的积分")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55860")

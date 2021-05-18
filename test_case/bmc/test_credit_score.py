@@ -12,7 +12,7 @@ from config import BMCConfig
 
 # @allure.feature("信用分")
 class TestCreditScore():
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
+    # workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_credit_score_20210513.xlsx')
     # inData = get_excelData(workBook, '信用分', 'creditscore')[0]
 
     def bmc_login_fixture(self):
@@ -43,7 +43,7 @@ class TestCreditScore():
         # print(expectData)
         #res = requests.post(url = url,headers =headers,json =req_data )
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
-        print(res['data']['canSignInToday'])
+        print(res)
         # assert res['code'] == expectData['code']
 
 
@@ -53,11 +53,11 @@ if __name__ == '__main__':
     #              r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
 #
     # os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase01_20210513.xlsx')
-    inData = get_excelData(workBook, '积分商城', 'getsignIntegral')[0]
-    # print(inData)
-    TestCreditScore().bmc_login_fixture()
-    TestCreditScore().test_creditscore(inData)
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_vehicle_steward_29_39_20210513.xlsx')
+    inData = get_excelData(workBook, '出行服务', 'agreevehiclesteward')
+    print(inData)
+    # TestCreditScore().bmc_login_fixture()
+    # TestCreditScore().test_creditscore(inData)
 
     # res = requests.get('http://testbmcapp.hikcreate.com/credit/myCredit/V2', params={"bCityCode":"520100","bNetTag":"trf_mgt"},
     #                    headers= {
