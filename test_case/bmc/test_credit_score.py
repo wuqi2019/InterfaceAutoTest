@@ -21,10 +21,10 @@ class TestCreditScore():
         indata = {"phone": "17822000000",
                   "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}
         res = BMC().bmc_login(indata)
-        # setattr(BMCConfig, 'bmc_token', res[0])
-        # setattr(BMCConfig, 'bmc_pvt_token', res[1])
-        BMCConfig.headers['Pvt-Token'] = res[1]
-        BMCConfig.headers['Token'] = res[0]
+        setattr(BMCConfig, 'bmc_token', res[0])
+        setattr(BMCConfig, 'bmc_pvt_token', res[1])
+        # BMCConfig.headers['Pvt-Token'] = res[1]
+        # BMCConfig.headers['Token'] = res[0]
     #
     #     # print('Pvt-Token==========================', res[1])
     #     # print('Token==========================', res[0])
@@ -43,7 +43,7 @@ class TestCreditScore():
         # print(expectData)
         #res = requests.post(url = url,headers =headers,json =req_data )
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
-        # print(res)
+        print(res)
         # assert res['code'] == expectData['code']
 
 
