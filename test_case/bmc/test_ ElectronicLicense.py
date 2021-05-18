@@ -10,7 +10,7 @@ from service.login import BMY
 from common.tools import request_main
 from config import BaseConfig,BMCConfig
 from service.login import BMC
-from common.db import RedisString
+from common.db import RedisString,MYSQL
 
 """环境初始化和清除"""
 # 1.headers获取
@@ -34,14 +34,28 @@ def get_vehickleId_Tounbind():
             vehicleId = dic['vehicleId']
             return vehicleId
 
+@pytest.fixture(scope='function')
+def avatarUpdate_del() : #修改头像清除
+    mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
+    mysql.ExecuNonQuery(
+        "DELETE FROM edl_private.driving_license_image_audit WHERE name='自动化';")  # 删除驾驶员
+    RedisString(0).delete_key("bmc:c1:dl_img:uid")
+    yield
 
+@pytest.fixture(scope='function')
+def imaAuditStatus():  # 查看照片审核状态
+    payload = {"bNetTag": "trf_mgt", "avatarUrl": "\/group1\/M00\/00\/11\/CsXswmCTvF-AOPy1AABzUjaImN072.JPEG",
+               "bCityCode": "520100"}
+    res = requests.post(f"{BMCConfig().host}/drivingLicense/avatar/update", json=payload, headers=headers)
 
 
 
 @allure.epic("电子证照")
 # @allure.feature("电子驾驶证")
 class TestDrivingLicense():
-    workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_tk.xlsx')
+    workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_ele_License_2021513.xlsx')
+    def setup_class(self):
+        RedisString(0).delete_key("edl:sms_total:18581438351")      # 删除发送验证码次数缓存
     @allure.story("二维码详情")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/81596")
     @allure.description("/dlVeh/qr")
@@ -74,7 +88,7 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
-
+    @pytest.mark.usefixtures("imaAuditStatus")
     @allure.story("照片审核状态")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22759")
     @allure.description("/drivingLicense/image/audit/status")
@@ -107,7 +121,7 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
+    @pytest.mark.usefixtures("avatarUpdate_del")
     @allure.story("修改驾驶证头像")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22750")
     @allure.description("/drivingLicense/avatar/update")
@@ -378,5 +392,3 @@ if __name__ == '__main__':
     pytest.main(['test_ ElectronicLicense.py', '-s',  '--alluredir','../../report/tmp'])
     # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
-
-
