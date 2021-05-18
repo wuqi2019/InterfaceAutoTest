@@ -53,7 +53,9 @@ def imaAuditStatus():  # 查看照片审核状态
 @allure.epic("电子证照")
 # @allure.feature("电子驾驶证")
 class TestDrivingLicense():
-    workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_tk.xlsx')
+    workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_ele_License_2021513.xlsx')
+    def setup_class(self):
+        RedisString(0).delete_key("edl:sms_total:18581438351")      # 删除发送验证码次数缓存
     @allure.story("二维码详情")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/81596")
     @allure.description("/dlVeh/qr")
@@ -390,5 +392,3 @@ if __name__ == '__main__':
     pytest.main(['test_ ElectronicLicense.py', '-s',  '--alluredir','../../report/tmp'])
     # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
-
-
