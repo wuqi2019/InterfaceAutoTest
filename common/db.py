@@ -17,6 +17,9 @@ class RedisString(RedisBase):
         """获取值"""
         result = self.r.get(xx)
         return result
+    def delete_key(self,xxx):
+        self.r.delete(*self.r.keys(f'{xxx}*'))
+
 
 
 # mysql类
@@ -84,6 +87,7 @@ if __name__ == '__main__':
     # r = RedisString(0).get('edl:sms_value:17822000010:MOBILE_REGISTER')
     # print(r)
     # print(str(r)[-7:-1])
-    pass
+    # pass
+    RedisString(0).delete_key("bmc:c1:dl_img:uid")
 
 

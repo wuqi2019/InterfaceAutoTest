@@ -10,7 +10,7 @@ from service.login import BMY
 from common.tools import request_main
 from config import BaseConfig,BMCConfig
 from service.login import BMC
-from common.db import RedisString
+from common.db import RedisString,MYSQL
 
 """环境初始化和清除"""
 # 1.headers获取
@@ -34,7 +34,19 @@ def get_vehickleId_Tounbind():
             vehicleId = dic['vehicleId']
             return vehicleId
 
+@pytest.fixture(scope='function')
+def avatarUpdate_del() : #修改头像清除
+    mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
+    mysql.ExecuNonQuery(
+        "DELETE FROM edl_private.driving_license_image_audit WHERE name='自动化';")  # 删除驾驶员
+    RedisString(0).delete_key("bmc:c1:dl_img:uid")
+    yield
 
+@pytest.fixture(scope='function')
+def imaAuditStatus():  # 查看照片审核状态
+    payload = {"bNetTag": "trf_mgt", "avatarUrl": "\/group1\/M00\/00\/11\/CsXswmCTvF-AOPy1AABzUjaImN072.JPEG",
+               "bCityCode": "520100"}
+    res = requests.post(f"{BMCConfig().host}/drivingLicense/avatar/update", json=payload, headers=headers)
 
 
 
@@ -74,7 +86,7 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
-
+    @pytest.mark.usefixtures("imaAuditStatus")
     @allure.story("照片审核状态")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22759")
     @allure.description("/drivingLicense/image/audit/status")
@@ -107,7 +119,7 @@ class TestDrivingLicense():
         """断言"""
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
+    @pytest.mark.usefixtures("avatarUpdate_del")
     @allure.story("修改驾驶证头像")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22750")
     @allure.description("/drivingLicense/avatar/update")
