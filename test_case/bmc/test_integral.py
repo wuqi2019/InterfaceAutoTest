@@ -26,7 +26,6 @@ class TestIntegral():
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
-
     @allure.story("查询我的签到情况")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55869")
     @allure.description("/integral/center/sign")
@@ -59,13 +58,12 @@ class TestIntegral():
     @pytest.mark.usefixtures('test_pre_get_sign_integral')
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
     def test_post_sign_integral(self, inData, test_pre_get_sign_integral):
-
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-        other_expected_data = inData['otherExpectData']
+        other_expected_data = eval(inData['otherExpectData'])
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         if not test_pre_get_sign_integral:  # 已经签到过
             assert res['code'] == other_expected_data['code']
@@ -84,7 +82,6 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
-        self.task_list = res['data']['list']
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分商品")
@@ -143,30 +140,39 @@ class TestIntegral():
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
+    @pytest.fixture()
+    def test_pre_task_integral(self):
+        """查询待领取积分清单"""
+        url = f"{BMCConfig().host}/integral/center/recommendedTasks"
+        method = 'get'
+        req_data = None
+        headers = None
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        return res['data']['list']
+
     @allure.story("领取积分")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/56436")
     @allure.description("/integral/task/receive")
     @allure.title("{inData[testPoint]}")
+    @pytest.mark.usefixtures('test_pre_task_integral')
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'receiveIntegral'))
-    def test_receive_integral(self, inData):
+    def test_receive_integral(self, inData, test_pre_task_integral):
         case_num = inData['caseNum']
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-        for task in self.task_list:
+        for task in test_pre_task_integral:
             if task['status'] == 2 and case_num == 'receiveIntegral001':  # 2表示可领取
                 req_data['taskCode'] = task['taskCode']
-                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
                 break
             elif task['status'] != 2 and case_num == 'receiveIntegral002':
                 req_data['taskCode'] = task['taskCode']
-                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
                 break
             else:
-                res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
                 break
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
     @allure.story("获取关注信息")

@@ -34,7 +34,7 @@ class TestCreditScore():
     # @allure.testcase("{inData[yapiAddress]}")
     # @allure.description("url:/auth/login 。。。。")
     # @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'creditscore'))
-    def test_creditscore(self,inData):
+    def test_creditscore(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method  = inData['method']
         req_data = inData['reqData']
@@ -53,8 +53,8 @@ if __name__ == '__main__':
     #              r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
 #
     # os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_vehicle_steward_29_39_20210513.xlsx')
-    inData = get_excelData(workBook, '出行服务', 'agreevehiclesteward')
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_illegal_study_20210513.xlsx')
+    inData = get_excelData(workBook, '三车违法学习', 'logListIllegalstudy')[0]
     print(inData)
     # TestCreditScore().bmc_login_fixture()
     # TestCreditScore().test_creditscore(inData)
