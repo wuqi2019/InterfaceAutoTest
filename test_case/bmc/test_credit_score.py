@@ -10,73 +10,337 @@ from common.tools import request_main
 from config import BMCConfig
 
 
-# @allure.feature("信用分")
+@allure.feature("信用分")
 class TestCreditScore():
-    # workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_credit_score_20210513.xlsx')
-    # inData = get_excelData(workBook, '信用分', 'creditscore')[0]
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_credit_score_20210513.xlsx')
 
-    def bmc_login_fixture(self):
-        """bmc登录获取token"""
-
-        indata = {"phone": "17822000000",
-                  "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}
-        res = BMC().bmc_login(indata)
-        setattr(BMCConfig, 'bmc_token', res[0])
-        setattr(BMCConfig, 'bmc_pvt_token', res[1])
-        # BMCConfig.headers['Pvt-Token'] = res[1]
-        # BMCConfig.headers['Token'] = res[0]
-    #
-    #     # print('Pvt-Token==========================', res[1])
-    #     # print('Token==========================', res[0])
-
-    # @allure.story("信用分")
+    # @allure.story("信用分详情")
+    # @allure.link("")
+    # @allure.description("/credit/myCredit/V2")
     # @allure.title("{inData[testPoint]}")
-    # @allure.testcase("{inData[yapiAddress]}")
-    # @allure.description("url:/auth/login 。。。。")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'creditscore'))
-    def test_creditscore(self, inData):
-        url = f"{BMCConfig().host}{inData['url']}"
-        method  = inData['method']
+    # @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'Vcreditscore'))
+    # def test_v_credit_score(self, inData):
+    #     url = f"{BMCConfig().pvthost}{inData['url']}"
+    #     method = inData['method']
+    #     req_data = inData['reqData']
+    #     expectData = inData['expectData']
+    #     headers = inData['headers']
+    #     res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+    #     print(res)
+    #     assert res['code'] == expectData['code']
+
+    @allure.story("分享信用分")
+    @allure.link("")
+    @allure.description("/credit/pkCredit/sharePic")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'sharePiccreditscore'))
+    def test_share_pic_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
-        # headers = config.BMCConfig.headers
-        # print(expectData)
-        #res = requests.post(url = url,headers =headers,json =req_data )
-        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
-        print(res)
-        # assert res['code'] == expectData['code']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
 
+    @allure.story("历史信用分")
+    @allure.link("")
+    @allure.description("/credit/record/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'recordlistcreditscore'))
+    def test_record_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("完善基础信息")
+    @allure.link("")
+    @allure.description("/credit/base/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'baselistcreditscore'))
+    def test_base_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("获取履约任务")
+    @allure.link("")
+    @allure.description("/credit/explore/performance/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'performancelistcreditscore'))
+    def test_performance_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("身份证信息")
+    @allure.link("")
+    @allure.description("/credit/detail/idCard")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'idCardcreditscore'))
+    def test_idCard_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("驾驶证信息")
+    @allure.link("")
+    @allure.description("/drivingLicense/image/status")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'imagestatuscreditscore'))
+    def test_image_status_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("身份证信息正反面")
+    @allure.link("")
+    @allure.description("/drivingLicense/image")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'imagecreditscore'))
+    def test_image_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("车辆列表")
+    @allure.link("")
+    @allure.description("/vehicle/manage/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'managelistcreditscore'))
+    def test_manage_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("我的学历信息")
+    @allure.link("")
+    @allure.description("/credit/education/getEducationList")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'getEducationListcreditscore'))
+    def test_get_education_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("我的单位信息")
+    @allure.link("")
+    @allure.description("/credit/work/getWorkList")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'getWorkListcreditscore'))
+    def test_get_work_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("我的车辆信息")
+    @allure.link("")
+    @allure.description("/vehicle/selection/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'selectionlistcreditscore'))
+    def test_selection_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("学历认证地区选择")
+    @allure.link("")
+    @allure.description("/credit/education/provinces")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'provincescreditscore'))
+    def test_provinces_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("学历单位选择")
+    @allure.link("")
+    @allure.description("/sys/dict/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'dictlistcreditscore'))
+    def test_dict_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("学历认证")
+    @allure.link("")
+    @allure.description("/credit/education/addEducation")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'addEducationcreditscore'))
+    def test_add_education_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("删除学历")
+    @allure.link("")
+    @allure.description("/credit/education/deleteEducation")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'deleteEducationcreditscore'))
+    def test_delete_education_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("单位信息")
+    @allure.link("")
+    @allure.description("/credit/work/addCompany")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'addCompanycreditscore'))
+    def test_add_company_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("删除单位信息")
+    @allure.link("")
+    @allure.description("/credit/work/deleteWork")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'deleteWorkcreditscore'))
+    def test_delete_work_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("驾驶证年审")
+    @allure.link("")
+    @allure.description("/credit/explore/performance/wait/dl/examine")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'examinecreditscore'))
+    def test_examine_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("更换驾驶证本人照片")
+    @allure.link("")
+    @allure.description("/drivingLicense/image/text")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'imagetextcreditscore'))
+    def test_image_text_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("期满换证信息")
+    @allure.link("")
+    @allure.description("/credit/explore/performance/wait/dl/expire")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'expirecreditscore'))
+    def test_expire_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("车辆年检信息")
+    @allure.link("")
+    @allure.description("/vehicle/selection/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'vehiclelistcreditscore'))
+    def test_vehicle_list_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("添加车辆失败")
+    @allure.link("")
+    @allure.description("/vehicle/vCode/detail")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '信用分', 'detailcreditscore'))
+    def test_detail_credit_score(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
 
 
 if __name__ == '__main__':
-    # pytest.main(['-s', '-v', 'test_credit_score.py',
-    #              r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
-#
-    # os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_illegal_study_20210513.xlsx')
-    inData = get_excelData(workBook, '三车违法学习', 'logListIllegalstudy')[0]
-    print(inData)
-    # TestCreditScore().bmc_login_fixture()
-    # TestCreditScore().test_creditscore(inData)
+    pytest.main(['-s', '-v', 'test_credit_score.py',
+                 r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
 
-    # res = requests.get('http://testbmcapp.hikcreate.com/credit/myCredit/V2', params={"bCityCode":"520100","bNetTag":"trf_mgt"},
-    #                    headers= {
-    #     'City-Code': "520100",
-    #     'Device-Brand': "vivo",
-    #     'Device-Code': "000000001e167ed7000000001e167ed7",
-    #     'Device-Model': "vivo vivo X20",
-    #     'Device-Name': "vivo+X20",
-    #     'Device-Type': "Android",
-    #     'Mac': "38:6E:A2:A0:0E:AF",
-    #     'mimeType': "application/json",
-    #     'Net': "wifi",
-    #     'OS-Type': "Android",
-    #     'OS-Version': "27",
-    #     'Pvt-Token': "eyJhbGciOiJIUzI1NiIsInppcCI6IkRFRiJ9.eNpcjEEKgDAMBP-Ss0hS2kT7CP9Qa8CiVbB6Ev9uD56c0w4sc0MqBTzMaYmHhlPbuGdoIIUTPLEhQ2xZGijXWG_OICFRL4h1sRXnLTrHnccPUmLRSf5em8e-6hCy1k6YctrgeQEAAP__.GcCYQ7-NG3rSDLFUvgRVDS94QpYDBtisEuYSY4V_wAw",
-    #     'Resolution': "2034x1080",
-    #     'Token': "eTir/N9Z7ddMjuvo8M5MJWRLAWrlJ7pUlUe2+eYszHJumBknucBL6nuzBdYWFTWIpFiiDNjxV7Ehw32usHdd6VMFs0k7Rm70FcoDPkTEvyUkwhnN2GHlnk8nhxKvk3AJFDAj6JLl1Mr9OVj9I6TcjpQTzzyjzZjteIreMsUDwJW0Se+CW/teW+1DE70HDMY+0lrm01ftft627SGVsnr6AqxLF3KF/y+GyxKNrwKO29n8T33RFdWgcHs+fji46E/rBdSxxxJHjyClxnJOIoiU3DxZ/SoyNPn5X3CMGUio6MumAfJSQNh6Onk337G2tMum",
-    #     'Version': "2.2.6"
-    # })
-    # print(res.json())
-
+    os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
 
