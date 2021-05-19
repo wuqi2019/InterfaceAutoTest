@@ -15,7 +15,7 @@ from config import BMCConfig
 @allure.epic("账号信息基本功能")
 # @allure.feature("账号信息基本功能")
 class TestLogin():
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_base_info_2021513.xlsx')
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_testcase_20210513.xlsx')
     @allure.story("账号信息基本功能")
     @allure.severity("")
     @allure.title("{inData[testPoint]}")
