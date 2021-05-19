@@ -15,6 +15,17 @@ def get_excelData(workBook,sheetName,caseName):
         num_reqData = list_title.index('reqData')
         num_expectData = list_title.index('expectData')
         num_testPoint = list_title.index('testPoint')
+        num_caseNum = list_title.index('testPoint')
+        num_otherExpectData =list_title.index('otherExpectData')
+        num_function =list_title.index('function')
+        num_interface=list_title.index('interface')
+        num_priority = list_title.index('priority')
+        num_yapiAddress = list_title.index('yapiAddress')
+        num_creator = list_title.index('creator')
+        num_autoCreator = list_title.index('autoCreator')
+        num_frontInterface = list_title.index('frontInterface')
+        num_frontCondition = list_title.index('frontCondition')
+        num_expectResult = list_title.index('expectResult')
         lis = []
 
         idx = 0
@@ -29,6 +40,17 @@ def get_excelData(workBook,sheetName,caseName):
                     dict0['reqData'] = workSheet.cell_value(idx, num_reqData)
                     dict0['expectData'] = workSheet.cell_value(idx, num_expectData)
                     dict0['testPoint']= workSheet.cell_value(idx, num_testPoint)
+                    dict0['caseNum']=workSheet.cell_value(idx, num_caseNum)
+                    dict0['otherExpectData'] =workSheet.cell_value(idx, num_otherExpectData)
+                    dict0['function'] =workSheet.cell_value(idx, num_function)
+                    dict0['interface'] = workSheet.cell_value(idx, num_interface)
+                    dict0['priority'] = workSheet.cell_value(idx, num_priority)
+                    dict0['yapiAddress'] = workSheet.cell_value(idx, num_yapiAddress)
+                    dict0['creator'] = workSheet.cell_value(idx, num_creator)
+                    dict0['autoCreator'] = workSheet.cell_value(idx, num_autoCreator)
+                    dict0['frontInterface'] = workSheet.cell_value(idx, num_frontInterface)
+                    dict0['frontCondition'] = workSheet.cell_value(idx, num_frontCondition)
+                    dict0['expectResult'] = workSheet.cell_value(idx, num_expectResult)
 
                     # json字符串转换成字典
                     try:
