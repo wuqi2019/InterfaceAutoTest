@@ -290,5 +290,4 @@ if __name__ == '__main__':
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
     pytest.main(['test_creditRight.py', '-s',  '--alluredir','../../report/tmp'])
-    # 启动默认浏览器打开报告
     os.system('allure serve ../../report/tmp')
