@@ -15,7 +15,7 @@ def get_excelData(workBook,sheetName,caseName):
         num_reqData = list_title.index('reqData')
         num_expectData = list_title.index('expectData')
         num_testPoint = list_title.index('testPoint')
-        num_caseNum = list_title.index('testPoint')
+        num_caseNum = list_title.index('caseNum')
         num_otherExpectData =list_title.index('otherExpectData')
         num_function =list_title.index('function')
         num_interface=list_title.index('interface')
