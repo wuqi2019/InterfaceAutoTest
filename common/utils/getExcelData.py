@@ -59,6 +59,11 @@ def get_excelData(workBook,sheetName,caseName):
                         dict0['expectData'] = None
 
                     try:
+                        dict0['otherExpectData'] = json.loads(dict0['otherExpectData'])
+                    except:
+                        dict0['otherExpectData'] = None
+
+                    try:
                         dict0['reqData'] = json.loads(dict0['reqData'])
                     except:
                         dict0['reqData'] = None
