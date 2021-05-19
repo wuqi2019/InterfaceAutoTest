@@ -59,15 +59,18 @@ class TestIntegral():
     @pytest.mark.usefixtures('test_pre_get_sign_integral')
     @pytest.mark.parametrize("inData", get_excelData(workBook, '积分商城', 'postSignIntegral'))
     def test_post_sign_integral(self, inData, test_pre_get_sign_integral):
-        if not test_pre_get_sign_integral:
-            pytest.skip(msg="今天已经进行签到过，此用例不执行")
+
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
+        other_expected_data = inData['otherExpectData']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
-        assert res['code'] == expectData['code']
+        if not test_pre_get_sign_integral:  # 已经签到过
+            assert res['code'] == other_expected_data['code']
+        else:
+            assert res['code'] == expectData['code']
 
     @allure.story("查询待领取积分清单")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/55887")

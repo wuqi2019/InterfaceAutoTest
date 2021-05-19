@@ -9,6 +9,7 @@ from config import *
 def request_main(url, headers, method, data, has_token=False):
     """封装requests的通用请求方法"""
     res = None
+    url = url.strip()
     def request_by_method(method, headers):
         inner_res = None
         try:
