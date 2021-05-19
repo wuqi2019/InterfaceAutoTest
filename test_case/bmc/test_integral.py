@@ -63,7 +63,7 @@ class TestIntegral():
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-        other_expected_data = inData['otherExpectData']
+        other_expected_data = eval(inData['otherExpectData'])
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         if not test_pre_get_sign_integral:  # 已经签到过
             assert res['code'] == other_expected_data['code']

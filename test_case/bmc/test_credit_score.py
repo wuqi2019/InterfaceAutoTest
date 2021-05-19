@@ -53,8 +53,8 @@ if __name__ == '__main__':
     #              r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report', '--clean-alluredir'])
 #
     # os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
-    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_integral_20210513.xlsx')
-    inData = get_excelData(workBook, '积分商城', 'taskIntegral')[0]
+    workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_illegal_study_20210513.xlsx')
+    inData = get_excelData(workBook, '三车违法学习', 'logListIllegalstudy')[0]
     print(inData)
     # TestCreditScore().bmc_login_fixture()
     # TestCreditScore().test_creditscore(inData)

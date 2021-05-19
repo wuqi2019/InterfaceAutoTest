@@ -11,32 +11,50 @@ from config import BMCConfig
 @allure.feature("三车违法学习")
 class TestIllegalStudy():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_illegal_study_20210513.xlsx')
-    
-    # @allure.story("查询最近成绩")
-    # @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67503")
-    # @allure.description("/answer/recentGrade")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'recentGradeIllegalstudy'))
-    # def test_recentGradeIllegalstudy(self,inData):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method  = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
-    #     assert res['code'] == expectData['code']
-    # #
-    # @allure.story("获取典型案例视频")
-    # @allure.link("http://yapi.hikcreate.com/project/31/interface/api/57606")
-    # @allure.description("/illegal/study/video/typicalCase")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'typicalCaseIllegalstudy'))
-    # def test_typicalCaseIllegalstudy(self, inData):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
-    #     assert res['code'] == expectData['code']
+
+    @pytest.fixture()
+    def test_pre_recent_grade(self):
+        """查看是否有答题记录"""
+        url = f"{BMCConfig().host}/answer/logList"
+        method = 'get'
+        req_data = {'pageIndex': 1, 'pageSize': 20}
+        res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        # 答题记录 res['data']['totalCount']
+        return res['data']
+
+    @allure.story("查询最近成绩")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67503")
+    @allure.description("/answer/recentGrade")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.usefixtures('test_pre_recent_grade')
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'recentGradeIllegalstudy'))
+    def test_recent_grade_illegal_study(self, inData, test_pre_recent_grade):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method  = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        is_answer_record = test_pre_recent_grade['totalCount']
+        if is_answer_record == 0:  # 无答题记录
+            expectData['code'] = 1006
+        else:
+            expectData['code'] = 1000
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("获取典型案例视频")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/57606")
+    @allure.description("/illegal/study/video/typicalCase")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'typicalCaseIllegalstudy'))
+    def test_typical_case_illegal_study(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
 
     @allure.story("获取试卷")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/69573")
@@ -81,7 +99,7 @@ class TestIllegalStudy():
     @allure.title("{inData[testPoint]}")
     @pytest.mark.usefixtures('test_pre_get_paper_illegal_study')
     @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'submitAnswerIllegalstudy'))
-    def test_submitAnswerIllegalstudy(self, inData, test_pre_get_paper_illegal_study):
+    def test_submit_answer_illegal_study(self, inData, test_pre_get_paper_illegal_study):
         browsequestion, choosequestion = test_pre_get_paper_illegal_study
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
@@ -119,44 +137,48 @@ class TestIllegalStudy():
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
         assert res['code'] == expectData['code']
 
-    # @allure.story("查询成绩（只有错题）")
-    # @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67485")
-    # @allure.description("/answer/detail")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'detailIllegalstudy'))
-    # def test_detailIllegalstudy(self, inData):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
-    #     assert res['code'] == expectData['code']
-    #
-    # @allure.story("查询答题记录列表")
-    # @allure.link("http://yapi.hikcreate.com/project/31/interface/api/67497")
-    # @allure.description("/answer/logList")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'logListIllegalstudy'))
-    # def test_logListIllegalstudy(self, inData):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
-    #     assert res['code'] == expectData['code']
-    #
-    # @allure.story("答题记录查询")
-    # @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67491")
-    # @allure.description("/answer/log")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'logIllegalstudy'))
-    # def test_logIllegalstudy(self, inData):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     res = request_main(url=url, headers=None, method=method, data=req_data, has_token=True)
-    #     assert res['code'] == expectData['code']
+    @allure.story("查询成绩（只有错题）")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67485")
+    @allure.description("/answer/detail")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'detailIllegalstudy'))
+    def test_detail_illegal_study(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
+
+    @allure.story("查询答题记录列表")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/67497")
+    @allure.description("/answer/logList")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'logListIllegalstudy'))
+    def test_log_list_illegal_study(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        print(res)
+        assert res['code'] == expectData['code']
+
+    @allure.story("答题记录查询")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/67491")
+    @allure.description("/answer/log")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '三车违法学习', 'logIllegalstudy'))
+    def test_log_illegal_study(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        assert res['code'] == expectData['code']
 
 if __name__ == '__main__':
     pytest.main(['-s', '-v', 'test_illegalstudy.py',
