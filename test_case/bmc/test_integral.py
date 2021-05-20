@@ -63,7 +63,7 @@ class TestIntegral():
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-        other_expected_data = eval(inData['otherExpectData'])
+        other_expected_data = inData['otherExpectData']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
         if not test_pre_get_sign_integral:  # 已经签到过
             assert res['code'] == other_expected_data['code']
@@ -164,6 +164,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         for task in test_pre_task_integral:
+
             if task['status'] == 2 and case_num == 'receiveIntegral001':  # 2表示可领取
                 req_data['taskCode'] = task['taskCode']
                 break
