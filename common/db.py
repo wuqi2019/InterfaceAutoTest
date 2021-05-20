@@ -45,7 +45,7 @@ class MYSQL:
         """
         self.conn = pymysql.connect(host=self.host, port=self.port, user=self.user,
                                     password=self.pwd, database=self.db, charset="utf8")
-        cur = self.conn.cursor()
+        cur = self.conn.cursor(pymysql.cursors.DictCursor)
         return cur
 
     def ExecuQuery(self,sql):
@@ -92,6 +92,8 @@ if __name__ == '__main__':
     # print(r)
     # print(str(r)[-7:-1])
     # pass
-    RedisString(0).delete_key("bmc:c1:dl_img:uid")
-
+    # RedisString(0).delete_key("bmc:c1:dl_img:uid")
+    mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
+    info = mysql.ExecuQuery("SELECT * FROM db_tbd_base1.project;")
+    print(info)
 

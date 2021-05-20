@@ -85,7 +85,7 @@ def get_excelData(workBook,sheetName,caseName):
 if __name__ == '__main__':
     workBook = xlrd.open_workbook('../../test_case_data/bmc/bmc_testcase_20210513.xlsx')
     li = get_excelData(workBook,"账号信息基本功能","login")
-    for i in li :
+    for i in li:
         print(i)
 
 
