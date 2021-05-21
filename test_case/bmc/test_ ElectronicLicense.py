@@ -70,7 +70,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("获取驾驶证图片状态")
@@ -86,7 +86,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.mark.usefixtures("imaAuditStatus")
@@ -103,7 +103,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("图像上传页文案")
@@ -119,10 +119,10 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
-    @pytest.mark.tttt
+
     @pytest.mark.usefixtures("avatarUpdate_del")
     @allure.story("修改驾驶证头像")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/22750")
@@ -137,7 +137,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
 
@@ -154,7 +154,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("驾驶证图片接口")
@@ -171,6 +171,7 @@ class TestDrivingLicense():
         """请求"""
         res = requests.get(url,params=req_data,headers=headers)
         """断言,此接口响应和其他不通，暂未做断言"""
+        allure.attach("{0}".format(res), "用例结果")
         # assert res['code'] == expectData['code']
 
 
@@ -187,9 +188,9 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
-        return res['data']['list'][0]['vehicleId']
+
 
 
     @pytest.mark.run(order=664)     # 建议放在 绑定用例之后
@@ -214,7 +215,7 @@ class TestDrivingLicense():
 
         """请求"""
         res = request_main(url, headers, method, req_data,has_token=True)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     """把其他某个用例做为初始化，这种方式还需讨论，暂时不行"""
@@ -256,7 +257,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.mark.run(order=662)
@@ -273,7 +274,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.mark.run(order=663)
@@ -297,7 +298,7 @@ class TestDrivingLicense():
             pass
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.mark.run(order=665)         # 需要在绑定用例之后
@@ -317,8 +318,9 @@ class TestDrivingLicense():
         req_data["vehicleId"] = get_vehickleId_Tounbind
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
+
 
 
 
@@ -335,7 +337,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
 
@@ -352,7 +354,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
 
@@ -369,7 +371,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
 
@@ -386,7 +388,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
 
@@ -403,7 +405,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
 
@@ -420,7 +422,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("添加商业保险")
@@ -436,7 +438,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("关联查询强制险信息")
@@ -452,7 +454,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("获取商业险枚举")
@@ -468,10 +470,10 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
+
     @allure.story("车辆选择列表")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/11066")
     @allure.description("/vehicle/selection/list")
@@ -485,7 +487,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach( "{0}".format(res),"用例结果")
         assert res['code'] == expectData['code']
 
 
