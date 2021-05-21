@@ -46,13 +46,14 @@ class TestCreditRight():
 
         if inData['frontInterface'] == "未激活":
             res = request_main(url, self.noActiveheaders, method, req_data,has_token=True)
+            allure.attach("{0}".format(res), "未激活用例结果1")
             assert res['data']['creditInfo']['creditLevelName'] ==otherExpectData['data']['creditInfo']['creditLevelName']
             assert res['code'] == expectData['code']
 
         else:
             """请求"""
             res = request_main(url, headers, method, req_data)
-            """断言"""
+            allure.attach("{0}".format(res), "用例结果2")
             assert res['code'] == expectData['code']
 
     @allure.story("信用权益主页")
@@ -69,12 +70,12 @@ class TestCreditRight():
         if inData['frontInterface'] == "未激活":
             """请求"""
             res = request_main(url, self.noActiveheaders, method, req_data, has_token=True)
-            """断言"""
+            allure.attach("{0}".format(res), "用例结果1")
             assert res['code'] == expectData['code']
         else:
             """请求"""
             res = request_main(url, headers, method, req_data)
-            """断言"""
+            allure.attach("{0}".format(res), "用例结果2")
             assert res['code'] == expectData['code']
 
 
@@ -92,7 +93,7 @@ class TestCreditRight():
         if inData['frontInterface'] == "未激活":
             """请求"""
             res = request_main(url, self.noActiveheaders, method, req_data, has_token=True)
-            """断言"""
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
         else:
             """请求"""
@@ -114,12 +115,12 @@ class TestCreditRight():
         if inData['frontInterface'] == "未激活":
             """请求"""
             res = request_main(url, self.noActiveheaders, method, req_data, has_token=True)
-            """断言"""
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
         else:
             """请求"""
             res = request_main(url, headers, method, req_data)
-            """断言"""
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
 
     @allure.story("所有信用权益")
@@ -135,7 +136,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("预约通行")
@@ -151,7 +152,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("预约通行")
@@ -167,7 +168,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("预约通行")
@@ -183,7 +184,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("预约通行")
@@ -199,7 +200,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("信用优享日")
@@ -215,7 +216,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("拜尔口腔")
@@ -231,7 +232,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("拜尔口腔")
@@ -247,7 +248,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("拜尔口腔")
@@ -263,7 +264,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("车辆评估")
@@ -279,7 +280,7 @@ class TestCreditRight():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        """断言"""
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
 
