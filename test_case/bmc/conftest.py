@@ -24,6 +24,9 @@ def bmc_login_fixture():
 
 
 
+
+
+
 if __name__ == '__main__':
 
     bmc_login_fixture()
