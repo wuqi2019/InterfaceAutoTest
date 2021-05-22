@@ -267,7 +267,7 @@ class TestMy:
             assert res["code"]==expectdata["code"]
         except Exception as e:
             raise e
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # pytest.main(["-s","-v","test_my.py",'--alluredir', './bmc/report',"--clean-alluredir"])
-    pytest.main(['-v', '-s', "test_my.py::TestMy::test_myservicehotlist", '--alluredir', './bmc/report', "--clean-alluredir"])
+    # pytest.main(['-v', '-s', "test_my.py::TestMy::test_myservicehotlist", '--alluredir', './bmc/report', "--clean-alluredir"])
     # os.system('allure serve ./bmc/report')
