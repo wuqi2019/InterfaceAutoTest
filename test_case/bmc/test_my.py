@@ -16,7 +16,7 @@ from common.utils import getExcelData
 
 @allure.feature("我的")
 class TestMy:
-    workbook = xlrd.open_workbook(f'{config.BaseConfig.root_path}/test_case_data\\bmc\\bmc_my_2021513.xlsx')
+    workbook = xlrd.open_workbook(f'{config.BaseConfig.root_path}/test_case_data/bmc/bmc_my_2021513.xlsx')
 
     def setup_class(self):
         config.BMCConfig.headers["Pvt-Token"]=getattr(config.BMCConfig,"bmc_pvt_token")
@@ -267,7 +267,7 @@ class TestMy:
             assert res["code"]==expectdata["code"]
         except Exception as e:
             raise e
-# if __name__ == '__main__':
-    # pytest.main(["-s","-v","test_my.py",'--alluredir', './bmc/report',"--clean-alluredir"])
+if __name__ == '__main__':
+    pytest.main(["-s","-v","test_my.py",'--alluredir', './bmc/report',"--clean-alluredir"])
     # pytest.main(['-v', '-s', "test_my.py::TestMy::test_myservicehotlist", '--alluredir', './bmc/report', "--clean-alluredir"])
-    # os.system('allure serve ./bmc/report')
+    os.system('allure serve ./bmc/report')
