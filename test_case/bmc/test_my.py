@@ -191,27 +191,6 @@ class TestMy:
 
 
 
-    @pytest.mark.skip(reason="接口yapi上存在，但是该接口在实际情况中没有使用到，斑马信用app没有收货地址详情页")
-    @pytest.mark.usefixtures('test_addaddressId')
-    @allure.story("用户收货地址")
-    @allure.description("creator:李倩,autoCreator:huangchengcheng")
-    @allure.title("{indata[testPoint]}")
-    @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"我的","Myinfogetaddressdetail"))
-    def test_myinfogetaddressdetail(self,indata):
-        url=f'{config.BMCConfig.host}/{indata["url"]}'
-        method=indata["method"]
-        expectdata=indata["expectData"]
-        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-        addressId = mysql.ExecuQuery("SELECT id FROM user_address  WHERE address='接口自动化详细地址';")[-1]["id"]
-        indata["reqData"]["addressId"]=addressId
-        data = indata["reqData"]
-        res=request_main(url,self.headers,method,data)
-        try:
-            assert res["code"]==expectdata["code"]
-        except Exception as e:
-            raise e
-
-
     @pytest.mark.usefixtures("test_addaddressId")
     @allure.story("用户收货地址新增")
     @allure.description("creator:李倩,autoCreator:huangchengcheng")
@@ -267,7 +246,239 @@ class TestMy:
             assert res["code"]==expectdata["code"]
         except Exception as e:
             raise e
+
+
+    @allure.story("智能问答")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"我的","Myservicechat"))
+    def test_myservicechat(self,indata):
+        url=f'{config.BMCConfig.host}/{indata["url"]}'
+        method=indata["method"]
+        data=indata["reqData"]
+        expectdata=indata["expectData"]
+        res=request_main(url,self.headers,method,data)
+        try:
+            assert res["code"]==expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("消息分类列表")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"我的","Messagecentergroups"))
+    def test_messagecentergroups(self,indata):
+        url=f'{config.BMCConfig.host}/{indata["url"]}'
+        method=indata["method"]
+        data=indata["reqData"]
+        expectdata=indata["expectData"]
+        res=request_main(url,self.headers,method,data)
+        try:
+            assert res["code"]==expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("未读消息数")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"我的","MessagecenterunRead"))
+    def test_messagecenterunread(self,indata):
+        url=f'{config.BMCConfig.host}/{indata["url"]}'
+        method=indata["method"]
+        data=indata["reqData"]
+        expectdata=indata["expectData"]
+        res=request_main(url,self.headers,method,data)
+        try:
+            assert res["code"]==expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+
+    @allure.story("消息列表")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Messagecenterlist"))
+    def test_messagecenterlist(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    # @pytest.mark.skip("预期值错误，待修改,，替换msgid")
+    # @allure.story("读消息")
+    # @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    # @allure.title("{indata[testPoint]}")
+    # @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Messagecenterread"))
+    # def test_messagecenterread(self, indata):
+    #     url = f'{config.BMCConfig.host}/{indata["url"]}'
+    #     method = indata["method"]
+    #     data = indata["reqData"]
+    #     expectdata = indata["expectData"]
+    #     res = request_main(url, self.headers, method, data)
+    #     try:
+    #         assert res["code"] == expectdata["code"]
+    #     except Exception as e:
+    #         raise e
+
+
+    @allure.story("全部已读")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Messagecenterall"))
+    def test_messagecenterall(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("获取公网H5页面地址")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Basich"))
+    def test_basich5(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("获取奖品记录")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Basiclist"))
+    def test_basiclist(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("【订单】 - 列表")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Basictradelist"))
+    def test_basictradelist(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("【订单】 - 我的订单状态列表")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Basicstatuslist"))
+    def test_basicstatuslist(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("【订单】 - 查看券码")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "BasiccouponCode"))
+    def test_basiccouponCode(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        expectdata = indata["expectData"]
+        if indata["reqData"]["tradeId"]=="不存在id":
+            indata["reqData"]["tradeId"]=1234567890
+            data = indata["reqData"]
+        else:
+            mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
+            tradeId = mysql.ExecuQuery("select id from edl_public.trade where status=1 and trade_status=2 limit 1;")[0]["id"]
+            indata["reqData"]["tradeId"]=tradeId
+            data=indata["reqData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("【订单】 - 取消")
+    @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Basiccancel"))
+    def test_basiccancel(self, indata):
+        url = f'{config.BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        expectdata = indata["expectData"]
+        if isinstance(indata["reqData"]["tradeId"],str):
+            if indata["reqData"]["tradeId"] == "不存在id":
+                indata["reqData"]["tradeId"] = 1234567890
+                data = indata["reqData"]
+            else:
+                mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
+                mysql.ExecuNonQuery("update edl_public.trade set trade_status='2'where user_id='598137';")
+                tradeId=mysql.ExecuQuery("select id from edl_public.trade where trade_status=2 and user_id='598137';")[-1]["id"]
+                indata["reqData"]["tradeId"] = tradeId
+                data = indata["reqData"]
+        else:
+            mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
+            mysql.ExecuNonQuery("update edl_public.trade set trade_status='1'where user_id='598137';")
+            tradeId = mysql.ExecuQuery("select id from edl_public.trade where status=1 and user_id='598137';")[-1]["id"]
+            indata["reqData"]["tradeId"] = tradeId
+            data = indata["reqData"]
+        res = request_main(url, self.headers, method, data)
+        try:
+            assert res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+    # @allure.story("消息列表")
+    # @allure.description("creator:李倩,autoCreator:huangchengcheng")
+    # @allure.title("{indata[testPoint]}")
+    # @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "我的", "Messagecenterlist"))
+    # def test_Messagecenterlist(self, indata):
+    #     url = f'{config.BMCConfig.host}/{indata["url"]}'
+    #     method = indata["method"]
+    #     data = indata["reqData"]
+    #     expectdata = indata["expectData"]
+    #     res = request_main(url, self.headers, method, data)
+    #     try:
+    #         assert res["code"] == expectdata["code"]
+    #     except Exception as e:
+    #         raise e
+
 if __name__ == '__main__':
     pytest.main(["-s","-v","test_my.py",'--alluredir', './bmc/report',"--clean-alluredir"])
-    # pytest.main(['-v', '-s', "test_my.py::TestMy::test_myservicehotlist", '--alluredir', './bmc/report', "--clean-alluredir"])
+    # pytest.main(['-v', '-s', "test_my.py::TestMy::test_basiccancel", '--alluredir', './bmc/report', "--clean-alluredir"])
     os.system('allure serve ./bmc/report')
