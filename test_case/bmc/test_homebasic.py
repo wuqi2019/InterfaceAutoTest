@@ -11,10 +11,16 @@ from common.tools import request_main
 from common.utils import getExcelData
 
 
-headers=config.BMCConfig.headers
+
 @allure.feature("首页基础功能")
 class TestHomebasic:
     workbook=xlrd.open_workbook(f'{config.BaseConfig.root_path}/test_case_data/bmc/bmc_home_basic_functions_2021513.xlsx')
+
+    def setup_class(self):
+        config.BMCConfig.headers["Pvt-Token"] = getattr(config.BMCConfig, "bmc_pvt_token")
+        config.BMCConfig.headers["Token"] = getattr(config.BMCConfig, "bmc_token")
+        self.headers = config.BMCConfig.headers
+
 
     @allure.story("获取开通城市列表")
     @allure.link("")
@@ -26,7 +32,7 @@ class TestHomebasic:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,headers,method,data)
+        res=request_main(url,self.headers,method,data)
         try:
             assert res["code"]==expectdata["code"]
             assert res["success"]==expectdata["success"]
@@ -43,7 +49,7 @@ class TestHomebasic:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url=url,data=data,method=method,headers=headers)
+        res=request_main(url=url,data=data,method=method,headers=self.headers)
         try:
             assert res["code"]==expectdata["code"]
         except Exception as e:
@@ -55,12 +61,11 @@ class TestHomebasic:
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"首页基础功能","Newsclassify"))
     def test_Newsclassify(self,indata):
-        print(indata)
         url=f'{config.BMCConfig.host}/{indata["url"]}'
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url=url,data=data,method=method,headers=headers)
+        res=request_main(url=url,data=data,method=method,headers=self.headers)
         try:
             assert res["code"]==expectdata["code"]
         except Exception as e:
@@ -75,7 +80,7 @@ class TestHomebasic:
         method=indata["method"]
         expectdata=indata["expectData"]
         data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=headers)
+        res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
             assert res["code"]==expectdata["code"]
         except Exception as e:
@@ -91,27 +96,49 @@ class TestHomebasic:
         method=indata["method"]
         expectdata=indata["expectData"]
         data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=headers)
+        res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
             assert res["code"]==expectdata["code"]
         except Exception as e:
             raise e
+
+    @pytest.fixture(scope='function')
+    def newsgetlist(self):
+        url = f'{config.BMCConfig.host}/news/categoryItems'
+        method = "get"
+        data = {"categoryId":"1","page":"1","size":"20"}
+        res=request_main(url,self.headers,method,data,)
+        return res
+
 
 
     @allure.story("获得文章详情")
     @allure.description("creator：liaohui,autoCreator：huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"首页基础功能","Newsdetail"))
-    def test_newsdetail(self,indata):
+    def test_newsdetail(self,indata,newsgetlist):
         url=f'{config.BMCConfig.host}/{indata["url"]}'
         method=indata["method"]
         expectdata=indata["expectData"]
-        data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=headers)
+        try:
+            newlist=newsgetlist["data"]["list"]
+            if newlist==[]:
+                pytest.skip("没有文章，无法获取文章详情")
+            else:
+                if len(indata["reqData"]["id"])==0:
+                    data = indata["reqData"]
+                else:
+                    indata["reqData"]["id"]=newlist[0]["id"]
+                    data=indata["reqData"]
+        except Exception as e:
+            raise e
+        res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
             assert res["code"]==expectdata["code"]
         except Exception as e:
             raise e
+
+
 
     @allure.story("资讯列表搜索")
     @allure.description("creator：liaohui,autoCreator：huangchengcheng")
@@ -122,7 +149,7 @@ class TestHomebasic:
         method=indata["method"]
         expectdata=indata["expectData"]
         data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=headers)
+        res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
             assert res["code"]==expectdata["code"]
         except Exception as e:
@@ -133,6 +160,6 @@ class TestHomebasic:
 #
 #     # 生成报告数据
 #     pytest.main(['-v', '-s', "test_homebasic.py", '--alluredir', './bmc/report',"--clean-alluredir"])
-#     # pytest.main(['-v', '-s', "test_homebasic.py::TestHomebasic::test_newsgetbanner", '--alluredir', './bmc/report', "--clean-alluredir"])
+#     # pytest.main(['-v', '-s', "test_homebasic.py::TestHomebasic::test_newsdetail", '--alluredir', './bmc/report', "--clean-alluredir"])
 #     # 打开报告
 #     os.system('allure serve ./bmc/report')

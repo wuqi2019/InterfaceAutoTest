@@ -82,7 +82,7 @@ class TestRoadreview:
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"非交通占用道路审查","roadaddBasicInfo"))
-    def test_aroadaddbasicinfo(self,indata):
+    def test_roadaddbasicinfo(self,indata):
         url=f'{config.BMCConfig.host}/{indata["url"]}'
         data=indata["reqData"]
         expectdata=indata["expectData"]
@@ -94,11 +94,22 @@ class TestRoadreview:
             raise e
 
 
+    @pytest.fixture(scope='function')
+    def roadaddbasicinfo(self):
+        url=f'{config.BMCConfig.host}/pvtapi/occupy/road/addBasicInfo'
+        data={"isHasNotFinish": 0,"peoplePhone": "18800000044","companyName": "666","organizeCode": "168685858588855850","peopleName": "接口自动化","id":'null'}
+        method='post'
+        res=request_main(url,self.headers,method,data)
+        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
+        basic_info_id = mysql.ExecuQuery("select id from db_gy_dmsmp.occupy_road_apply where user_id=393038 and people_phone='18800000044'order by id;")[-1]["id"]
+        return basic_info_id
+
+
     @allure.story("业务申请")
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"非交通占用道路审查","roadaddOccupyRoadInfo"))
-    def test_broadaddoccupyroadinfo(self,indata):
+    def test_roadaddoccupyroadinfo(self,indata,roadaddbasicinfo):
         url=f'{config.BMCConfig.host}/{indata["url"]}'
         today=datetime.datetime.now()
         offset=datetime.timedelta(days=1)
@@ -109,11 +120,7 @@ class TestRoadreview:
         indata["reqData"]["beginDate"]=beginDate
         indata["reqData"]["endDate"]=endDate
         #处理开始结束时间不能小于当前日期问题
-        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        basic_info_id = mysql.ExecuQuery(
-            "select id from db_gy_dmsmp.occupy_road_apply where user_id=393038 and people_phone='18800000044'order by id;")[
-            -1]["id"]
-        indata["reqData"]["id"]=basic_info_id
+        indata["reqData"]["id"]=roadaddbasicinfo
         #处理关联任务的请求id
         data=indata["reqData"]
         res=request_main(url,self.headers,method,data)
@@ -123,21 +130,35 @@ class TestRoadreview:
             raise e
 
 
-    """系统异常"""
-    # @pytest.mark.skip(reason="不执行该用例，报系统异常")
+    @pytest.fixture(scope="function")
+    def roadaddoccupyroadinfo(self,roadaddbasicinfo):
+        url = f'{config.BMCConfig.host}//pvtapi/occupy/road/addOccupyRoadInfo'
+        today = datetime.datetime.now()
+        offset = datetime.timedelta(days=1)
+        beginDate = (today + offset).strftime('%Y-%m-%d')
+        endDate = (today + offset + offset).strftime('%Y-%m-%d')
+        reqdata={ "operateType":1,"operateReason":2,"occupyType":2,"beginDate":"2021-05-10","endDate":"2021-07-10","roadRemark":"这是接口自动化数据","width":"2","length": "10","vehicle":[{ "plateType":"蓝牌","plateNum":"京A 54344"}],"time": [{"beginTime": "06:00","endTime": "18:00"}],"roadName": "四川省成都市双流区湖畔路北段","roadLng": 104.090169,"roadLat": 30.402453,"id": "404"}
+        method = 'post'
+        reqdata["beginDate"] = beginDate
+        reqdata["endDate"] = endDate
+        # 处理开始结束时间不能小于当前日期问题
+        reqdata["id"] = roadaddbasicinfo
+        # 处理关联任务的请求id
+        data =reqdata
+        res = request_main(url, self.headers, method, data)
+
+
+
+    @pytest.mark.usefixtures("roadaddoccupyroadinfo")
     @allure.story("业务申请")
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "非交通占用道路审查", "roadaddpFile"))
-    def test_croadaddFile(self, indata):
+    def test_roadaddfile(self, indata,roadaddbasicinfo):
         url = f'{config.BMCConfig.host}/{indata["url"]}'
         expectdata = indata["expectData"]
         method = indata["method"]
-        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        basic_info_id = mysql.ExecuQuery(
-            "select id from db_gy_dmsmp.occupy_road_apply where user_id=393038 and people_phone='18800000044'order by id;")[
-            -1]["id"]
-        indata["reqData"]["id"]=basic_info_id
+        indata["reqData"]["id"]=roadaddbasicinfo
         data = indata["reqData"]
         res = request_main(url, self.headers, method, data)
         try:
@@ -150,10 +171,11 @@ class TestRoadreview:
     @allure.story("申请详情")
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
-    @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"非交通占用道路审查","roaddetailt"))
-    def test_roaddetail(self,indata):
+    @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"非交通占用道路审查","roaddetail"))
+    def test_roaddetail(self,indata,roadaddbasicinfo):
         url=f'{config.BMCConfig.host}/{indata["url"]}'
-        data=indata["reqData"]
+        indata["reqData"]["id"] = roadaddbasicinfo
+        data = indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
         res=request_main(url,self.headers,method,data)
@@ -167,9 +189,10 @@ class TestRoadreview:
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"非交通占用道路审查","roadreSubmit"))
-    def test_roadresubmit(self,indata):
+    def test_roadresubmit(self,indata,roadaddbasicinfo):
         url=f'{config.BMCConfig.host}/{indata["url"]}'
-        data=indata["reqData"]
+        indata["reqData"]["id"]=roadaddbasicinfo
+        data = indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
         res=request_main(url,self.headers,method,data)
@@ -183,9 +206,10 @@ class TestRoadreview:
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata",getExcelData.get_excelData(workbook,"非交通占用道路审查","roadnoticeDetail"))
-    def test_roadnoticedetail(self,indata):
+    def test_roadnoticedetail(self,indata,roadaddbasicinfo):
         url=f'{config.BMCConfig.host}/{indata["url"]}'
-        data=indata["reqData"]
+        indata["reqData"]["id"]=roadaddbasicinfo
+        data = indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
         res=request_main(url,self.headers,method,data)
@@ -213,7 +237,7 @@ class TestRoadreview:
 
     def teardown_class(self):
         mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' and road_remark='这是接口自动化数据';")
+        mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' ;")
 
 
 
@@ -223,6 +247,6 @@ class TestRoadreview:
 #
 #     # 生成报告数据
 #     pytest.main(['-v', '-s', "test_roadreview.py", '--alluredir', './bmc/report',"--clean-alluredir"])
-#     # pytest.main(['-v', '-s', "test_roadreview.py::TestRoadreview::test_roadaddbasicinfo", '--alluredir', './bmc/report', "--clean-alluredir"])
+#     # pytest.main(['-v', '-s', "test_roadreview.py::TestRoadreview::test_roaddetail", '--alluredir', './bmc/report', "--clean-alluredir"])
 #     # 打开报告
 #     os.system('allure serve ./bmc/report')
