@@ -12,7 +12,7 @@ from common.tools import request_main
 from config import BMCConfig
 
 
-@allure.feature("登录")
+@allure.feature("账号信息基本功能")
 class TestLogin():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_login_20210513.xlsx')
     @allure.story("登录")
