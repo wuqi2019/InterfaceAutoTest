@@ -7,6 +7,7 @@ from common.utils.getExcelData import get_excelData
 from common.tools import request_main
 from common.db import MYSQL
 from service.login import BMC
+import requests
 
 
 @allure.feature("出行服务")
@@ -202,35 +203,34 @@ class TestVehicleSteward():
 class TestViolationWarn():
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_vehicle_steward_40-58_20210513.xlsx')
     def setup_class(self):
-        self.headers1 = {'City-Code': "520100", 'Device-Brand': "vivo",
+        Headers={'City-Code': "520100", 'Device-Brand': "vivo",
                          'Device-Code': "000000001e167ed7000000001e167ed7", 'Device-Model': "vivo vivo X20",
                          'Device-Name': "vivo+X20", 'Device-Type': "Android", 'Mac': "38:6E:A2:A0:0E:AF",
                          'mimeType': "application/json", 'Net': "wifi", 'OS-Type': "Android", 'OS-Version': "27",
                          'Resolution': "2034x1080", 'Version': "2.2.6", 'Pvt-Token': "", 'Token': "", }
+        self.headers1 = Headers
         indata = {"phone": "13688468803", "encodedGesture": "d4a68e08430ac8bd3bd497d95cbfa5de"}
         res = BMC().bmc_login(indata)
         self.headers1['Pvt-Token'] = res[1]
         self.headers1['Token'] = res[0]
 
-        self.headers2 = {'City-Code': "520100", 'Device-Brand': "vivo",
-                         'Device-Code': "000000001e167ed7000000001e167ed7", 'Device-Model': "vivo vivo X20",
-                         'Device-Name': "vivo+X20", 'Device-Type': "Android", 'Mac': "38:6E:A2:A0:0E:AF",
-                         'mimeType': "application/json", 'Net': "wifi", 'OS-Type': "Android", 'OS-Version': "27",
-                         'Resolution': "2034x1080", 'Version': "2.2.6", 'Pvt-Token': "", 'Token': "", }
+        self.headers2 = Headers
         indata = {"phone": "15283936302", "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"} #public   user
         res = BMC().bmc_login(indata)
         self.headers2['Pvt-Token'] = res[1]
         self.headers2['Token'] = res[0]
 
-        self.headers3 = {'City-Code': "520100", 'Device-Brand': "vivo",
-                         'Device-Code': "000000001e167ed7000000001e167ed7", 'Device-Model': "vivo vivo X20",
-                         'Device-Name': "vivo+X20", 'Device-Type': "Android", 'Mac': "38:6E:A2:A0:0E:AF",
-                         'mimeType': "application/json", 'Net': "wifi", 'OS-Type': "Android", 'OS-Version': "27",
-                         'Resolution': "2034x1080", 'Version': "2.2.6", 'Pvt-Token': "", 'Token': "", }
+        self.headers3 = Headers
         indata = {"phone": "19900000001", "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}  # public   user
         res = BMC().bmc_login(indata)
         self.headers3['Pvt-Token'] = res[1]
         self.headers3['Token'] = res[0]
+
+        self.headers4 = Headers
+        indata = {"phone": "18311111111", "encodedGesture": "67e6d10010533eed4bbe9659863bf6ee"}  # public   user
+        res = BMC().bmc_login(indata)
+        self.headers4['Pvt-Token'] = res[1]
+        self.headers4['Token'] = res[0]
 
 
     @allure.story("违法提醒首页")
@@ -331,7 +331,7 @@ class TestViolationWarn():
         allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
+
     @allure.story("违法提醒去添加车辆")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/55122")
     @allure.description("/violationWarn/vioInfo/round")
@@ -348,10 +348,220 @@ class TestViolationWarn():
         assert res['code'] == expectData['code']
 
 
+    @allure.story("车管家_首页信息")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74426")
+    @allure.description("/vehicle/steward/index/info")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'stewardIndexInfo'))
+    def test_stewardIndexInfo(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers3, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_费用类型")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74431")
+    @allure.description("/vehicle/steward/index/expenseType")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'stewardIndexExpenseType'))
+    def test_stewardIndexExpenseType(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers3, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_广告")
+    @allure.link("http://yapi.hikcreate.com")
+    @allure.description("/banner/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'bannerList'))
+    def test_bannerList(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers3, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_车辆信息")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/75256")
+    @allure.description("/vehicle/steward/vehicle/vehicleOfUser")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'vehicleOfUser'))
+    def test_vehicleOfUser(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers3, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_完善车辆信息")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74471")
+    @allure.description("/vehicle/steward/vehicle/add")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'stewardvehicleAdd'))
+    def test_stewardvehicleAdd(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_手动记账")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74451")
+    @allure.description("/vehicle/steward/accounts/manualBookkeeping")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'manualBookkeeping'))
+    def test_manualBookkeeping(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_记账明细")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/75086")
+    @allure.description("/vehicle/steward/vehicle/accountingStatistics")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'accountingStatistics'))
+    def test_accountingStatistics(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("车管家_删除记账明细")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74571")
+    @allure.description("/vehicle/steward/accounts/delete")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'accountsDelete'))
+    def test_accountsDelete(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """处理"""
+        req_data["id"]=int(req_data["id"])
+        """请求"""
+        res =requests.post(url,data=req_data,headers=self.headers4)
+        # res = request_main(url, self.headers4, method, req_data, has_token=True)    # 此接口的content—type实际要用表单才行，所以不用这个
+        allure.attach("{0}".format(res.json()), "用例结果")
+        assert res.json()['code'] == expectData['code']
+
+
+    @allure.story("车管家_更新记账明细")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74461")
+    @allure.description("/vehicle/steward/accounts/update")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'accountsUpdate'))
+    def test_accountsUpdate(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("油耗记录概况")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78636")
+    @allure.description("/vehicle/steward/petrol/consumption/summarise")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'consumptionSummarise'))
+    def test_consumptionSummarise(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("油耗记录列表")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78646")
+    @allure.description("/vehicle/steward/petrol/consumption/list")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'consumptionList'))
+    def test_consumptionList(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("油耗记录详情")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78640")
+    @allure.description("/vehicle/steward/petrol/consumption/detail")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'consumptionDetail'))
+    def test_consumptionDetail(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
+
+    # @pytest.mark.scoreDetail
+    # @allure.story("最后一个")
+    # @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78640")
+    # @allure.description("/vehicle/steward/petrol/consumption/detail")
+    # @allure.title("{inData[testPoint]}")
+    # @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'consumptionDetail'))
+    # def test_consumptionDetail(self, inData):
+    #     url = f"{BMCConfig().host}{inData['url']}"
+    #     method = inData['method']
+    #     req_data = inData['reqData']
+    #     expectData = inData['expectData']
+    #     """请求"""
+    #     res = request_main(url, self.headers4, method, req_data, has_token=True)
+    #     allure.attach("{0}".format(res), "用例结果")
+    #     assert res['code'] == expectData['code']
 
 
 if __name__ == '__main__':
     pytest.main(['-s', '-v', 'test_vehicle_steward.py',
                  r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report' , '--clean-alluredir'])
-#
     os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
+
+    
