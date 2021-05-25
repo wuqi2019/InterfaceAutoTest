@@ -510,7 +510,7 @@ class TestViolationWarn():
         allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
-
+    
     @allure.story("油耗记录列表")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78646")
     @allure.description("/vehicle/steward/petrol/consumption/list")
@@ -542,21 +542,21 @@ class TestViolationWarn():
         allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
-    # @pytest.mark.scoreDetail
-    # @allure.story("最后一个")
-    # @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78640")
-    # @allure.description("/vehicle/steward/petrol/consumption/detail")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'consumptionDetail'))
-    # def test_consumptionDetail(self, inData):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     """请求"""
-    #     res = request_main(url, self.headers4, method, req_data, has_token=True)
-    #     allure.attach("{0}".format(res), "用例结果")
-    #     assert res['code'] == expectData['code']
+
+    @allure.story("删除油耗记录")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78642")
+    @allure.description("/vehicle/steward/petrol/consumption/delete")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'consumptionDelete'))
+    def test_consumptionDelete(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        """请求"""
+        res = request_main(url, self.headers4, method, req_data, has_token=True)
+        allure.attach("{0}".format(res), "用例结果")
+        assert res['code'] == expectData['code']
 
 
 if __name__ == '__main__':
@@ -564,4 +564,3 @@ if __name__ == '__main__':
                  r'--alluredir=D:\项目\接口自动化\InterfaceAutoTest\report' , '--clean-alluredir'])
     os.system('allure serve D:\项目\接口自动化\InterfaceAutoTest\\report')
 
-    
