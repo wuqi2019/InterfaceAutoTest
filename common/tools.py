@@ -2,7 +2,7 @@
 
 import json
 import logging
-import requests
+import requests,allure
 from config import *
 
 
@@ -19,11 +19,17 @@ def request_main(url, headers, method, data, has_token=False):
 
         try:
             if method.upper() == "GET":
+                allure.attach(f"{headers}", "请求头", allure.attachment_type.TEXT)
+                allure.attach(f"{data}", "请求参数", allure.attachment_type.TEXT)
                 inner_res = requests.get(url=url, headers=headers, params=data)
             elif method.upper() == "POST":
                 if header_content_type == "application/json":
+                    allure.attach(f"{headers}", "请求头", allure.attachment_type.TEXT)
+                    allure.attach(f"{data}", "请求参数", allure.attachment_type.TEXT)
                     inner_res = requests.post(url=url, headers=headers, json=data)
                 elif header_content_type in ["application/x-www-form-urlencoded"]:
+                    allure.attach(f"{headers}", "请求头", allure.attachment_type.TEXT)
+                    allure.attach(f"{data}", "请求参数", allure.attachment_type.TEXT)
                     inner_res = requests.post(url=url, headers=headers, data=data)
             return inner_res
         except Exception as e:
