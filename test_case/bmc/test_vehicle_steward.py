@@ -510,7 +510,7 @@ class TestViolationWarn():
         allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
-    
+
     @allure.story("油耗记录列表")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/78646")
     @allure.description("/vehicle/steward/petrol/consumption/list")
