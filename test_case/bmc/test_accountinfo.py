@@ -55,9 +55,6 @@ class TestRegister():
     # def test_mysql_result(self):
         """数据库操作"""
         self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
-        # 获取账号信息，1577800000 这个账号为注册成功账号
-        # self.resList = self.ms.ExecuQuery('SELECT * FROM edl_public.user where phone=1577800000;')
-        # self.user_id = resList[0]['id']
 
     # @allure.story("获取用户登录类型")
     # @allure.link("http://yapi.hikcreate.com/project/31/interface/api/10745")
@@ -114,7 +111,7 @@ class TestRegister():
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/10943")
     @allure.description("/v1/user/login/verifyCode/detail")
     @allure.title("{inData[testPoint]}")
-    @pytest.mark.flaky(reruns=2)
+    @pytest.mark.flaky(reruns=1)
     @pytest.mark.parametrize("inData", get_excelData(workBook, '账号信息基本功能', 'verifyCodedetailRegister'))
     def test_login_type_register(self, inData, test_picture):
         url = f"{BMCConfig().host}{inData['url']}"
@@ -137,12 +134,11 @@ class TestRegister():
             req_data['jtId'] = None
         elif casenum == 'verifyCodedetailRegister009' or casenum == 'verifyCodedetailRegister010':
             time.sleep(60)
-
+            pass
         if not phone:
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
             # 发送次数过多
-            print(res)
-            if res['msssage'] == '验证码发送次数过多，请24小时后再试':
+            if res['msg'] == '验证码发送次数过多，请24小时后再试':
                 expectData['code'] = 1006
             assert res['code'] == expectData['code']
         else:
@@ -151,7 +147,7 @@ class TestRegister():
                 res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
                 print(res)
                 # 发送次数过多
-                if res['msssage'] == '验证码发送次数过多，请24小时后再试':
+                if res['msg'] == '验证码发送次数过多，请24小时后再试':
                     expectData['code'] = 1006
                 assert res['code'] == expectData['code']
             else:
