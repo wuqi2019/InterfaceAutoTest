@@ -26,6 +26,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("分享信用分")
@@ -40,6 +41,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("历史信用分")
@@ -54,6 +56,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("完善基础信息")
@@ -68,6 +71,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("获取履约任务")
@@ -82,6 +86,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("身份证信息")
@@ -96,6 +101,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("驾驶证信息")
@@ -110,6 +116,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("身份证信息正反面")
@@ -124,6 +131,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("车辆列表")
@@ -138,6 +146,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("我的学历信息")
@@ -152,6 +161,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("我的单位信息")
@@ -166,6 +176,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("我的车辆信息")
@@ -180,6 +191,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("学历认证地区选择")
@@ -194,6 +206,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("学历单位选择")
@@ -208,6 +221,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.fixture()
@@ -239,6 +253,7 @@ class TestCreditScore():
                 expectData['code'] = 1006
             else:
                 expectData['code'] = 1000
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("删除学历")
@@ -256,6 +271,7 @@ class TestCreditScore():
         headers = inData['headers']
         req_data['id'] = education_list[0]['id']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("新增单位")
@@ -278,6 +294,7 @@ class TestCreditScore():
                 expectData['code'] = 1006
             else:
                 expectData['code'] = 1000
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.fixture()
@@ -305,6 +322,7 @@ class TestCreditScore():
         headers = inData['headers']
         req_data['id'] = work_id
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("驾驶证年审")
@@ -319,6 +337,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("更换驾驶证本人照片")
@@ -333,6 +352,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("期满换证信息")
@@ -347,6 +367,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("车辆年检信息")
@@ -361,6 +382,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("添加车辆失败")
@@ -375,6 +397,7 @@ class TestCreditScore():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
 

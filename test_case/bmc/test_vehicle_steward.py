@@ -63,6 +63,7 @@ class TestVehicleSteward():
             is_auth = test_pre_info['data']['auth']
         except Exception as e:
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+            allure.attach("{0}".format(res), "用例结果")
             setattr(TestVehicleSteward, 'gasLog', res['data']['gasLog'])
             setattr(TestVehicleSteward, 'trafficFine', res['data']['trafficFine'])
             assert res['code'] == expectData['code']
@@ -94,6 +95,7 @@ class TestVehicleSteward():
             elif self.gasLog:
                 req_data['gasLog'] = False
                 res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
         else:
             pytest.skip(msg="未开启授权，跳过此用例")
@@ -110,6 +112,7 @@ class TestVehicleSteward():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("更改自动记账")
@@ -136,6 +139,7 @@ class TestVehicleSteward():
             elif self.gasLog:
                 req_data['trafficFine'] = False
                 res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
         else:
             pytest.skip(msg="未开启授权，跳过此用例")
@@ -155,6 +159,7 @@ class TestVehicleSteward():
             is_auth = test_pre_info['data']['auth']
         except Exception as e:
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
         else:
             pytest.skip(msg="未开启授权，跳过此用例")
@@ -171,6 +176,7 @@ class TestVehicleSteward():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("自动记账授权")
@@ -193,6 +199,7 @@ class TestVehicleSteward():
             else:
                 url = f"{BMCConfig().host}/vehicle/steward/authorization/agree"
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+            allure.attach("{0}".format(res), "用例结果")
             assert res['code'] == expectData['code']
         except Exception as e:
             # 清除记录 重新执行此用例

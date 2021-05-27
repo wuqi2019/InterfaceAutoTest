@@ -40,6 +40,7 @@ class TestIllegalStudy():
         else:
             expectData['code'] = 1000
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("获取典型案例视频")
@@ -54,6 +55,7 @@ class TestIllegalStudy():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("获取试卷")
@@ -68,6 +70,7 @@ class TestIllegalStudy():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.fixture()
@@ -135,6 +138,7 @@ class TestIllegalStudy():
             req_data['topicId'] = choosequestion['topicId']
 
         res = request_main(url=url, headers=None, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询成绩（只有错题）")
@@ -149,6 +153,7 @@ class TestIllegalStudy():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询答题记录列表")
@@ -163,7 +168,7 @@ class TestIllegalStudy():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
-        print(res)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("答题记录查询")
@@ -178,6 +183,7 @@ class TestIllegalStudy():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
 if __name__ == '__main__':

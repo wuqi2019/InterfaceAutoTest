@@ -24,6 +24,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询我的签到情况")
@@ -38,8 +39,8 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
-        return res['data']['canSignInToday']
 
     @pytest.fixture()
     def test_pre_get_sign_integral(self):
@@ -65,6 +66,7 @@ class TestIntegral():
         headers = inData['headers']
         other_expected_data = inData['otherExpectData']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         if not test_pre_get_sign_integral:  # 已经签到过
             assert res['code'] == other_expected_data['code']
         else:
@@ -82,6 +84,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分商品")
@@ -96,6 +99,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询积分规则")
@@ -110,6 +114,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("设置签到提醒开关")
@@ -124,6 +129,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("任务中心主页")
@@ -138,6 +144,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.fixture()
@@ -176,6 +183,7 @@ class TestIntegral():
             else:
                 break
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("获取关注信息")
@@ -190,6 +198,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("商城中的商品")
@@ -204,6 +213,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("商品的详情")
@@ -218,6 +228,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @pytest.fixture()
@@ -228,6 +239,7 @@ class TestIntegral():
         req_data = {"pageSize":"20","pageIndex":"1","sortType":"0"}
         headers = None
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         return res['data']
 
     @allure.story("兑换商品接口")
@@ -256,6 +268,7 @@ class TestIntegral():
             else:
                 expectData['code'] = 1006
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询商品的适用门店列表")
@@ -270,6 +283,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询兑换记录")
@@ -284,6 +298,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("查询兑换记录详情")
@@ -298,6 +313,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
     @allure.story("关注成功回调")
@@ -312,6 +328,7 @@ class TestIntegral():
         expectData = inData['expectData']
         headers = inData['headers']
         res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
+        allure.attach("{0}".format(res), "用例结果")
         assert res['code'] == expectData['code']
 
 
