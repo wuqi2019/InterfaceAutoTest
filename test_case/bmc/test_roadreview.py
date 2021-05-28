@@ -39,9 +39,9 @@ class TestRoadreview:
         data=indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -55,9 +55,9 @@ class TestRoadreview:
         data=indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -71,9 +71,9 @@ class TestRoadreview:
         data=indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -87,9 +87,9 @@ class TestRoadreview:
         data=indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -123,9 +123,9 @@ class TestRoadreview:
         indata["reqData"]["id"]=roadaddbasicinfo
         #处理关联任务的请求id
         data=indata["reqData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -160,9 +160,9 @@ class TestRoadreview:
         method = indata["method"]
         indata["reqData"]["id"]=roadaddbasicinfo
         data = indata["reqData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -178,9 +178,9 @@ class TestRoadreview:
         data = indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -195,9 +195,9 @@ class TestRoadreview:
         data = indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -212,9 +212,9 @@ class TestRoadreview:
         data = indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -228,9 +228,9 @@ class TestRoadreview:
         data=indata["reqData"]
         expectdata=indata["expectData"]
         method=indata["method"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -238,6 +238,10 @@ class TestRoadreview:
     def teardown_class(self):
         mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' ;")
+
+    def teardown(self):
+        allure.attach(f'{self.res}','响应结果',allure.attachment_type.TEXT)
+
 
 
 

@@ -36,9 +36,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -51,9 +51,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -67,9 +67,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -83,9 +83,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -99,9 +99,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -117,9 +117,9 @@ class TestMy:
         indata["reqData"]["recipientName"] = "自动化"
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -132,9 +132,9 @@ class TestMy:
         data["recipientName"] = "自动化"
         data["address"] = "接口自动化详细地址"
         expectdata={ "success": 'true',"code": 1000, "msg": "操作成功"}
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -158,9 +158,9 @@ class TestMy:
             indata["reqData"]["addressId"]=addressId+36598555
             self.data = indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,self.data)
+        self.res=request_main(url,self.headers,method,self.data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -186,9 +186,9 @@ class TestMy:
                 indata["reqData"]["addressId"]=addressId
                 data = indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -210,9 +210,9 @@ class TestMy:
         else:
             indata["reqData"]["addressId"]=addressId
             data = indata["reqData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -227,9 +227,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -243,9 +243,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -259,9 +259,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -275,9 +275,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -291,9 +291,9 @@ class TestMy:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -308,9 +308,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -338,9 +338,9 @@ class TestMy:
             indata["reqData"]['msgId']=messagecenterlist[0]["msgId"]
             data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -354,9 +354,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -370,9 +370,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -386,9 +386,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -402,9 +402,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -418,9 +418,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -441,9 +441,9 @@ class TestMy:
             tradeId = mysql.ExecuQuery("select id from edl_public.trade where status=1 and trade_status=2 limit 1;")[0]["id"]
             indata["reqData"]["tradeId"]=tradeId
             data=indata["reqData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -472,9 +472,9 @@ class TestMy:
             tradeId = mysql.ExecuQuery("select id from edl_public.trade where status=1 and user_id='598137';")[-1]["id"]
             indata["reqData"]["tradeId"] = tradeId
             data = indata["reqData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -488,9 +488,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -508,9 +508,9 @@ class TestMy:
             indata["reqData"]["feedbackTypeId"]=10008611
             data=indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -539,9 +539,9 @@ class TestMy:
         method = indata["method"]
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -557,9 +557,9 @@ class TestMy:
         indata["reqData"]["feedbackId"]=feedbackadd
         data = indata["reqData"]
         expectdata = indata["expectData"]
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
+            assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
@@ -581,10 +581,10 @@ class TestMy:
         else:
             mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
             mysql.ExecuNonQuery( "update edl_public.feedback_main set read_flag='1'where user_id='598137'and feedback_type_id='10008611';")
-        res = request_main(url, self.headers, method, data)
+        self.res = request_main(url, self.headers, method, data)
         try:
-            assert res["code"] == expectdata["code"]
-            assert res["data"]["flag"]==otherexpectData["data"]["flag"]
+            assert self.res["code"] == expectdata["code"]
+            assert self.res["data"]["flag"]==otherexpectData["data"]["flag"]
         except Exception as e:
             raise e
 
@@ -599,9 +599,9 @@ class TestMy:
         indata["reqData"]["feedbackId"] = feedbackadd
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -610,8 +610,12 @@ class TestMy:
         mysql.ExecuNonQuery("delete from feedback_type where id='10008611';")
         mysql.ExecuNonQuery("delete from feedback_chat_record where user_id='598137'")
         mysql.ExecuNonQuery("delete from feedback_main where user_id='598137'")
+
+        allure.attach(f"{self.res}",'响应结果',allure.attachment_type.TEXT)
+    def teardown_class(self):
+        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
         mysql.ExecuNonQuery("update edl_public.user set nickname='自动化' where id='598137';")
-        mysql.ExecuNonQuery("delete from edl_public.user_address where user_id='598137'and address in ('接口自动化详细地址','存在');")
+        mysql.ExecuNonQuery( "delete from edl_public.user_address where user_id='598137'and address in ('接口自动化详细地址','存在');")
         mysql.ExecuNonQuery("delete from trade where user_id='598137'and trade_no='hik202105081390911897531973632';")
 
 # if __name__ == '__main__':
