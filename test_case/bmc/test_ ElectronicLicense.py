@@ -70,7 +70,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach("{0}".format(res), "用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
     @allure.story("获取驾驶证图片状态")
@@ -86,7 +86,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach( "{0}".format(res),"用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
     @pytest.mark.usefixtures("imaAuditStatus")
@@ -103,7 +103,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach( "{0}".format(res),"用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
     @allure.story("图像上传页文案")
@@ -119,7 +119,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach( "{0}".format(res),"用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
 
@@ -137,7 +137,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach( "{0}".format(res),"用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
 
@@ -154,7 +154,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach( "{0}".format(res),"用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
     @allure.story("驾驶证图片接口")
@@ -188,7 +188,7 @@ class TestDrivingLicense():
         headers = inData['headers']
         """请求"""
         res = request_main(url, headers, method, req_data)
-        allure.attach("{0}".format(res), "用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
 
@@ -215,7 +215,7 @@ class TestDrivingLicense():
 
         """请求"""
         res = request_main(url, headers, method, req_data,has_token=True)
-        allure.attach( "{0}".format(res),"用例结果")
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
     """把其他某个用例做为初始化，这种方式还需讨论，暂时不行"""
