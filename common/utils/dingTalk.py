@@ -52,7 +52,7 @@ def dingTalk_markdown(secret,webhook,message):
             "markdown": {
             "title":"接口执行报告",
             "text": f"#### 接口自动化测试报告  \n> 本消息由Jenkins构建后自动发送\n> \
-            ![screenshot](https://aqjg.gyszhjt.com:60028/img/group1/M00/00/03/Cgs5X2CwRQ-AKCtYAAFAKzUlsWM407.png)\n> ###### {now_time}构建 [斑马信用](http://10.197.236.10:8080/job/bmc/allure/) \n"
+            ![screenshot](https://aqjg.gyszhjt.com:60028/img/group1/M00/00/03/Cgs5X2CwRQ-AKCtYAAFAKzUlsWM407.png)\n> ###### 点击查看 >> [斑马信用](http://10.197.236.10:8080/job/bmc/allure/) \n"
                         },
             'at': {'isAtAll': False}}
     post_data = json.dumps(data)
