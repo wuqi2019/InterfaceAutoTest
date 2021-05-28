@@ -32,10 +32,10 @@ class TestHomebasic:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url,self.headers,method,data)
+        self.res=request_main(url,self.headers,method,data)
         try:
-            assert res["code"]==expectdata["code"]
-            assert res["success"]==expectdata["success"]
+            assert self.res["code"]==expectdata["code"]
+            assert self.res["success"]==expectdata["success"]
         except Exception as e:
             raise e
 
@@ -49,9 +49,9 @@ class TestHomebasic:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url=url,data=data,method=method,headers=self.headers)
+        self.res=request_main(url=url,data=data,method=method,headers=self.headers)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -65,9 +65,9 @@ class TestHomebasic:
         method=indata["method"]
         data=indata["reqData"]
         expectdata=indata["expectData"]
-        res=request_main(url=url,data=data,method=method,headers=self.headers)
+        self.res=request_main(url=url,data=data,method=method,headers=self.headers)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -80,9 +80,9 @@ class TestHomebasic:
         method=indata["method"]
         expectdata=indata["expectData"]
         data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=self.headers)
+        self.res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -96,9 +96,9 @@ class TestHomebasic:
         method=indata["method"]
         expectdata=indata["expectData"]
         data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=self.headers)
+        self.res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -132,9 +132,9 @@ class TestHomebasic:
                     data=indata["reqData"]
         except Exception as e:
             raise e
-        res=request_main(url=url,method=method,data=data,headers=self.headers)
+        self.res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
 
@@ -149,11 +149,14 @@ class TestHomebasic:
         method=indata["method"]
         expectdata=indata["expectData"]
         data=indata["reqData"]
-        res=request_main(url=url,method=method,data=data,headers=self.headers)
+        self.res=request_main(url=url,method=method,data=data,headers=self.headers)
         try:
-            assert res["code"]==expectdata["code"]
+            assert self.res["code"]==expectdata["code"]
         except Exception as e:
             raise e
+
+    def teardown(self):
+        allure.attach(f'{self.res}','相应结果',allure.attachment_type.TEXT)
 
 
 # if __name__ == '__main__':
