@@ -131,8 +131,8 @@ class TestRegister():
             req_data['horPercent'] = 1
         elif casenum == 'verifyCodedetailRegister008':
             req_data['jtId'] = None
-        # elif casenum == 'verifyCodedetailRegister009' or casenum == 'verifyCodedetailRegister010':
-        #     # time.sleep(60)
+        elif casenum == 'verifyCodedetailRegister009' or casenum == 'verifyCodedetailRegister010':
+            time.sleep(60)
         #     pass
         if not phone:
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
