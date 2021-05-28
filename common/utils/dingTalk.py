@@ -52,7 +52,7 @@ def dingTalk_markdown(secret,webhook,message):
             "markdown": {
             "title":"接口执行报告",
             "text": f"#### 接口自动化测试报告  \n> 本消息由Jenkins构建后自动发送\n> \
-            ![screenshot](https://aqjg.gyszhjt.com:60028/img/group1/M00/00/03/Cgs5X2CiKqSAPrSCAAEaUuxutsg217.png)\n> ###### {now_time}构建 [斑马信用](http://10.197.236.10:8080/job/bmc/allure/) \n"
+            ![screenshot](https://aqjg.gyszhjt.com:60028/img/group1/M00/00/03/Cgs5X2CwRQ-AKCtYAAFAKzUlsWM407.png)\n> ###### {now_time}构建 [斑马信用](http://10.197.236.10:8080/job/bmc/allure/) \n"
                         },
             'at': {'isAtAll': False}}
     post_data = json.dumps(data)
@@ -63,9 +63,9 @@ def dingTalk_markdown(secret,webhook,message):
 
 if __name__ == '__main__':
 
-    res=dingTalk_markdown(secret="SEC1d08f46da74337cc0e1cd5bb9ad19622d825483343fdfa43ce396881e4745bdb",
-                 webhook="https://oapi.dingtalk.com/robot/send?access_token=f9e005c1a984b9607960345d38669337b1115d1141a0294e98666443b312115b",
-                 message="我就是我, @XXX 是不一样的烟火")
+    res=dingTalk_markdown(secret="SEC40a1be4bbd9214e16ba288208fd608b2b590e82e853fa9b24c1850a506c6185b",
+                 webhook="https://oapi.dingtalk.com/robot/send?access_token=e830b05eeee88da31972099e403a74d05ec55719360707dc44e532c0d0b49cb6",
+                 message="小帅")
     print(res)
     now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
     print(now_time)
