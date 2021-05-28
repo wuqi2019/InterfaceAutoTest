@@ -132,13 +132,12 @@ class TestRegister():
         elif casenum == 'verifyCodedetailRegister008':
             req_data['jtId'] = None
         # elif casenum == 'verifyCodedetailRegister009' or casenum == 'verifyCodedetailRegister010':
-        #     # time.sleep(60)
+            # time.sleep(61)
         #     pass
         if not phone:
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
-            print(res)
             # 发送次数过多
-            if res['msg'] == '验证码发送次数过多，请24小时后再试':
+            if res['msg'] == '验证码发送次数过多，请24小时后再试' or '发送的间隔时间' in res['msg']:
                 expectData['code'] = 1006
             assert res['code'] == expectData['code']
         else:
@@ -150,7 +149,7 @@ class TestRegister():
             res = request_main(url=url, headers=headers, method=method, data=req_data, has_token=False)
             allure.attach("{0}".format(res), "用例结果")
             # 发送次数过多
-            if res['msg'] == '验证码发送次数过多，请24小时后再试':
+            if res['msg'] == '验证码发送次数过多，请24小时后再试' or '发送的间隔时间' in res['msg']:
                 expectData['code'] = 1006
             assert res['code'] == expectData['code']
 
