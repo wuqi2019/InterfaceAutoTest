@@ -63,18 +63,27 @@ def dingTalk_markdown(secret,webhook,message):
 
 if __name__ == '__main__':
 
+    # res=dingTalk_markdown(secret = "SEC465015385218e70a94f107a16f72dd33d8fc118c3b2a631e0433685302f2fbb3",
+    #                       webhook = "https://oapi.dingtalk.com/robot/send?access_token=229908a83825ed56abbf728d3382e446a4e8a90e9ad302c37a036bcbccbbf9ee",
+    #                       message="小组")
+    # print(res)
+    # now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
+    # print(now_time)
+
     res=dingTalk_markdown(secret="SEC40a1be4bbd9214e16ba288208fd608b2b590e82e853fa9b24c1850a506c6185b",
-                 webhook="https://oapi.dingtalk.com/robot/send?access_token=e830b05eeee88da31972099e403a74d05ec55719360707dc44e532c0d0b49cb6",
-                 message="小帅")
+                      webhook="https://oapi.dingtalk.com/robot/send?access_token=e830b05eeee88da31972099e403a74d05ec55719360707dc44e532c0d0b49cb6",
+                      message="小帅")
     print(res)
-    now_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
-    print(now_time)
 
 
     # 自动化测试组 - 技术和思路分享 - ----小帅
-    # SEC40a1be4bbd9214e16ba288208fd608b2b590e82e853fa9b24c1850a506c6185b
-    # https: // oapi.dingtalk.com / robot / send?access_token = e830b05eeee88da31972099e403a74d05ec55719360707dc44e532c0d0b49cb6
+    # secret = "SEC40a1be4bbd9214e16ba288208fd608b2b590e82e853fa9b24c1850a506c6185b",
+    # webhook = "https://oapi.dingtalk.com/robot/send?access_token=e830b05eeee88da31972099e403a74d05ec55719360707dc44e532c0d0b49cb6",
 
     # 自动化小组
     # secret = "SEC465015385218e70a94f107a16f72dd33d8fc118c3b2a631e0433685302f2fbb3",
     # webhook = "https://oapi.dingtalk.com/robot/send?access_token=229908a83825ed56abbf728d3382e446a4e8a90e9ad302c37a036bcbccbbf9ee"
+
+    # # 斑马信用测试
+    # secret = "SECd10e7eaf4ae5e4a9b15cb059951519c0d8537721fd588e38b861c411ce6442d3"
+    # webhook= "https://oapi.dingtalk.com/robot/send?access_token=9755709d67e98f6adfa09c884b2b62480b5315ffb65acde5309094206374e3a1"
