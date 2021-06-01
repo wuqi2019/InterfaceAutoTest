@@ -51,7 +51,7 @@ class TestDrivingLicense():
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
-    # @pytest.mark.scoreDetail
+
     @allure.story("电动车banner接口")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/61377")
     @allure.description("接口：/electric/electricBannerOrPop，creator：胥键雪，autoCreator：taoke")
@@ -68,9 +68,60 @@ class TestDrivingLicense():
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
+
+    @allure.story("检测是否领取")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45684")
+    @allure.description("接口：/pvtapi/electricBicycle/isBind，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'electricBicycleIsBind'))
+    def test_electricBicycleIsBind(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("电动自行车行驶证二维码")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/46554")
+    @allure.description("接口：/electricBicycle/qr，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'ElectricBicycleQr'))
+    def test_ElectricBicycleQr(self, inData):
+        url = f"{BMCConfig().pvthost}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    # @pytest.mark.scoreDetail
+    @allure.story("获取须知信息")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/7704")
+    @allure.description("接口：/pvtapi/sys/notice/detail，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'noticeDetail'))
+    def test_noticeDetail(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  #  '-m','scoreDetail' ,
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
-    pytest.main(['test_ElectricBicycle.py', '-s', '--alluredir','../../report/tmp'])
+    pytest.main(['test_ElectricBicycle.py', '-s', '-m','scoreDetail' , '--alluredir','../../report/tmp'])
     os.system('allure serve ../../report/tmp')
