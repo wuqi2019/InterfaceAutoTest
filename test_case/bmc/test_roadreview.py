@@ -107,7 +107,7 @@ class TestRoadreview:
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         # mysql = BaseConfig.test_mysql
         # mysql = MYSQL(*mysql)
-        mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="db_gy_dmsmp")
+        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         basic_info_id = mysql.ExecuQuery("select id from db_gy_dmsmp.occupy_road_apply where user_id=393038 and people_phone='18800000044'order by id;")[-1]["id"]
         return basic_info_id
 
@@ -246,7 +246,7 @@ class TestRoadreview:
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         # mysql = BaseConfig.test_mysql
         # mysql = MYSQL(*mysql)
-        mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="db_gy_dmsmp")
+        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' ;")
 
     def teardown(self):
