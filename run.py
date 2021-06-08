@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # os.system('allure serve ./report/tmp')
 
     # 发送钉钉 （）
-    dingTalk.dingTalk_markdown(secret="SEC465015385218e70a94f107a16f72dd33d8fc118c3b2a631e0433685302f2fbb3",
-                 webhook="https://oapi.dingtalk.com/robot/send?access_token=229908a83825ed56abbf728d3382e446a4e8a90e9ad302c37a036bcbccbbf9ee",
-                               message="")
+    dingTalk.dingTalk_markdown2(BaseConfig.bmc_group)
+
+
 
