@@ -11,7 +11,7 @@ from common.db import MYSQL, RedisString
 from common.utils.getExcelData import  get_excelData
 from service.login import BMY
 from common.tools import request_main
-from config import BMCConfig
+from config import BMCConfig,BaseConfig
 
 
 @allure.feature("账号信息基本功能")
@@ -54,7 +54,12 @@ class TestRegister():
     def setup_class(self):
     # def test_mysql_result(self):
         """数据库操作"""
-        self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
+        # self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
+
+        self.ms = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
+
+        # mysql = BaseConfig.test_mysql
+        # self.ms = MYSQL(*mysql)
 
     @allure.story("获取用户登录类型")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/10745")

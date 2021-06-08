@@ -26,7 +26,8 @@ class BaseConfig():
     log_path = r''  # 日志路径
 
     # 数据库
-    test_mysql = ("10.197.236.190", 3306, "root", "123456", "edl_private")
+    test_mysql = ("10.197.236.215", 3306, "root", "DataCenter@!hik", "")
+    # test_mysql = ("10.197.236.190", 3306, "root", "123456", "")
 
 
 class BMCConfig(BaseConfig):
