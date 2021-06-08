@@ -25,6 +25,9 @@ class BaseConfig():
     # 日志相关
     log_path = r''  # 日志路径
 
+    # 数据库
+    test_mysql = ("10.197.236.190", 3306, "root", "123456", "edl_private")
+
 
 class BMCConfig(BaseConfig):
     """斑马信用app的配置类"""

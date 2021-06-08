@@ -241,7 +241,7 @@ class TestDrivingLicense():
         assert res['code'] == expectData['code']
 
     @pytest.mark.scoreDetail
-    @allure.story("提交新国标备案申请")
+    @allure.story("提交新国标备案申请") # 时间需要加8小时
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/44776")
     @allure.description("接口：/pvtapi/electricBicycle/apply/newGB/submit，creator：胥键雪，autoCreator：taoke")
     @allure.title("{inData[testPoint]}")

@@ -93,8 +93,10 @@ if __name__ == '__main__':
     # print(str(r)[-7:-1])
     # pass
     # RedisString(0).delete_key("bmc:c1:dl_img:uid")
+    mysql_config=("10.197.236.190", 3306, "root", "123456", "")
     # mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
-    # info = mysql.ExecuQuery("SELECT * FROM db_tbd_base1.project;")
-    # print(info)
+    mysql = MYSQL(*mysql_config)
+    info = mysql.ExecuQuery("SELECT * FROM db_tbd_base1.project;")
+    print(info)
 
-    r = RedisString(0).get('bmc:captcha:1ad7d0e9-1e01-454c-8500-d7b5b15c90ff')
+    # r = RedisString(0).get('bmc:captcha:1ad7d0e9-1e01-454c-8500-d7b5b15c90ff')
