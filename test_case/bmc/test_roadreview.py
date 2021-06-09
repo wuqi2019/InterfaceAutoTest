@@ -27,8 +27,6 @@ class TestRoadreview:
         config.BMCConfig.headers["bmc_pvt_token"]=res[1]
         self.headers=config.BMCConfig.headers
         # mysql=MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_private")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
         self.pvt_user_id=mysql.ExecuQuery("SELECT id FROM user WHERE phone='17822000000';")[0]["id"]
         #不同账号登录，将sql中的user_id修改为获取到的用户专网id：self.pvt_user_id
@@ -105,8 +103,6 @@ class TestRoadreview:
         method='post'
         res=request_main(url,self.headers,method,data)
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         basic_info_id = mysql.ExecuQuery("select id from db_gy_dmsmp.occupy_road_apply where user_id=393038 and people_phone='18800000044'order by id;")[-1]["id"]
         return basic_info_id
@@ -244,8 +240,6 @@ class TestRoadreview:
 
     def teardown_class(self):
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' ;")
 

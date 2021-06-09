@@ -25,8 +25,6 @@ class TestMy:
         self.headers=config.BMCConfig.headers
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
-        # mysql = BaseConfig.test_mysql_215
-        # mysql = MYSQL(*mysql)
         mysql.ExecuNonQuery( "insert into edl_public.feedback_type values ('10008611','自动化类型','0','1','0','2021-05-01 16:51:12','2021-05-01 16:51:12','520100,330100,500100');")
         mysql.ExecuNonQuery( "INSERT INTO edl_public.trade (user_id,phone,brand_id,shop_id,trade_type,trade_amount,privilege_amount,pay_amount,uuid,trade_no,trade_source,memo,gmt_finished,status,gmt_create,gmt_modified,shop_name,brand_name,trade_status,remark_status,verification_status,settlement_status,refund_status,close_status,gmt_closed,close_memo,expired_status,gmt_expired,bill_status) VALUES (598137,'17822000000',48,112,2,2.55,0.00,2.55,'7ac6253d-8586-475d-8474-be848fe5c4b6','hik202105081390911897531973632',1,NULL ,NULL ,1,'2021-05-08 14:10:13.000','2021-05-24 17:25:30.000','回归测试门店1','回归（个人）1',3,'N/A','N/A','N/A','N/A','N/A',NULL,NULL,'N/A','2021-06-07 14:10:13.000','N/A');")
 
@@ -152,8 +150,6 @@ class TestMy:
         url=f'{config.BMCConfig.host}/{indata["url"]}'
         method=indata["method"]
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
         addressId=mysql.ExecuQuery("SELECT id FROM user_address  WHERE address='接口自动化详细地址';")[-1]["id"]
         if indata["reqData"]["address"]=="存在":
@@ -182,8 +178,6 @@ class TestMy:
         url=f'{config.BMCConfig.host}/{indata["url"]}'
         method=indata["method"]
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
         addressId = mysql.ExecuQuery("SELECT id FROM user_address  WHERE address='接口自动化详细地址';")[-1]["id"]
         if len(indata["reqData"]["addressId"])==0:
@@ -214,8 +208,6 @@ class TestMy:
         method = indata["method"]
         expectdata = indata["expectData"]
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
         addressId = mysql.ExecuQuery("SELECT id FROM user_address  WHERE address='接口自动化详细地址';")[-1]["id"]
         if len(indata["reqData"]["addressId"])==0:
@@ -451,8 +443,6 @@ class TestMy:
             data = indata["reqData"]
         else:
             # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-            # mysql = BaseConfig.test_mysql
-            # mysql = MYSQL(*mysql)
             mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
             tradeId = mysql.ExecuQuery("select id from edl_public.trade where status=1 and trade_status=2 limit 1;")[0]["id"]
             indata["reqData"]["tradeId"]=tradeId
@@ -478,8 +468,6 @@ class TestMy:
                 data = indata["reqData"]
             else:
                 # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-                # mysql = BaseConfig.test_mysql
-                # mysql = MYSQL(*mysql)
                 mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
                 mysql.ExecuNonQuery("update edl_public.trade set trade_status='2'where user_id='598137';")
                 tradeId=mysql.ExecuQuery("select id from edl_public.trade where trade_status=2 and user_id='598137';")[-1]["id"]
@@ -487,8 +475,6 @@ class TestMy:
                 data = indata["reqData"]
         else:
             # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-            # mysql = BaseConfig.test_mysql
-            # mysql = MYSQL(*mysql)
             mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
             mysql.ExecuNonQuery("update edl_public.trade set trade_status='1'where user_id='598137';")
             tradeId = mysql.ExecuQuery("select id from edl_public.trade where status=1 and user_id='598137';")[-1]["id"]
@@ -547,8 +533,6 @@ class TestMy:
         method = "post"
         res=request_main(url,self.headers,method,data)
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-        # mysql = BaseConfig.test_mysql
-        # mysql = MYSQL(*mysql)
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
         feedbackId=mysql.ExecuQuery("select feedback_id from edl_public.feedback_chat_record where user_id='598137' and content='自动化新用户意见数据';")[-1]["feedback_id"]
         return feedbackId
@@ -601,15 +585,11 @@ class TestMy:
         otherexpectData=indata["otherExpectData"]
         if indata['testPoint']=="有未读信息":
             # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-            # mysql = BaseConfig.test_mysql
-            # mysql = MYSQL(*mysql)
             mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
             mysql.ExecuNonQuery("update edl_public.feedback_main set read_flag='0'where user_id='598137'and feedback_type_id='10008611';")
             mysql.ExecuNonQuery("update edl_public.feedback_main set status='1'where user_id='598137'and feedback_type_id='10008611';")
         else:
             # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
-            # mysql = BaseConfig.test_mysql
-            # mysql = MYSQL(*mysql)
             mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
             mysql.ExecuNonQuery( "update edl_public.feedback_main set read_flag='1'where user_id='598137'and feedback_type_id='10008611';")
         self.res = request_main(url, self.headers, method, data)
@@ -639,8 +619,6 @@ class TestMy:
     def teardown(self):
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
-        # mysql = BaseConfig.test_mysql_215
-        # mysql = MYSQL(*mysql)
         mysql.ExecuNonQuery("delete from edl_public.feedback_type where id='10008611';")
         mysql.ExecuNonQuery("delete from edl_public.feedback_chat_record where user_id='598137'")
         mysql.ExecuNonQuery("delete from edl_public.feedback_main where user_id='598137'")
@@ -649,8 +627,6 @@ class TestMy:
     def teardown_class(self):
         # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_public")
         mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
-        # mysql = BaseConfig.test_mysql_215
-        # mysql = MYSQL(*mysql)
         mysql.ExecuNonQuery("update edl_public.user set nickname='自动化' where id='598137';")
         mysql.ExecuNonQuery( "delete from edl_public.user_address where user_id='598137'and address in ('接口自动化详细地址','存在');")
         mysql.ExecuNonQuery("delete from edl_public.trade where user_id='598137'and trade_no='hik202105081390911897531973632';")
@@ -660,14 +636,5 @@ if __name__ == '__main__':
     # pytest.main(['-v', '-s', "test_my.py::TestMy::test_basiccouponCode", '--alluredir', './bmc/report', "--clean-alluredir"])
     os.system('allure serve ./bmc/report')
 
-    # mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
-    # mysql.ExecuNonQuery("delete from feedback_type where id='10008611';")
-    # mysql.ExecuNonQuery("delete from feedback_chat_record where user_id='598137'")
-    # mysql.ExecuNonQuery("delete from feedback_main where user_id='598137'")
-
-    # mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
-    # mysql.ExecuNonQuery("update edl_public.user set nickname='自动化' where id='598137';")
-    # mysql.ExecuNonQuery("delete from edl_public.user_address where user_id='598137'and address in ('接口自动化详细地址','存在');")
-    # mysql.ExecuNonQuery("delete from trade where user_id='598137'and trade_no='hik202105081390911897531973632';")
 
 

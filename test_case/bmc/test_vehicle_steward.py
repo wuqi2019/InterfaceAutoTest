@@ -18,10 +18,8 @@ class TestVehicleSteward():
         """链接数据库"""
         # 出行服务
         # self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
-
         self.ms=MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
-        # mysql = BaseConfig.test_mysql
-        # self.ms = MYSQL(*mysql)
+
         # 获取账号的userId  -- 目前已经在excel中写死为 17822000000 账号的userId
         resList = self.ms.ExecuQuery('SELECT * FROM edl_public.user where phone=17822000000;')
         self.user_id = resList[0]['id']
