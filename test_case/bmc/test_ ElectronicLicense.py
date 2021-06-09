@@ -36,11 +36,11 @@ def get_vehickleId_Tounbind():
 
 @pytest.fixture(scope='function')
 def avatarUpdate_del() : #修改头像清除
-    # mysql=BaseConfig.test_mysql
-    # mysql = MYSQL(*mysql)
-    # mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
-    mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
+    mysql=BaseConfig.test_mysql_215
+    mysql = MYSQL(*mysql)
 
+    # mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
+    # mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
     mysql.ExecuNonQuery(
         "DELETE FROM edl_private.driving_license_image_audit WHERE name='自动化';")  # 删除驾驶员
     RedisString(0).delete_key("bmc:c1:dl_img:uid")

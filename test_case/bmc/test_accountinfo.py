@@ -55,11 +55,10 @@ class TestRegister():
     # def test_mysql_result(self):
         """数据库操作"""
         # self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
-
         self.ms = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
 
-        # mysql = BaseConfig.test_mysql
-        # self.ms = MYSQL(*mysql)
+        # mysql = BaseConfig.test_mysql_215
+        # self.ms  = MYSQL(*mysql)
 
     @allure.story("获取用户登录类型")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/10745")
