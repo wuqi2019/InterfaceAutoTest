@@ -54,8 +54,8 @@ class TestRegister():
     def setup_class(self):
     # def test_mysql_result(self):
         """数据库操作"""
-        # self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
-        self.ms = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
+        self.ms = MYSQL('10.197.236.190', 3306, 'root', '123456', 'edl_public')
+        # self.ms = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
 
         # mysql = BaseConfig.test_mysql_215
         # self.ms  = MYSQL(*mysql)

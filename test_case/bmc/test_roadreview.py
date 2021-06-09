@@ -239,8 +239,8 @@ class TestRoadreview:
 
 
     def teardown_class(self):
-        # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
+        # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
         mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' ;")
 
     def teardown(self):
