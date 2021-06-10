@@ -26,9 +26,8 @@ class TestRoadreview:
         config.BMCConfig.headers["bmc_token"]=res[0]
         config.BMCConfig.headers["bmc_pvt_token"]=res[1]
         self.headers=config.BMCConfig.headers
-        # mysql=MYSQL("10.197.236.190", 3306, "root", "123456", db="edl_private")
-        mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", db="edl_public")
-        self.pvt_user_id=mysql.ExecuQuery("SELECT id FROM user WHERE phone='17822000000';")[0]["id"]
+        mysql=MYSQL(*BaseConfig.test_mysql)
+        self.pvt_user_id=mysql.ExecuQuery("SELECT id FROM edl_private.user WHERE phone='17822000000';")[0]["id"]
         #不同账号登录，将sql中的user_id修改为获取到的用户专网id：self.pvt_user_id
 
 
@@ -102,8 +101,7 @@ class TestRoadreview:
         data={"isHasNotFinish": 0,"peoplePhone": "18800000044","companyName": "666","organizeCode": "168685858588855850","peopleName": "接口自动化","id":'null'}
         method='post'
         res=request_main(url,self.headers,method,data)
-        # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
+        mysql = MYSQL(*BaseConfig.test_mysql)
         basic_info_id = mysql.ExecuQuery("select id from db_gy_dmsmp.occupy_road_apply where user_id=393038 and people_phone='18800000044'order by id;")[-1]["id"]
         return basic_info_id
 
@@ -149,19 +147,19 @@ class TestRoadreview:
         # 处理关联任务的请求id
         data =reqdata
         res = request_main(url, self.headers, method, data)
+        return roadaddbasicinfo
 
 
 
-    @pytest.mark.usefixtures("roadaddoccupyroadinfo")
     @allure.story("业务申请")
     @allure.description("creator:林静文,autoCreator:huangchengcheng")
     @allure.title("{indata[testPoint]}")
     @pytest.mark.parametrize("indata", getExcelData.get_excelData(workbook, "非交通占用道路审查", "roadaddpFile"))
-    def test_roadaddfile(self, indata,roadaddbasicinfo):
+    def test_roadaddfile(self, indata,roadaddoccupyroadinfo):
         url = f'{config.BMCConfig.host}/{indata["url"]}'
         expectdata = indata["expectData"]
         method = indata["method"]
-        indata["reqData"]["id"]=roadaddbasicinfo
+        indata["reqData"]["id"]=roadaddoccupyroadinfo
         data = indata["reqData"]
         self.res = request_main(url, self.headers, method, data)
         try:
@@ -239,8 +237,7 @@ class TestRoadreview:
 
 
     def teardown_class(self):
-        mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
-        # mysql = MYSQL("10.197.236.190", 3306, "root", "123456", db="db_gy_dmsmp")
+        mysql = MYSQL(*BaseConfig.test_mysql)
         mysql.ExecuNonQuery("delete from db_gy_dmsmp.occupy_road_apply where user_id='393038' and people_phone='18800000044' ;")
 
     def teardown(self):
@@ -251,10 +248,10 @@ class TestRoadreview:
 
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
     # 生成报告数据
-    pytest.main(['-v', '-s', "test_roadreview.py", '--alluredir', './bmc/report',"--clean-alluredir"])
-    # pytest.main(['-v', '-s', "test_roadreview.py::TestRoadreview::test_roaddetail", '--alluredir', './bmc/report', "--clean-alluredir"])
+    # pytest.main(['-v', '-s', "test_roadreview.py", '--alluredir', './bmc/report',"--clean-alluredir"])
+    # pytest.main(['-v', '-s', "test_roadreview.py::TestRoadreview::test_roadaddfile", '--alluredir', './bmc/report', "--clean-alluredir"])
     # 打开报告
-    os.system('allure serve ./bmc/report')
+    # os.system('allure serve ./bmc/report')
