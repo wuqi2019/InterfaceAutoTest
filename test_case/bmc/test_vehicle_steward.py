@@ -439,7 +439,7 @@ class TestViolationWarn():
 
     @allure.story("车管家_手动记账")
     @allure.link("http://yapi.hikcreate.com/project/31/interface/api/74451")
-    @allure.description("/vehicle/steward/accounts/manualBookkeeping")
+    @allure.description("/vehicle/steward/accounts/manualBookkeeping,autoCreator:taoke,creator:林静文")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '出行服务', 'manualBookkeeping'))
     def test_manualBookkeeping(self, inData):
