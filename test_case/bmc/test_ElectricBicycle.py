@@ -11,6 +11,18 @@ from config import BaseConfig,BMCConfig
 from service.login import BMC
 from common.db import RedisString,MYSQL
 
+@pytest.fixture(scope='function')
+def avatarUpdate_del() : #修改头像清除
+    # mysql=BaseConfig.test_mysql_215
+    # mysql = MYSQL(*mysql)
+    mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
+    # mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
+    mysql.ExecuNonQuery(
+        "DELETE FROM edl_private.driving_license_image_audit WHERE name='自动化';")  # 删除驾驶员
+    RedisString(0).delete_key("bmc:c1:dl_img:uid")
+    yield
+
+
 # @allure.epic("斑马信用")
 @allure.feature("电动车预约")
 class TestDrivingLicense():
@@ -252,7 +264,7 @@ class TestDrivingLicense():
         req_data = inData['reqData']
         expectData = inData['expectData']
         headers = inData['headers']
-        """处理"""
+        # 返回一个可用的预约日期
         today = datetime.date.today()
         if today.isoweekday() in [5, 6, 7]:
             today += datetime.timedelta(days=8 - today.isoweekday())    # 需要是工作日
@@ -261,9 +273,27 @@ class TestDrivingLicense():
             today += datetime.timedelta(days=1)      # 放管服设置需提前预约一天
             appointDate=str(today)
             print(appointDate)
+        # 随机一位修改车架号
         frameNumber = f"{random.randint(100, 999)}757890668{random.randint(100, 999)}"
         req_data['appointDate']=appointDate
         req_data['frameNumber']=frameNumber
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @pytest.mark.scoreDetail
+    @allure.story("预约状态查询")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45356")
+    @allure.description("接口：/pvtapi/electricBicycle/apply/records/applyStatus，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'applyStatus'))
+    def test_applyStatus(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
         res = request_main(url, headers, method, req_data)
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
