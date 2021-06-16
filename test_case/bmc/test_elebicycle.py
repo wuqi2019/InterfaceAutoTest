@@ -297,19 +297,218 @@ class TestElebicycle:
         data = indata["reqData"]
         expectdata = indata["expectData"]
         self.res = request_main(url=url, headers=headers, method=method, data=data)
-        print(self.res)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+    @pytest.fixture(scope="function")
+    def replacementDrvapply(self):
+        url = f'{BMCConfig.pvthost}/replacement/drv/apply'
+        method='post'
+        headers=None
+        data={"address":"天津市天津市河西区zcvhh","attachments":{"idCardFrontImgUrl":"/group1/M00/00/16/CsXsyWCk4dKAAyS6AAN5Z55ejPg60.jpeg","idCardRearImgUrl":"/group1/M00/00/16/CsXsyWCk4dKAKziUAAH8o1m8Ch022.jpeg","inchPhotoImgUrl":"/group1/M00/00/16/CsXswmCk4dKAI2phAAPHNVCiG_Q79.jpeg"},"receiver":"常回家看看","receiverPhone":"13588669880"}
+        res = request_main(url=url, headers=headers, method=method, data=data)
+        return res["data"]["orderId"]
+
+
+    @allure.story("查询订单支付状态")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "ReplacementDrvstatus"))
+    def test_replacementDrvstatus(self, indata,replacementDrvapply):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        indata["reqData"]["orderId"]=replacementDrvapply
+        data=indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
         try:
             assert self.res["code"] == expectdata["code"]
         except Exception as e:
             raise e
 
 
+    @allure.story("获取通行证类型列表")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "DeliveryVehicletypes"))
+    def test_deliveryvehicletypes(self, indata):
+        url = f'{BMCConfig.host}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
 
 
+    @allure.story("获取“通行证类型”的状态")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "DeliveryVehiclepasscardTypeState"))
+    def test_deliveryvehiclepasscardtypestate(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("获取须知信息")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "DeliveryVehicledetail"))
+    def test_deliveryVehicledetail(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("添加或编辑联系人")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "DeliveryVehicleaddOrEditContact"))
+    def test_deliveryvehicleaddOreditcontact(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("验证车辆是否可添加")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "DeliveryVehiclecheckVehicle"))
+    def test_deliveryvehiclecheckvehicle(self, indata):
+        url = f'{BMCConfig.pvthost}{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("获取通行证申请书")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "DeliveryVehiclesubmitAddition"))
+    def test_deliveryvehiclesubmitaddition(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("检查用户是否有机动车")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "ReplaceVehiclecheck"))
+    def test_replaceVehiclecheck(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("检查行驶证补领状态")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "ReplaceVehiclelicensecheck"))
+    def test_replacevehiclelicensecheck(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+    @allure.story("车辆选择")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "ReplaceVehiclelist"))
+    def test_replacevehiclelist(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+    @allure.story("提交补领行驶证信息")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "ReplaceVehicleapply"))
+    def test_replacevehicleapply(self, indata):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        data = indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
+
+
+    @allure.story("查询订单支付状态")
+    @allure.title("{indata[testPoint]}")
+    @pytest.mark.parametrize('indata', get_excelData(workbook, "电动车", "ReplaceVehiclestatus"))
+    def test_replacevehiclestatus(self, indata,replacementDrvapply):
+        url = f'{BMCConfig.pvthost}/{indata["url"]}'
+        method = indata["method"]
+        headers = indata["headers"]
+        indata["reqData"]["orderId"]=replacementDrvapply
+        data=indata["reqData"]
+        expectdata = indata["expectData"]
+        self.res = request_main(url=url, headers=headers, method=method, data=data)
+        try:
+            assert self.res["code"] == expectdata["code"]
+        except Exception as e:
+            raise e
 
 
     def teardown(self):
         allure.attach(f'{self.res}',"响应结果",allure.attachment_type.TEXT)
+        mysql = MYSQL(*BaseConfig.test_mysql)
+        mysql.ExecuNonQuery("delete from edl_private.passcard_contact where user_id=393038;")
+
 
 
     def teardown_class(self):
@@ -320,8 +519,9 @@ class TestElebicycle:
 
 
 if __name__ == '__main__':
-    # pytest.main(["-s","-v","test_elebicycle.py",'--alluredir', './bmc/report',"--clean-alluredir"])
-    pytest.main(['-v', '-s', "test_elebicycle.py::TestElebicycle::test_replacementDrvapply", '--alluredir', './bmc/report', "--clean-alluredir"])
-    # os.system('allure serve ./bmc/report')
+    pytest.main(["-s","-v","test_elebicycle.py",'--alluredir', './bmc/report',"--clean-alluredir"])
+    # pytest.main(['-v', '-s', "test_elebicycle.py::TestElebicycle::test_replacevehiclestatus", '--alluredir', './bmc/report', "--clean-alluredir"])
+    os.system('allure serve ./bmc/report')
+    # TestElebicycle().replacementDrvapply()
 
 
