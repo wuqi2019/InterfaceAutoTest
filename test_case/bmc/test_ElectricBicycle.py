@@ -411,41 +411,41 @@ class TestDrivingLicense( ) :
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
-    # @pytest.mark.scoreDetail
-    # @allure.story("获取电动车手机号列表")
-    # @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45652")
-    # @allure.description("接口：/pvtapi/electricBicycle/getPhones，creator：胥键雪，autoCreator：taoke")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'getPhones'))
-    # def test_getPhones(self, inData, ):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     headers = inData['headers']
-    #     # 请求
-    #     res = request_main(url, headers, method, req_data)
-    #     allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
-    #     assert res['code'] == expectData['code']
 
-    # @pytest.mark.scoreDetail
-    # @allure.story("发送短信")
-    # @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45640")
-    # @allure.description("接口：/pvtapi/electricBicycle/smsSend，creator：胥键雪，autoCreator：taoke")
-    # @allure.title("{inData[testPoint]}")
-    # @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'smsSend'))
-    # def test_smsSend(self, inData, ):
-    #     url = f"{BMCConfig().host}{inData['url']}"
-    #     method = inData['method']
-    #     req_data = inData['reqData']
-    #     expectData = inData['expectData']
-    #     headers = inData['headers']
-    #     # 请求
-    #     res = request_main(url, headers, method, req_data)
-    #     allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
-    #     assert res['code'] == expectData['code']
+    @allure.story("获取电动车手机号列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45652")
+    @allure.description("接口：/pvtapi/electricBicycle/getPhones，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'getPhones'))
+    def test_getPhones(self, inData, ):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求 #需要electric_bicycle_apply ，已归档的数据
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
 
     @pytest.mark.scoreDetail
+    @allure.story("发送短信")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45640")
+    @allure.description("接口：/pvtapi/electricBicycle/smsSend，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'smsSend'))
+    def test_smsSend(self, inData, ):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    # @pytest.mark.scoreDetail
     @allure.story("换领须知文案")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78482")
     @allure.description("接口：/pvtapi/elecBicyChange/apply/elecBicyChangeNotice，creator：胥键雪，autoCreator：taoke")
@@ -467,5 +467,5 @@ if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  #  '-m','scoreDetail' ,
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
-    pytest.main(['test_ElectricBicycle.py', '-s',  '--alluredir','../../report/tmp'])
+    pytest.main(['test_ElectricBicycle.py', '-s',   '-m','scoreDetail' ,'--alluredir','../../report/tmp'])
     os.system('allure serve ../../report/tmp')
