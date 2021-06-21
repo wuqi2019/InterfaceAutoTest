@@ -518,10 +518,10 @@ class TestElebicycle:
         mysql.ExecuNonQuery("delete from edl_public.user_login_device where user_id=598137 and device_model='HUAWEI nava';")
 
 
-if __name__ == '__main__':
-    pytest.main(["-s","-v","test_elebicycle.py",'--alluredir', './bmc/report',"--clean-alluredir"])
+# if __name__ == '__main__':
+#     pytest.main(["-s","-v","test_elebicycle.py",'--alluredir', './bmc/report',"--clean-alluredir"])
     # pytest.main(['-v', '-s', "test_elebicycle.py::TestElebicycle::test_replacevehiclestatus", '--alluredir', './bmc/report', "--clean-alluredir"])
-    os.system('allure serve ./bmc/report')
+    # os.system('allure serve ./bmc/report')
     # TestElebicycle().replacementDrvapply()
 
 
