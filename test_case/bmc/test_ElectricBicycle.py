@@ -428,7 +428,7 @@ class TestDrivingLicense( ) :
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
+    # @pytest.mark.scoreDetail
     @allure.story("发送短信")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45640")
     @allure.description("接口：/pvtapi/electricBicycle/smsSend，creator：胥键雪，autoCreator：taoke")
@@ -451,7 +451,41 @@ class TestDrivingLicense( ) :
     @allure.description("接口：/pvtapi/elecBicyChange/apply/elecBicyChangeNotice，creator：胥键雪，autoCreator：taoke")
     @allure.title("{inData[testPoint]}")
     @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'elecBicyChangeNotice'))
-    def test_elecBicyChangeNotice(self, inData, ):
+    def test_elecBicyChangeNotice(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("获取行驶证列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78486")
+    @allure.description("接口：/pvtapi/elecBicyChange/apply/elecBicyLicenseList，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'elecBicyLicenseList'))
+    def test_elecBicyLicenseList(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @pytest.mark.scoreDetail
+    @allure.story("预约记录查询")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78666")
+    @allure.description("接口：/pvtapi/elecBicyChange/apply/elecBicyApplyPage，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'elecBicyApplyPage'))
+    def test_elecBicyApplyPage(self, inData):
         url = f"{BMCConfig().host}{inData['url']}"
         method = inData['method']
         req_data = inData['reqData']
