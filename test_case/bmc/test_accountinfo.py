@@ -46,7 +46,7 @@ class TestLogin():
         res = request_main(url=url, headers=headers, method=method, data=req_data)
         assert res['code'] == expectData['code']
 
-
+@allure.feature("账号信息基本功能")
 class TestRegister():
     """注册"""
     workBook = xlrd.open_workbook(f'{BMCConfig.root_path}/test_case_data/bmc/bmc_base_info_2021513.xlsx')
