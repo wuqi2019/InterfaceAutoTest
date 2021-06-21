@@ -11,6 +11,12 @@ from config import BaseConfig,BMCConfig
 from service.login import BMC
 from common.db import RedisString,MYSQL
 
+"""环境初始化和清除"""
+# 1.headers获取
+headers = BMCConfig.headers
+headers['Pvt-Token'] = BMCConfig.bmc_pvt_token
+headers['Token'] = BMCConfig.bmc_token
+
 @pytest.fixture(scope='function')
 def avatarUpdate_del() : #修改头像清除
     # mysql=BaseConfig.test_mysql_215
@@ -22,10 +28,52 @@ def avatarUpdate_del() : #修改头像清除
     RedisString(0).delete_key("bmc:c1:dl_img:uid")
     yield
 
+@pytest.fixture(scope='function')
+def electricBicycle_apply():     # 撤销用例的初始
+    # headers = BMCConfig.headers   # 单独跑用例，在这儿使用
+    # headers['Pvt-Token'] = BMCConfig.bmc_pvt_token
+    # headers['Token'] = BMCConfig.bmc_token
+    req_data = {"idCardFront": "/group1/M00/00/12/CsXswmCWYmSAR-MyAAETz8z_wnU267.jpg",
+                "idCardBack": "/group1/M00/00/12/CsXswmCWX7KAUhnwAAJNBLcB7t8390.jpg",
+                "idCardHolding": "/group1/M00/00/12/CsXsyWCWX7WAVlilAAIH4RXNjCU152.jpg",
+                "frameNumberPicture": "/group1/M00/00/12/CsXsyWCWX7mATu4tAAJRfeuJLMk818.jpg",
+                "chinaProductCertification": "",
+                "qualificationPictureFront": "/group1/M00/00/12/CsXswmCWX8CAap1KAAI478TVrkk602.jpg",
+                "qualificationPictureBack": "/group1/M00/00/12/CsXswmCWX8OAcUDXAAJbjNcuYDA752.jpg",
+                "vehiclePurchaseInvoice": "", "vehiclePurchaseHolding": "",
+                "vehicleRearLeft": "/group1/M00/00/12/CsXsyWCWX8qAb28IAAouW5i3RRs249.jpg",
+                "vehicleLeft": "/group1/M00/00/12/CsXswmCWX8-AEpM2AAlcdGC3lu4658.jpg",
+                "vehicleRight": "/group1/M00/00/12/CsXswmCWX9SADyOGAAncK1T4SXo181.jpg",
+                "vehicleInvoicePicture": "/group1/M00/00/12/CsXsyWCWX8WAXVpIAAJALFqsbA0243.jpg",
+                "certificateType": "居民身份证", "certificateNumber": "520102199306117822", "residenceAddress": "小号地址",
+                "ownerName": "pytest自动化", "cellphoneNumber": "19180580229", "currentHomeAddressProvince": "贵州省",
+                "currentHomeAddressCity": "",
+                "currentHomeAddressArea": "贵阳市南明区新华社区服务中心纪念塔居委会解放路88号-贵阳红星拖拉机厂宿舍1栋4单元1层102",
+                "currentHomeAddressStreet": "", "currentHomeAddress": "", "notResidenceCertificate": "",
+                "vehiclePurchaseTime": "2018-10-10", "frameNumber": "579757890668997", "vehicleBrands": "小宝",
+                "vehicleColor": "灰,白,白", "vehicleSizeLong": "120", "vehicleSizeWidth": "50", "vehicleSizeHigh": "30",
+                "vehicleModel": "5569885598", "vehicleManufacturer": "小黑", "vehicleProductionDate": "2005-10-10",
+                "showDetailAddress": False, "id": "", "dmvId": 565, "dmvName": "自动化", "appointDate": "2021-05-28",
+                "appointTime": 1, "applyCountReachedLimit": False, "appointDates": ""}
+    today = datetime.date.today()
+    if today.isoweekday() in [5, 6, 7]:
+        today += datetime.timedelta(days=8 - today.isoweekday())  # 需要是工作日
+        appointDate = str(today)
+    else:
+        today += datetime.timedelta(days=1)  # 放管服设置需提前预约一天
+        appointDate = str(today)
+        print(appointDate)
+    # 随机一位修改车架号
+    frameNumber = f"{random.randint(100, 999)}757890668{random.randint(100, 999)}"
+    req_data['appointDate'] = appointDate
+    req_data['frameNumber'] = frameNumber
+    res = requests.post(f"{BMCConfig().host}/pvtapi/electricBicycle/apply/newGB/submit", json=req_data, headers=headers)
+    return res.json()['data']['id']
+
 
 # @allure.epic("斑马信用")
 @allure.feature("电动车预约")
-class TestDrivingLicense():
+class TestDrivingLicense( ) :
     workBook = xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_ElectricBicycle_20210531.xlsx')
     def setup_class(self):
         pass
@@ -251,8 +299,9 @@ class TestDrivingLicense():
         res = request_main(url, headers, method, req_data)
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
+#12339225 12339157
 
-    @pytest.mark.scoreDetail
+
     @allure.story("提交新国标备案申请") # 时间需要加8小时
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/44776")
     @allure.description("接口：/pvtapi/electricBicycle/apply/newGB/submit，creator：胥键雪，autoCreator：taoke")
@@ -281,7 +330,6 @@ class TestDrivingLicense():
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
     @allure.story("预约状态查询")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45356")
     @allure.description("接口：/pvtapi/electricBicycle/apply/records/applyStatus，creator：胥键雪，autoCreator：taoke")
@@ -298,11 +346,126 @@ class TestDrivingLicense():
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
+    @allure.story("电动车banner接口")
+    @allure.link("http://yapi.hikcreate.com/project/31/interface/api/61377")
+    @allure.description("接口：/electric/electricBannerOrPop，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'electricBanner'))
+    def test_electricBanner(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @allure.story("登记信息详情")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45360")
+    @allure.description("接口：/pvtapi/electricBicycle/apply/records/applyDetail，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'recordsApplyDetail'))
+    def test_recordsApplyDetail(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @allure.story("登记记录列表查询")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45352")
+    @allure.description("接口：/pvtapi/electricBicycle/apply/records/list，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'applyRecords'))
+    def test_applyRecords(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """请求"""
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @allure.story("取消申请")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45324")
+    @allure.description("接口：/pvtapi/electricBicycle/applyCancel，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'applyCancel'))
+    def test_applyCancel(self, inData,electricBicycle_apply):   # 初始化新增一个申请获取id
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        """处理"""
+        req_data['id']=electricBicycle_apply
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+
+    @allure.story("获取电动车手机号列表")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45652")
+    @allure.description("接口：/pvtapi/electricBicycle/getPhones，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'getPhones'))
+    def test_getPhones(self, inData, ):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求 #需要electric_bicycle_apply ，已归档的数据
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @pytest.mark.scoreDetail
+    @allure.story("发送短信")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/45640")
+    @allure.description("接口：/pvtapi/electricBicycle/smsSend，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'smsSend'))
+    def test_smsSend(self, inData, ):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    # @pytest.mark.scoreDetail
+    @allure.story("换领须知文案")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78482")
+    @allure.description("接口：/pvtapi/elecBicyChange/apply/elecBicyChangeNotice，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'elecBicyChangeNotice'))
+    def test_elecBicyChangeNotice(self, inData, ):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
 
 
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  #  '-m','scoreDetail' ,
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
-    pytest.main(['test_ElectricBicycle.py', '-s', '-m','scoreDetail' , '--alluredir','../../report/tmp'])
+    pytest.main(['test_ElectricBicycle.py', '-s',   '-m','scoreDetail' ,'--alluredir','../../report/tmp'])
     os.system('allure serve ../../report/tmp')
