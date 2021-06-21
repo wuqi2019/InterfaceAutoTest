@@ -12,7 +12,7 @@ from common.tools import request_main
 from common.utils.getExcelData import get_excelData
 from config import BaseConfig, BMCConfig
 
-
+@allure.feature("电动车")
 class TestElebicycle:
     workbook=xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_prize20210531.xlsx')
 
