@@ -12,7 +12,7 @@ from common.tools import request_main
 from common.utils.getExcelData import get_excelData
 from config import BaseConfig, BMCConfig
 
-
+@allure.feature("电动车")
 class TestElebicycle:
     workbook=xlrd.open_workbook(f'{BaseConfig.root_path}/test_case_data/bmc/bmc_prize20210531.xlsx')
 
@@ -518,10 +518,10 @@ class TestElebicycle:
         mysql.ExecuNonQuery("delete from edl_public.user_login_device where user_id=598137 and device_model='HUAWEI nava';")
 
 
-if __name__ == '__main__':
-    pytest.main(["-s","-v","test_elebicycle.py",'--alluredir', './bmc/report',"--clean-alluredir"])
+# if __name__ == '__main__':
+#     pytest.main(["-s","-v","test_elebicycle.py",'--alluredir', './bmc/report',"--clean-alluredir"])
     # pytest.main(['-v', '-s', "test_elebicycle.py::TestElebicycle::test_replacevehiclestatus", '--alluredir', './bmc/report', "--clean-alluredir"])
-    os.system('allure serve ./bmc/report')
+    # os.system('allure serve ./bmc/report')
     # TestElebicycle().replacementDrvapply()
 
 
