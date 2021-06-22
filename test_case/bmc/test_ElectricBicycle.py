@@ -17,14 +17,13 @@ headers = BMCConfig.headers
 headers['Pvt-Token'] = BMCConfig.bmc_pvt_token
 headers['Token'] = BMCConfig.bmc_token
 
+
+
 @pytest.fixture(scope='function')
-def avatarUpdate_del() : #修改头像清除
-    # mysql=BaseConfig.test_mysql_215
-    # mysql = MYSQL(*mysql)
-    mysql = MYSQL(host="10.197.236.190", port=3306, user="root", pwd="123456", db="edl_private")
-    # mysql = MYSQL("10.197.236.215", 3306, "root", "DataCenter@!hik", "edl_public")
+def applySubmit_del() : # 号牌换领初始化_
+    mysql = MYSQL(*BaseConfig.test_mysql)
     mysql.ExecuNonQuery(
-        "DELETE FROM edl_private.driving_license_image_audit WHERE name='自动化';")  # 删除驾驶员
+        "DELETE FROM db_gy_dmsmp.elec_bicy_change_apply WHERE old_plate_num='贵州A20065';")  # 删除驾驶员
     RedisString(0).delete_key("bmc:c1:dl_img:uid")
     yield
 
@@ -479,7 +478,6 @@ class TestDrivingLicense( ) :
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
-    @pytest.mark.scoreDetail
     @allure.story("预约记录查询")
     @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78666")
     @allure.description("接口：/pvtapi/elecBicyChange/apply/elecBicyApplyPage，creator：胥键雪，autoCreator：taoke")
@@ -496,10 +494,45 @@ class TestDrivingLicense( ) :
         allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
         assert res['code'] == expectData['code']
 
+    @pytest.mark.scoreDetail
+    @pytest.mark.usefixtures("applySubmit_del")
+    @allure.story("提交申请")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78476")
+    @allure.description("接口：/pvtapi/elecBicyChange/apply/submit，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'applySubmit'))
+    def test_applySubmit(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
+    @pytest.mark.scoreDetail
+    @allure.story("撤回申请")
+    @allure.link("http://yapi.hikcreate.com/project/32/interface/api/78478")
+    @allure.description("接口：/pvtapi/elecBicyChange/apply/recall，creator：胥键雪，autoCreator：taoke")
+    @allure.title("{inData[testPoint]}")
+    @pytest.mark.parametrize("inData", get_excelData(workBook, '电动车', 'applyRecall'))
+    def test_applyRecall(self, inData):
+        url = f"{BMCConfig().host}{inData['url']}"
+        method = inData['method']
+        req_data = inData['reqData']
+        expectData = inData['expectData']
+        headers = inData['headers']
+        # 请求
+        res = request_main(url, headers, method, req_data)
+        allure.attach(f"{res}", "响应结果", allure.attachment_type.TEXT)
+        assert res['code'] == expectData['code']
+
 
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  #  '-m','scoreDetail' ,
         if 'json' in one:
             os.remove(f'../../report/tmp/{one}')
-    pytest.main(['test_ElectricBicycle.py', '-s',   '-m','scoreDetail' ,'--alluredir','../../report/tmp'])
+    pytest.main(['test_ElectricBicycle.py', '-s',  '-m','scoreDetail' , '--alluredir','../../report/tmp'])
     os.system('allure serve ../../report/tmp')
