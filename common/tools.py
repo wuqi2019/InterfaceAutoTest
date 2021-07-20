@@ -4,6 +4,7 @@ import json
 import logging
 import requests,allure
 from config import *
+from common.utils.dingTalk import dingTalk_markdown2,dingTalk_markdown_bmy
 
 
 def request_main(url, headers, method, data, has_token=False):
@@ -83,9 +84,15 @@ def get_case_dir(product_name):
     return test_case_dir
 
 
-def get_send_dingding(product_name):
+def send_dingding(product_name):
     """根据传入的产品名来 发送对应的钉钉群"""
-    pass
+    if product_name == BMCConfig.name:
+        dingTalk_markdown2(BaseConfig.bmc_group)        # 给斑马信用相关群发送钉钉
+    if product_name == BmyConfig.name:
+        dingTalk_markdown_bmy(BaseConfig.bmy_group)     # 给交委项目相关群发送钉钉
+    if product_name == SSOConfig.name:
+        pass
+
 
 
 def get_run(envrioment):

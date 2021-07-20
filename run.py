@@ -3,7 +3,7 @@ import os
 import pytest
 import argparse
 from config import BaseConfig
-from common.tools import get_case_dir
+from common.tools import get_case_dir,send_dingding
 from common.utils import dingTalk
 
 
@@ -26,10 +26,10 @@ if __name__ == "__main__":
     # 生成报告数据
     pytest.main(['-v', '-s', test_case_dir, '--alluredir', './report/tmp'])
     # 打开报告
-    # os.system('allure serve ./report/tmp')
-
-    # 发送钉钉 （）
-    dingTalk.dingTalk_markdown2(BaseConfig.bmc_group)
+    os.system('allure serve ./report/tmp')
+    
+    # 发送钉钉
+    send_dingding(args.product)
 
 
 
