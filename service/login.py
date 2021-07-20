@@ -64,7 +64,7 @@ class BMY():
         """企业云登录"""
         # token加密
         authorization = BMY().get_authorization()
-        header = {"Authorization": authorization}
+        header = {"Authorization": authorization,"Register-Origin":indata['Register-Origin']}
         payload = {"username": "","password": "", "imageId": "", "grant_type": "passwordImageCode", "imageCode": ""}
         # 账号
         payload['username'] = indata['username']
@@ -113,8 +113,8 @@ class BMC():
 
 
 if __name__ == '__main__':
-    # indata= {"username":"15150000000","password":"A123456"}
-    # token= BMY().bmy_login(indata,getToken=False)
-    # print(token)
-    LIST1=BMY().get_imageCode( '15150000000',  '8e4b595babec901009ff84f269ee5147')
-    print(LIST1)
+    indata= {"username":"15150000000","password":"A123456","Register-Origin":"yun"}
+    token= BMY().bmy_login(indata,getToken=False)
+    print(token)
+    # LIST1=BMY().get_imageCode( '15150000000',  '8e4b595babec901009ff84f269ee5147')
+    # print(LIST1)

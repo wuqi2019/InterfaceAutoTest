@@ -8,6 +8,7 @@ from common.utils.getExcelData import  get_excelData
 from service.login import BMY
 from common.tools import request_main
 from config import BmyConfig
+from service.login import BMY
 
 
 @allure.epic("登录模块")
@@ -20,39 +21,12 @@ class TestLogin():
     @allure.testcase("http://yapi.hikcreate.com/")
     @allure.description("url:/auth/login 。。。。")
     @pytest.mark.parametrize("inData", get_excelData(workBook,'登录模块', 'Login'))
-    def test_login(self,inData):
-        url = f"{BmyConfig().test_host}{inData['url']}"
-        method  = inData['method']
-        req_data = inData['reqData']
-        expectData= inData['expectData']
-        headers = inData['headers']
 
-        """处理"""
-        req_data['grant_type'] = "passwordImageCode"                         # 请求体中的固定值
-        authorization = BMY().get_authorization()                            # 获取当前时间戳的Authorization
-        headers["Authorization"] = authorization
-        password_Encrypted = BMY().pwd_encrypted(req_data['password'])       # 密码加密
-        req_data['password'] = password_Encrypted
-        imageinfo = BMY().get_imageCode(req_data['username'], req_data['password'])     # 获取图片信息
-        req_data['imageId'] = imageinfo[0]
-        req_data['imageCode'] = imageinfo[1]
+    def test_login(self, inData):
+        res = BMY().bmy_login(inData['reqData'], getToken=False)
+        # print(res)
+        assert  res['code'] == inData['expectData']['code']
 
-        # """请求"""
-        # res = request_main(url, headers, method, req_data)
-        # # print(res)
-        # """断言"""
-        # assert res['code'] == expectData['code']
-
-
-        """ 请求和断言若不使用通用方法"""
-        res = requests.post(f"http://testyun.banmago.com/api{url}", data=req_data, headers=headers)
-        print("我是headers",headers)
-        print("我是data",req_data)
-        print(res.json())
-        assert res.json()['code'] == expectData['code']
-
-    def teardown_class(self):
-        """清除"""
 
 if __name__ == '__main__':
     for one in os.listdir('../../report/tmp'):  # 列出对应文件夹的数据

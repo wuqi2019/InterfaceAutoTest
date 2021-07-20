@@ -27,7 +27,7 @@ if __name__ == "__main__":
     pytest.main(['-v', '-s', test_case_dir, '--alluredir', './report/tmp'])
     # 打开报告
     os.system('allure serve ./report/tmp')
-    
+
     # 发送钉钉
     send_dingding(args.product)
 

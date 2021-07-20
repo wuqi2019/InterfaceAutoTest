@@ -113,7 +113,7 @@ class BmyConfig(BaseConfig):
     # 测试环境host
     test_host = "http://testyun.banmago.com/api"
     # 登录账号
-    test_name_password = {"username": "15151500000", "password": "bmy123456"}
+    test_name_password = {"username": "15151500000", "password": "bmy123456", "Register-Origin": "yun"}
     # 企业云接口的Authorization
     bmy_token = ''
     headers = {"Content-Type":"application/json"}
