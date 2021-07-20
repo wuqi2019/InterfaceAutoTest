@@ -81,3 +81,13 @@ def get_case_dir(product_name):
     if product_name == SSOConfig.name:
         test_case_dir = SSOConfig.test_case_dir
     return test_case_dir
+
+
+def get_send_dingding(product_name):
+    """根据传入的产品名来 发送对应的钉钉群"""
+    pass
+
+
+def get_run(envrioment):
+    """根据传入环境名字，来填入环境配置"""
+    pass
